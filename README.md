@@ -15,7 +15,7 @@ All you have to do is create your app using [create-react-app](https://github.co
 
 We are grateful to [@timarney](https://github.com/timarney) the creator of [react-app-rewired](https://github.com/timarney/react-app-rewired) for is original idea.
 
-Also, the configuration style of this plugin tend to be influenced by the way [Vue CLI](https://cli.vuejs.org/guide/) do it.
+Also, the configuration style of this plugin has been greatly influenced by the way [Vue CLI](https://cli.vuejs.org/guide/) do it.
 
 **Please Note:**
 
@@ -174,8 +174,8 @@ Coming soon...
 
 ## Acknowledgements
 
-[@timarney](https://github.com/timarney) for having created [react-app-rewired](https://github.com/timarney/react-app-rewired).
+[@timarney](https://github.com/timarney) for creating [react-app-rewired](https://github.com/timarney/react-app-rewired).
 
 ## License
 
-Create React App Config Override is open source software [licensed as MIT](https://github.com/facebook/create-react-app/blob/master/LICENSE).
+Copyright © 2018, Groupe Sharegate inc. This code is licensed under the Apache License, Version 2.0. You may obtain a copy of this license at (https://github.com/sharegate/craco/blob/master/LICENSE).
