@@ -1,0 +1,20 @@
+{
+    "editor.minimap.enabled": false,
+    "editor.wordWrap": "off",
+    // Turns on auto format on save for all files types.
+    // This is also required to allow Prettier to auto format files on save.
+    "editor.formatOnSave": true,
+    // Turns it off for JavaScript since we use Prettier to auto format on save.
+    "javascript.format.enable": false,
+    "javascript.validate.enable": true,
+    "json.format.enable": false,
+    // Required to allow auto format on save with Prettier + ESLint + Vetur.
+    "eslint.autoFixOnSave": true,
+    "eslint.alwaysShowStatus": true,
+    "prettier.eslintIntegration": true,
+    "prettier.stylelintIntegration": true,
+    "sort-imports.suppress-warnings": true,
+    "search.exclude": {
+        "**/node_modules*": true
+    }
+}
