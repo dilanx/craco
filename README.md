@@ -1,10 +1,10 @@
 # craco
 
-Create React App Configuration Override, an easy and comprehensible configuration layer for create-react-app v2.
+**C**reate **R**eact **A**pp **C**onfiguration **O**verride is an easy and comprehensible configuration layer for create-react-app v2.
 
-Get all the benefits of create-react-app **and** customization without using 'eject' by adding a single craco.config.js file at the root of your application and customize your eslint, babel, postcss configuration and many more..
+Get all the benefits of create-react-app **and** customization without using 'eject' by adding a single `craco.config.js` file at the root of your application and customize your eslint, babel, postcss configurations and many more.
 
-All you have to do is create your app using [create-react-app](https://github.com/facebook/create-react-app/) and customize the configuration with craco.config.js file.
+All you have to do is create your app using [create-react-app](https://github.com/facebook/create-react-app/) and customize the configuration with a `craco.config.js` file.
 
 - [Configuration Overview](#configuration-overview) - Quickly see how you can configure your CRA installation with this plugin.
 - [Recipes](#creating-an-app) – Short and easy recipes for common use cases.
@@ -13,9 +13,9 @@ All you have to do is create your app using [create-react-app](https://github.co
 
 **Acknowledgements:**
 
-We are grateful to [@timarney](https://github.com/timarney) the creator of [react-app-rewired](https://github.com/timarney/react-app-rewired) for is original idea.
+We are grateful to [@timarney](https://github.com/timarney) the creator of [react-app-rewired](https://github.com/timarney/react-app-rewired) for his original idea.
 
-Also, the configuration style of this plugin has been greatly influenced by the way [Vue CLI](https://cli.vuejs.org/guide/) do it.
+Also, please note that the configuration style of this plugin tends to be influenced by the way [Vue CLI](https://cli.vuejs.org/guide/) does it.
 
 **Please Note:**
 
@@ -38,7 +38,7 @@ my-app
 └── package.json
 ```
 
-Export your configuration has as an **object literal**:
+Export your configuration as an **object literal**:
 
 ```javascript
 /* craco.config.js */
@@ -87,7 +87,7 @@ $ npm run build
 
 ## CLI Options
 
-When you execute `craco start` or `craco build` a few options are available...
+When you execute `craco start` or `craco build` a few options are available.
 
 To change the location of the configuration file:
 
@@ -95,13 +95,13 @@ To change the location of the configuration file:
 $ npm start craco --config config/my-cra-customized-config.js
 ```
 
-To use a custom version of the `react-scripts` packages with `craco`:
+To use a custom version of the `react-scripts` packages:
 
 ```bash
 $ npm start craco --react-scripts react-scripts-ts
 ```
 
-To activate the **verbose** mode:
+To activate **verbose** logging:
 
 ```bash
 $ npm start craco --verbose
@@ -174,8 +174,8 @@ Coming soon...
 
 ## Acknowledgements
 
-[@timarney](https://github.com/timarney) for creating [react-app-rewired](https://github.com/timarney/react-app-rewired).
+[@timarney](https://github.com/timarney) for having created [react-app-rewired](https://github.com/timarney/react-app-rewired).
 
 ## License
 
-Copyright © 2018, Groupe Sharegate inc. This code is licensed under the Apache License, Version 2.0. You may obtain a copy of this license at https://github.com/sharegate/craco/blob/master/LICENSE.
+Create React App Config Override is open source software [licensed as MIT](https://github.com/facebook/create-react-app/blob/master/LICENSE).
