@@ -1,0 +1,5 @@
+31 error Error: Command failed: git tag v1.0.0-alpha.0 -m v1.0.0-alpha.0
+31 error fatal: tag 'v1.0.0-alpha.0' already exists
+31 error
+31 error     at makeError (C:\Dev\craco\node_modules\@lerna\child-process\node_modules\execa\index.js:174:9)
+31 error     at Promise.all.then.arr (C:\Dev\craco\node_modules\@lerna\child-process\node_modules\execa\index.js:278:16)
