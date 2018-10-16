@@ -12,8 +12,8 @@
         "create-react-app",
         "cra"
     ],
-    "author": "Groupe Sharegate inc",
-    "license": "Apache 2.0",
+    "author": "Groupe Sharegate inc.",
+    "license": "Apache-2.0",
     "bugs": {
         "url": "https://github.com/sharegate/craco/issues"
     },
@@ -39,5 +39,5 @@
         "webpack-merge": "4.1.4"
     },
     "version": "1.0.0-alpha.2",
-    "gitHead": "0d62d813f2630bb34ebc211f2d75aa0f0d23f0b6"
+    "gitHead": "bae9121d28b5759bc71a5368b6326583823ce778"
 }
