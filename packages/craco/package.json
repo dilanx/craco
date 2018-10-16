@@ -1,0 +1,40 @@
+{
+    "name": "@craco/craco",
+    "description": "Create React App Configuration Override, an easy and comprehensible configuration layer for create-react-app v2.",
+    "scripts": {},
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/sharegate/craco.git"
+    },
+    "keywords": [
+        "react",
+        "create-react-app",
+        "cra"
+    ],
+    "author": "Groupe Sharegate inc",
+    "license": "Apache 2.0",
+    "bugs": {
+        "url": "https://github.com/sharegate/craco/issues"
+    },
+    "homepage": "https://github.com/sharegate/craco",
+    "engines": {
+        "node": ">=6"
+    },
+    "files": [
+        "bin",
+        "lib",
+        "scripts",
+        "index.js"
+    ],
+    "bin": {
+        "craco": "./bin/craco.js"
+    },
+    "peerDependencies": {
+        "react-scripts": "^2.0.5"
+    },
+    "dependencies": {
+        "lodash.mergewith": "4.6.1",
+        "webpack-merge": "4.1.4",
+        "cross-spawn": "6.0.5"
+    }
+}

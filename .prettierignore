@@ -1,10 +1,6 @@
 /.vscode
 /node_modules
-package.json
 package-lock.json
 .eslintrc.js
-.eslintignore
-.gitignore
-.npmrc
 .editorconfig
 README.md

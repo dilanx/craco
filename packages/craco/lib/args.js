@@ -24,10 +24,8 @@ function getValue(key) {
     const arg = findArg(key);
 
     if (arg.isFound) {
-        const value = findArg(key);
-
-        if (value.isFound) {
-            return result(true, args[value.index]);
+        if (args[arg.index + 1]) {
+            return result(true, args[arg.index + 1]);
         } else {
             log(`No value has been provided for cli argument ${key}`);
         }

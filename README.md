@@ -8,8 +8,7 @@ All you have to do is create your app using [create-react-app](https://github.co
 
 - [Configuration Overview](#configuration-overview) - Quickly see how you can configure your CRA installation with this plugin.
 - [Recipes](#creating-an-app) – Short and easy recipes for common use cases.
-- [Documentation](#documentation) - Have a deep understanding on how you can configure your CRA installation with this plugin.
-- [Develop a Plugin]() - How to develop a plugin for `craco`.
+- [Develop a Plugin](#develop-a-plugin) - How to develop a plugin for `craco`.
 
 **Acknowledgements:**
 
@@ -26,7 +25,7 @@ By doing this you're breaking the ["guarantees"](https://github.com/facebookincu
 Install the plugin from **npm**:
 
 ```bash
-$ npm install craco --save-dev
+$ npm install @craco/craco --save-dev
 ```
 
 Create a `craco.config.js` file in the root directory:
@@ -165,10 +164,6 @@ module.exports = {
     ]
 };
 ```
-
-## Documentation
-
-Coming soon...
 
 ## Develop a plugin
 

@@ -2,6 +2,7 @@
 
 # dependencies
 node_modules
+packages/debug
 
 # misc
 .DS_Store
