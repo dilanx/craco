@@ -6,6 +6,7 @@ Get all the benefits of create-react-app **and** customization without using 'ej
 
 All you have to do is create your app using [create-react-app](https://github.com/facebook/create-react-app/) and customize the configuration with a `craco.config.js` file.
 
+- [CLI Options](#cli-options) - Available CLI options.
 - [Configuration Overview](#configuration-overview) - Quickly see how you can configure your CRA installation with this plugin.
 - [Recipes](#creating-an-app) – Short and easy recipes for common use cases.
 - [Develop a Plugin](#develop-a-plugin) - How to develop a plugin for `craco`.
@@ -91,7 +92,7 @@ When you execute `craco start` or `craco build` a few options are available.
 To change the location of the configuration file:
 
 ```bash
-$ npm start craco --config config/my-cra-customized-config.js
+$ npm start craco --config config/craco-config-with-custom-name.js
 ```
 
 To use a custom version of the `react-scripts` packages:
