@@ -1,15 +1,9 @@
 {
-    "packages": [
-        "packages/*"
-    ],
-    "npmClient": "yarn",
-    "useWorkspaces": true,
+    "packages": ["packages/*"],
     "version": "1.0.0-alpha.4",
     "command": {
         "publish": {
-            "ignoreChanges": [
-                "*.md"
-            ]
+            "ignoreChanges": ["*.md"]
         }
     }
 }
