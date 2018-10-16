@@ -1,5 +1,4 @@
 {
-    "private": false,
     "name": "@craco/craco",
     "description": "Create React App Configuration Override, an easy and comprehensible configuration layer for create-react-app v2.",
     "scripts": {},
@@ -39,5 +38,5 @@
         "webpack-merge": "4.1.4"
     },
     "version": "1.0.0-alpha.5",
-    "gitHead": "27fa6d2a856d27ada2a2adcf651c31ffa8f35e53"
+    "gitHead": "52a5d7b057e0ee7e3db1ac9cfb14351071527302"
 }
