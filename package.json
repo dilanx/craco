@@ -1,8 +1,8 @@
 {
     "private": true,
     "scripts": {
-        "publish": "lerna publish",
-        "publish:alpha": "lerna publish --npm-tag alpha",
+        "publish": "lerna publish --progress",
+        "publish:alpha": "lerna publish --npm-tag alpha --progress --force-publish=*",
         "bootstrap": "lerna bootstrap",
         "clean": "lerna clean",
         "changed": "lerna changed",
