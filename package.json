@@ -2,8 +2,11 @@
     "private": true,
     "scripts": {
         "publish": "lerna publish",
-        "publish-alpha": "lerna publish --npm-tag alpha",
-        "bootstrap": "lerna bootstrap"
+        "publish:alpha": "lerna publish --npm-tag alpha",
+        "bootstrap": "lerna bootstrap",
+        "clean": "lerna clean",
+        "changed": "lerna changed",
+        "diff": "lerna diff"
     },
     "license": "Apache 2.0",
     "workspaces": [
@@ -16,6 +19,5 @@
     "dependencies": {
         "lodash.mergewith": "4.6.1",
         "webpack-merge": "4.1.4"
-    },
-    "name": "craco"
+    }
 }

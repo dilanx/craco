@@ -1,4 +1,5 @@
 {
+    "private": false,
     "name": "@craco/craco",
     "description": "Create React App Configuration Override, an easy and comprehensible configuration layer for create-react-app v2.",
     "scripts": {},
@@ -37,5 +38,6 @@
         "lodash.mergewith": "4.6.1",
         "webpack-merge": "4.1.4"
     },
-    "version": "1.0.0-alpha.0"
+    "version": "1.0.0-alpha.0",
+    "gitHead": "32ed09eac23948f17ec81d1f740fd0383d4d7979"
 }
