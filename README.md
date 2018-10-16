@@ -6,9 +6,9 @@ Get all the benefits of create-react-app **and** customization without using 'ej
 
 All you have to do is create your app using [create-react-app](https://github.com/facebook/create-react-app/) and customize the configuration with a `craco.config.js` file.
 
-- [Configuration Overview](https://github.com/sharegate/craco#configuration-overview) - Quickly see how you can configure your CRA installation with this plugin.
-- [Recipes](https://github.com/sharegate/craco#creating-an-app) – Short and easy recipes for common use cases.
-- [Develop a Plugin](https://github.com/sharegate/craco#develop-a-plugin) - How to develop a plugin for `craco`.
+- [Configuration Overview](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#configuration-overview) - Quickly see how you can configure your CRA installation with this plugin.
+- [Recipes](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#creating-an-app) – Short and easy recipes for common use cases.
+- [Develop a Plugin](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#develop-a-plugin) - How to develop a plugin for `craco`.
 
 ## Acknowledgements
 
