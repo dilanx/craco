@@ -2,6 +2,9 @@
     "name": "@craco/craco",
     "description": "Create React App Configuration Override, an easy and comprehensible configuration layer for create-react-app v2.",
     "scripts": {},
+    "publishConfig": {
+        "access": "public"
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/sharegate/craco.git"
@@ -38,5 +41,5 @@
         "webpack-merge": "4.1.4"
     },
     "version": "1.0.0-alpha.6",
-    "gitHead": "52a5d7b057e0ee7e3db1ac9cfb14351071527302"
+    "gitHead": "4f1bd5df12bd8e12e8af9ea1431e9e9b3fefae8d"
 }
