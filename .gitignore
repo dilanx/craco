@@ -8,3 +8,4 @@ packages/debug
 .DS_Store
 
 npm-debug.log*
+*.tgz
