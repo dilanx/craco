@@ -9,9 +9,6 @@
         "diff": "lerna diff"
     },
     "license": "Apache-2.0",
-    "workspaces": [
-        "packages/*"
-    ],
     "devDependencies": {
         "eslint": "5.7.0",
         "lerna": "^3.4.3"
