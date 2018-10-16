@@ -27,8 +27,7 @@
         "bin",
         "lib",
         "scripts",
-        "index.js",
-        "../../README.md"
+        "index.js"
     ],
     "bin": {
         "craco": "./bin/craco.js"

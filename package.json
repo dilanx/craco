@@ -1,8 +1,8 @@
 {
     "private": true,
     "scripts": {
-        "publish": "lerna publish --progress",
-        "publish:alpha": "lerna publish --npm-tag alpha --progress --force-publish=*",
+        "publish": "./tasks/publish.sh",
+        "publish:alpha": "lerna publish --npm-tag alpha --progress",
         "bootstrap": "lerna bootstrap",
         "clean": "lerna clean",
         "changed": "lerna changed",
