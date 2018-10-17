@@ -168,6 +168,205 @@ module.exports = {
 
 ## Develop a plugin
 
+There is 2 functions available to a plugin:
+- `overrideCracoConfig`: Let a plugin customize the config object before it's process by `craco`.
+- `overrideWebpackConfig`: Let a plugin customize the `webpack` config that will used by CRA. 
+
+**Important:**
+
+Every functions must return the updated config object.
+
+### overrideCracoConfig
+
+The function `overrideCracoConfig` let a plugin override the config object **before** it's process by `craco`.
+
+If a plugin define the function, it will be called with the config object read from the `craco.config.js` file provided by the consumer.
+
+*The function must return a valid config object, otherwise `craco` will throw an error.*
+
+The function will be called with a single object argument having the following structure:
+
+```javascript
+{
+    cracoConfig: "The config object read from the craco.config.js file provided by the consumer",
+    pluginOptions: "The plugin options provided by the consumer",
+    context: {
+        env: "The current NODE_ENV (development, production, etc..)",
+        paths: "An object that contains all the paths used by CRA"
+    }
+}
+```
+
+#### Example
+
+Plugin:
+
+```javascript
+/* craco-plugin-log-craco-config.js */
+
+module.exports = {
+    overrideCracoConfig: ({ cracoConfig, pluginOptions, context: { env, paths } }) => {
+        if (pluginOptions.preText) {
+            console.log(pluginOptions.preText);
+        }
+
+        console.log(JSON.stringify(craconfig, null, 4));
+
+        // Always return the config object.
+        return cracoConfig; 
+    }
+};
+```
+
+Registration (in a `craco.config.js` file):
+
+```javascript
+const logCracoConfigPlugin = require("./craco-plugin-log-craco-config");
+
+module.exports = {
+    ...
+    plugins: [
+        { plugin: logCracoConfigPlugin, options: { preText: "Will log the craco config:" } }
+    ]
+};
+```
+
+### overrideWebpackConfig
+
+The function `overrideWebpackConfig` let a plugin override the webpack config object **after** it's been customized by `craco`.
+
+*The function must return a valid config object, otherwise `craco` will throw an error.*
+
+The function will be called with a single object argument having the following structure:
+
+```javascript
+{
+    webpackConfig: "The webpack config object customized by craco",
+    cracoConfig: "The configuration object read from the craco.config.js file provided by the consumer",
+    pluginOptions: "The plugin options provided by the consumer",
+    context: {
+        env: "The current NODE_ENV (development, production, etc..)",
+        paths: "An object that contains all the paths used by CRA"
+    }
+}
+```
+
+#### Example
+
+Plugin:
+
+```javascript
+/* craco-plugin-log-webpack-config.js */
+
+module.exports = {
+    overrideWebpackConfig: ({ webpackConfig, cracoConfig, pluginOptions, context: { env, paths } }) => {
+        if (pluginOptions.preText) {
+            console.log(pluginOptions.preText);
+        }
+
+        console.log(JSON.stringify(webpackConfig, null, 4));
+
+        // Always return the config object.
+        return webpackConfig; 
+    }
+};
+```
+
+Registration (in a `craco.config.js` file):
+
+```javascript
+const logWebpackConfigPlugin = require("./craco-plugin-log-webpack-config");
+
+module.exports = {
+    ...
+    plugins: [
+        { plugin: logWebpackConfigPlugin, options: { preText: "Will log the webpack config:" } }
+    ]
+};
+```
+
+### Utility functions
+
+A few utility functions are provided by `craco` to develop a plugin:
+
+```javascript
+const { getLoader, getLoaders, removeLoader, loaderByName } = require("craco");
+```
+
+#### getLoader
+
+Retrieve the **first** loader from the webpack config that match the specified criteria.
+
+Returns:
+
+```javascript
+{
+    isFound: true | false,
+    match: {
+        loader,
+        parent,
+        index
+    }
+}
+```
+
+Usage:
+
+```javascript
+const { getLoader, loaderByName } = require("craco");
+
+const { isFound, match } = getLoader(webpackConfig, loaderByName("eslint-loader"));
+
+if (isFound) {
+    // do stuff...
+}
+```
+
+#### getLoaders
+
+Retrieve **all** the loaders from the webpack config that match the specified criteria.
+
+Returns:
+
+```javascript
+{
+    hasFoundAny: true | false,
+    matches: [
+        {
+            loader,
+            parent,
+            index
+        }
+    ]
+}
+```
+
+Usage:
+
+```javascript
+const { getLoaders, loaderByName } = require("craco");
+
+const { hasFoundAny, matches } = getLoaders(webpackConfig, loaderByName("babel-loader"));
+
+if (hasFoundAny) {
+    matches.forEach(x => {
+        // do stuff...
+    });
+}
+```
+
+#### removeLoader
+
+Remove the **first** loader from the webpack config that match the specified criteria.
+
+Usage: 
+
+```javascript
+const { removeLoader, loaderByName } = require("craco");
+
+removeLoader(webpackConfig, loaderByName("eslint-loader"));
+```
+
 ## Acknowledgements
 
 [@timarney](https://github.com/timarney) for having created [react-app-rewired](https://github.com/timarney/react-app-rewired).
