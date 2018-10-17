@@ -9,7 +9,7 @@ All you have to do is create your app using [create-react-app](https://github.co
 - [Installation](https://github.com/sharegate/craco/blob/master/packages/craco/README.md##installation) - How to install and setup `craco`.
 - [CLI Options](https://github.com/sharegate/craco/blob/master/packages/craco/README.md##cli-options) - Available CLI options.
 - [Configuration Overview](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#configuration-overview) - Quickly see how you can configure your CRA installation with this plugin.
-- [Recipes](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#creating-an-app) – Short and easy recipes for common use cases.
+- [Recipes](https://github.com/sharegate/craco/tree/master/recipes) – Short recipes for common use cases.
 - [Develop a Plugin](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#develop-a-plugin) - How to develop a plugin for `craco`.
 
 ## Acknowledgements
