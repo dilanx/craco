@@ -91,20 +91,26 @@ When you execute `craco start` or `craco build` a few options are available.
 
 To change the location of the configuration file:
 
-```bash
-$ npm start craco --config config/craco-config-with-custom-name.js
+```javascript
+"scripts": {
+    "start": "craco --config config/craco-config-with-custom-name.js"
+}
 ```
 
 To use a custom version of the `react-scripts` packages:
 
-```bash
-$ npm start craco --react-scripts react-scripts-ts
+```javascript
+"scripts": {
+    "start": "craco --react-scripts react-scripts-ts"
+}
 ```
 
 To activate **verbose** logging:
 
-```bash
-$ npm start craco --verbose
+```javascript
+"scripts": {
+    "start": "craco --verbose"
+}
 ```
 
 ## Configuration Overview
