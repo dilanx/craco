@@ -1,3 +1,0 @@
-# Recipes
-
-Coming soon...
