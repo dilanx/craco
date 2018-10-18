@@ -136,11 +136,10 @@ module.exports = {
     eslint: {
         enable: true,
         mode: "extends" || "file",
+        // Everything defined in the "extends" object will extends the base CRA eslint configuration.
+        // Applied when mode = "extends", otherwise ignored.
+        extends: {}, 
         formatter: "",
-        globals: [],
-        plugins: [],
-        extends: [],
-        rules: {},
         loaderOptions: {} || (eslintOptions, { env, paths }) => { return eslintOptions; }
     },
     webpack: {
@@ -170,7 +169,7 @@ module.exports = {
 
 There are 2 functions available to a plugin:
 - `overrideCracoConfig`: Let a plugin customize the config object before it's process by `craco`.
-- `overrideWebpackConfig`: Let a plugin customize the `webpack` config that will used by CRA. 
+- `overrideWebpackConfig`: Let a plugin customize the `webpack` config that will be used by CRA. 
 
 **Important:**
 
@@ -295,7 +294,7 @@ const { getLoader, getLoaders, removeLoader, loaderByName } = require("craco");
 
 #### getLoader
 
-Retrieve the **first** loader from the webpack config that match the specified criteria.
+Retrieve the **first** loader that match the specified criteria from the webpack config.
 
 Returns:
 
@@ -324,7 +323,7 @@ if (isFound) {
 
 #### getLoaders
 
-Retrieve **all** the loaders from the webpack config that match the specified criteria.
+Retrieve **all** the loaders that match the specified criteria from the webpack config.
 
 Returns:
 
@@ -357,7 +356,7 @@ if (hasFoundAny) {
 
 #### removeLoader
 
-Remove the **first** loader from the webpack config that match the specified criteria.
+Remove the **first** loader that match the specified criteria from the webpack config.
 
 Usage: 
 
