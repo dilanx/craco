@@ -26,19 +26,50 @@ function setFormatter(loader, formatter) {
 }
 
 function extendsEslint(loader, eslintConfig) {
-    // TODO: Validate extends is an object literal.
-    if (eslintConfig.extends) {
-        if (loader.options) {
-            loader.options.baseConfig = deepMergeWithArray(loader.options.baseConfig || {}, eslintConfig.extends);
-        } else {
-            loader.options = {
-                baseConfig: baseConfigExtends
-            };
-        }
+    let baseConfigExtends = {};
 
-        log("Extended ESLint config.");
+    if (isArray(eslintConfig.globals)) {
+        baseConfigExtends.globals = eslintConfig.globals;
+
+        log("Applied ESLint globals.");
+    }
+
+    if (isArray(eslintConfig.plugins)) {
+        baseConfigExtends.plugins = eslintConfig.plugins;
+
+        log("Applied ESLint plugins.");
+    }
+
+    if (isArray(eslintConfig.extends)) {
+        baseConfigExtends.extends = eslintConfig.extends;
+
+        log("Applied ESLint extends.");
+    }
+
+    if (eslintConfig.rules) {
+        baseConfigExtends.rules = eslintConfig.rules;
+
+        log("Applied ESLint rules.");
+    }
+
+    if (eslintConfig.env) {
+        baseConfigExtends.env = eslintConfig.env;
+
+        log("Applied ESLint env.");
+    }
+
+    if (eslintConfig.parserOptions) {
+        baseConfigExtends.parserOptions = eslintConfig.parserOptions;
+
+        log("Applied ESLint parserOptions.");
+    }
+
+    if (loader.options) {
+        loader.options.baseConfig = deepMergeWithArray(loader.options.baseConfig || {}, baseConfigExtends);
     } else {
-        log("Couldn't 'extends' object to extend ESLint base config.");
+        loader.options = {
+            baseConfig: baseConfigExtends
+        };
     }
 }
 

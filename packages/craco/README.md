@@ -116,7 +116,7 @@ To activate **verbose** logging:
 ## Configuration Overview
 
 When the property **mode** is available there are 2 possible values:
-- `extends`: the provided configuration will extends the CRA settings
+- `extends`: the provided configuration will extends the CRA settings (**this is the default mode**)
 - `file`: the CRA settings will be reseted and you will provide an official configuration file for the plugin ([postcss](https://github.com/michael-ciniawsky/postcss-load-config#postcssrc), [eslint](https://eslint.org/docs/user-guide/configuring#configuration-file-formats)) that will supersede any settings.
 
 ```javascript
@@ -142,9 +142,12 @@ module.exports = {
     eslint: {
         enable: true,
         mode: "extends" || "file",
-        // Everything defined in the "extends" object will extends the base CRA eslint configuration.
-        // Applied when mode = "extends", otherwise ignored.
-        extends: {}, 
+        parserOptions: {},
+        env: {},
+        globals: [],
+        plugins: [],
+        extends: [],
+        rules: {},
         formatter: "",
         loaderOptions: {} || (eslintOptions, { env, paths }) => { return eslintOptions; }
     },
