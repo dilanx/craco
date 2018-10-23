@@ -10,7 +10,7 @@ function getReactScriptsFolderPath() {
     let filepath = "";
 
     if (args.reactScripts.isOverrided) {
-        filepath = path.resolve(`${projectRoot}/${args.reactScripts.value}/`);
+        filepath = path.resolve(`${nodeModulesPath}/${args.reactScripts.value}/`);
     } else {
         filepath = path.resolve(`${nodeModulesPath}/react-scripts/`);
     }
