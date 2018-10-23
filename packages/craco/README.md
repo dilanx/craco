@@ -138,7 +138,7 @@ module.exports = {
             loaderOptions: (sassLoaderOptions, { env, paths }) => { return sassLoaderOptions; }
         },
         postcss: {
-            mode: "extends" /* default value) */ || "file",
+            mode: "extends" /* (default value) */ || "file",
             plugins: [],
             loaderOptions: { /* Any postcss-loader configuration options: https://github.com/postcss/postcss-loader. */ },
             loaderOptions: (postcssLoaderOptions, { env, paths }) => { return postcssLoaderOptions; }
@@ -146,7 +146,7 @@ module.exports = {
     },
     eslint: {
         enable: true,
-        mode: "extends" /* default value) */ || "file",
+        mode: "extends" /* (default value) */ || "file",
         configure: { /* Any eslint configuration options: https://eslint.org/docs/user-guide/configuring */ },
         configure: (eslintConfig, { env, paths }) => { return eslintConfig; },
         loaderOptions: { /* Any eslint-loader configuration options: https://github.com/webpack-contrib/eslint-loader. */ },
