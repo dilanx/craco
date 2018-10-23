@@ -32,8 +32,6 @@ function extendsEslintConfig(loader, eslintConfig, context) {
                 };
             }
 
-            console.log(JSON.stringify(loader.options.baseConfig, null, 4));
-
             if (!loader.options.baseConfig) {
                 throw new Error("craco: 'eslint.configure' function didn't return a config object.");
             }
@@ -46,8 +44,6 @@ function extendsEslintConfig(loader, eslintConfig, context) {
                     baseConfig: configure
                 };
             }
-
-            console.log(JSON.stringify(loader.options.baseConfig, null, 4));
         }
 
         log("Merged ESLint config with 'eslint.configure'.");
@@ -101,10 +97,6 @@ function overrideEsLint(cracoConfig, webpackConfig, context) {
         }
 
         resetDefaultOptions(match.loader);
-
-        // if (formatter) {
-        //     setFormatter(match.loader, formatter);
-        // }
 
         if (mode === ESLINT_MODES.file) {
             useEslintConfigFile(match.loader);
