@@ -322,7 +322,9 @@ The function will be called with a single object argument having the following s
     pluginOptions: "The plugin options provided by the consumer",
     context: {
         env: "The current NODE_ENV (development, production, etc..)",
-        paths: "An object that contains all the paths used by CRA"
+        paths: "An object that contains all the paths used by CRA",
+        resolve: "Provided by CRA",
+        rootDir: "Provided by CRA"
     }
 }
 ```
