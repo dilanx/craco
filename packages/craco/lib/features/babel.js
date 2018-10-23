@@ -1,5 +1,5 @@
 const { getLoaders, loaderByName } = require("../loaders");
-const { log, error } = require("../logger");
+const { log, logError } = require("../logger");
 const { isFunction, isArray, deepMergeWithArray } = require("../utils");
 
 // TODO: CRA use a cacheIdentifier, should we update it with the other plugins?
@@ -10,7 +10,7 @@ function addPresets(loader, babelPresets) {
             loader.options.presets = babelPresets.concat(loader.options.presets || []);
         } else {
             loader.options = {
-                presets: babelPresets.concat(loader.options.presets || [])
+                presets: babelPresets
             };
         }
     }
@@ -24,7 +24,7 @@ function addPlugins(loader, babelPlugins) {
             loader.options.plugins = babelPlugins.concat(loader.options.plugins || []);
         } else {
             loader.options = {
-                plugins: babelPlugins.concat(loader.options.plugins || [])
+                plugins: babelPlugins
             };
         }
     }
@@ -35,6 +35,10 @@ function addPlugins(loader, babelPlugins) {
 function applyLoaderOptions(loader, loaderOptions, context) {
     if (isFunction(loaderOptions)) {
         loader.options = loaderOptions(loader.options || {}, context);
+
+        if (!loader.options) {
+            throw new Error("craco: 'babel.loaderOptions' function didn't return a loader config object.");
+        }
     } else {
         // TODO: ensure is otherwise a plain object, if not, log an error.
         loader.options = deepMergeWithArray(loader.options || {}, loaderOptions);
@@ -64,7 +68,7 @@ function overrideBabel(cracoConfig, webpackConfig, context) {
         const { hasFoundAny, matches } = getLoaders(webpackConfig, loaderByName("babel-loader"));
 
         if (!hasFoundAny) {
-            error("Cannot find any Babel loaders.");
+            logError("Cannot find any Babel loaders.");
 
             return webpackConfig;
         }

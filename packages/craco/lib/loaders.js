@@ -80,7 +80,7 @@ function getLoaders(webpackConfig, matcher) {
     };
 }
 
-// Should remove ALL the matching loaders...
+// TODO: Should remove ALL the matching loaders...
 function removeLoaderRecursively(rules, matcher) {
     for (let i = 0, max = rules.length; i < max; i += 1) {
         const rule = rules[i];

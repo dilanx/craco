@@ -14,8 +14,13 @@ function whenProd(fct) {
     return when(process.env.NODE_ENV === "production", fct);
 }
 
+function whenTest(fct) {
+    return when(process.env.NODE_ENV === "test", fct);
+}
+
 module.exports = {
     when,
     whenDev,
-    whenProd
+    whenProd,
+    whenTest
 };

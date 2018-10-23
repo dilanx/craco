@@ -70,6 +70,8 @@ Update the existing calls to `react-scripts` in the `scripts` section of your `p
 +   "start": "craco start",
 -   "build": "react-scripts build",
 +   "build": "craco build"
+-   "build": "react-scripts test",
++   "build": "craco test"
 }
 ```
 
@@ -116,11 +118,11 @@ To activate **verbose** logging:
 ## Configuration Overview
 
 When the property **mode** is available there are 2 possible values:
-- `extends`: the provided configuration will extends the CRA settings (**this is the default mode**)
+- `extends`: the provided configuration will extends the CRA settings (**default mode**)
 - `file`: the CRA settings will be reseted and you will provide an official configuration file for the plugin ([postcss](https://github.com/michael-ciniawsky/postcss-load-config#postcssrc), [eslint](https://eslint.org/docs/user-guide/configuring#configuration-file-formats)) that will supersede any settings.
 
 ```javascript
-const { paths, when, whenDev, whenProd, ESLINT_MODES, POSTCSS_MODES } = require("craco");
+const { paths, when, whenDev, whenProd, whenTest, ESLINT_MODES, POSTCSS_MODES } = require("craco");
 
 module.exports = {
     style: {
@@ -128,45 +130,59 @@ module.exports = {
             localIdentName: ""
         },
         css: {
-            loaderOptions: {} || (cssLoaderOptions, { env, paths }) => { return cssLoaderOptions; }
+            loaderOptions: { /* Any css-loader configuration options: https://github.com/webpack-contrib/css-loader. */ },
+            loaderOptions: (cssLoaderOptions, { env, paths }) => { return cssLoaderOptions; }
         },
         sass: {
-            loaderOptions: {} || (sassLoaderOptions, { env, paths }) => { return sassLoaderOptions; }
+            loaderOptions: { /* Any sass-loader configuration options: https://github.com/webpack-contrib/sass-loader. */ },
+            loaderOptions: (sassLoaderOptions, { env, paths }) => { return sassLoaderOptions; }
         },
         postcss: {
-            mode: "extends" || "file",
+            mode: "extends" /* default value) */ || "file",
             plugins: [],
-            loaderOptions: {} || (postcssLoaderOptions, { env, paths }) => { return postcssLoaderOptions; }
+            loaderOptions: { /* Any postcss-loader configuration options: https://github.com/postcss/postcss-loader. */ },
+            loaderOptions: (postcssLoaderOptions, { env, paths }) => { return postcssLoaderOptions; }
         }
     },
     eslint: {
         enable: true,
-        mode: "extends" || "file",
-        parserOptions: {},
-        env: {},
-        globals: [],
-        plugins: [],
-        extends: [],
-        rules: {},
-        formatter: "",
-        loaderOptions: {} || (eslintOptions, { env, paths }) => { return eslintOptions; }
+        mode: "extends" /* default value) */ || "file",
+        configure: { /* Any eslint configuration options: https://eslint.org/docs/user-guide/configuring */ },
+        configure: (eslintConfig, { env, paths }) => { return eslintConfig; },
+        loaderOptions: { /* Any eslint-loader configuration options: https://github.com/webpack-contrib/eslint-loader. */ },
+        loaderOptions: (eslintOptions, { env, paths }) => { return eslintOptions; }
     },
-    webpack: {
-        alias: {},
-        plugins: []
-    },
-    configureWebpack: {} || (webpackConfig, { env, paths }) => { return webpackConfig; },
-    devServer: {},
     babel: {
         presets: [],
         plugins: [],
-        loaderOptions: {} || (babelLoaderOptions, { env, paths }) => { return babelLoaderOptions; }
+        loaderOptions: { /* Any babel-loader configuration options: https://github.com/babel/babel-loader. */ },
+        loaderOptions: (babelLoaderOptions, { env, paths }) => { return babelLoaderOptions; }
     },
+    webpack: {
+        alias: {},
+        plugins: [],
+        configure: { /* Any eslint-loader configuration options: https://github.com/webpack-contrib/eslint-loader. */ },
+        configure: (webpackConfig, { env, paths }) => { return webpackConfig; }
+    },
+    jest: {
+        babel: {
+            addPresets: true, // (default value)
+            addPlugins: true  // (default value)
+        },
+        eslint: {
+            addGlobals: true // (default value)
+        },
+        configure: { /* Any Jest configuration options: https://jestjs.io/docs/en/configuration. */ },
+        configure: (jestConfig, { env, paths, resolve, rootDir }) => { return jestConfig; }
+    },
+    devServer: { /* Any devServer configuration options: https://webpack.js.org/configuration/dev-server/#devserver. */ },
+    devServer: (devServerConfig, { env, paths, proxy, allowedHost }) => { return devServerConfig; },
     plugins: [
         {
             plugin: {
                 overrideCracoConfig: ({ cracoConfig, pluginOptions, context: { env, paths } }) => { return cracoConfig; },
                 overrideWebpackConfig: ({ webpackConfig, cracoConfig, pluginOptions, context: { env, paths } }) => { return webpackConfig; },
+                overrideJestConfig: ({ jestConfig, cracoConfig, pluginOptions, context: { env, paths, resolve, rootDir } }) => { return jestConfig };
             },
             options: {}
         }
@@ -176,9 +192,10 @@ module.exports = {
 
 ## Develop a plugin
 
-There are 2 functions available to a plugin:
+There are 3 functions available to a plugin:
 - `overrideCracoConfig`: Let a plugin customize the config object before it's process by `craco`.
-- `overrideWebpackConfig`: Let a plugin customize the `webpack` config that will be used by CRA. 
+- `overrideWebpackConfig`: Let a plugin customize the `webpack` config that will be used by CRA.
+- `overrideJestConfig`: Let a plugin customize the `Jest` config that will be used by CRA.
 
 **Important:**
 
@@ -241,7 +258,7 @@ module.exports = {
 
 ### overrideWebpackConfig
 
-The function `overrideWebpackConfig` let a plugin override the webpack config object **after** it's been customized by `craco`.
+The function `overrideWebpackConfig` let a plugin override the `webpack` config object **after** it's been customized by `craco`.
 
 *The function must return a valid config object, otherwise `craco` will throw an error.*
 
@@ -249,7 +266,7 @@ The function will be called with a single object argument having the following s
 
 ```javascript
 {
-    webpackConfig: "The webpack config object customized by craco",
+    webpackConfig: "The webpack config object already customized by craco",
     cracoConfig: "The configuration object read from the craco.config.js file provided by the consumer",
     pluginOptions: "The plugin options provided by the consumer",
     context: {
@@ -289,6 +306,60 @@ module.exports = {
     ...
     plugins: [
         { plugin: logWebpackConfigPlugin, options: { preText: "Will log the webpack config:" } }
+    ]
+};
+```
+
+### overrideJestConfig
+
+The function `overrideJestConfig` let a plugin override the `Jest` config object **after** it's been customized by `craco`.
+
+*The function must return a valid config object, otherwise `craco` will throw an error.*
+
+The function will be called with a single object argument having the following structure:
+
+```javascript
+{
+    jestConfig: "The Jest config object already customized by craco",
+    cracoConfig: "The configuration object read from the craco.config.js file provided by the consumer",
+    pluginOptions: "The plugin options provided by the consumer",
+    context: {
+        env: "The current NODE_ENV (development, production, etc..)",
+        paths: "An object that contains all the paths used by CRA"
+    }
+}
+```
+
+#### Example
+
+Plugin:
+
+```javascript
+/* craco-plugin-log-jest-config.js */
+
+module.exports = {
+    overrideJestConfig: ({ jestConfig, cracoConfig, pluginOptions, context: { env, paths, resolve, rootDir } }) => {
+        if (pluginOptions.preText) {
+            console.log(pluginOptions.preText);
+        }
+
+        console.log(JSON.stringify(jestConfig, null, 4));
+
+        // Always return the config object.
+        return jestConfig; 
+    }
+};
+```
+
+Registration (in a `craco.config.js` file):
+
+```javascript
+const logJestConfigPlugin = require("./craco-plugin-log-jest-config");
+
+module.exports = {
+    ...
+    plugins: [
+        { plugin: logJestConfigPlugin, options: { preText: "Will log the Jest config:" } }
     ]
 };
 ```

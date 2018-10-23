@@ -8,37 +8,44 @@ const { overrideStyle } = require("./style/style");
 const { applyWebpackConfigPlugins } = require("./plugins");
 
 function addAlias(webpackConfig, webpackAlias) {
+    // TODO: ensure is a plain object, if not, log an error.
     webpackConfig.resolve.alias = Object.assign(webpackConfig.resolve.alias || {}, webpackAlias);
 
-    log("Added Webpack alias.");
+    log("Added webpack alias.");
 }
 
 function addPlugins(webpackConfig, webpackPlugins) {
     if (isArray(webpackPlugins)) {
         webpackConfig.plugins = webpackPlugins.concat(webpackConfig.plugins || []);
 
-        log("Added Webpack plugins.");
+        log("Added webpack plugins.");
     }
 }
 
 function giveTotalControl(webpackConfig, configureWebpack, context) {
-    let mergedConfig;
-
     if (isFunction(configureWebpack)) {
-        mergedConfig = configureWebpack(webpackConfig, context);
+        webpackConfig = configureWebpack(webpackConfig, context);
+
+        if (!webpackConfig) {
+            throw new Error("craco: 'webpack.configure' function didn't returned a webpack config object.");
+        }
     } else {
         // TODO: ensure is otherwise a plain object, if not, log an error.
-        mergedConfig = merge(webpackConfig, configureWebpack);
+        webpackConfig = merge(webpackConfig, configureWebpack);
     }
 
-    log("Merged Webpack config with configureWebpack.");
+    log("Merged webpack config with 'webpack.configure'.");
 
-    return mergedConfig;
+    return webpackConfig;
 }
 
 function overrideWebpack(cracoConfig, webpackConfig, overrideConfig, context) {
+    webpackConfig = overrideBabel(cracoConfig, webpackConfig, context);
+    webpackConfig = overrideEsLint(cracoConfig, webpackConfig, context);
+    webpackConfig = overrideStyle(cracoConfig, webpackConfig, context);
+
     if (cracoConfig.webpack) {
-        const { alias, plugins } = cracoConfig.webpack;
+        const { alias, plugins, configure } = cracoConfig.webpack;
 
         if (alias) {
             addAlias(webpackConfig, alias);
@@ -47,14 +54,10 @@ function overrideWebpack(cracoConfig, webpackConfig, overrideConfig, context) {
         if (plugins) {
             addPlugins(webpackConfig, plugins);
         }
-    }
 
-    webpackConfig = overrideBabel(cracoConfig, webpackConfig, context);
-    webpackConfig = overrideEsLint(cracoConfig, webpackConfig, context);
-    webpackConfig = overrideStyle(cracoConfig, webpackConfig, context);
-
-    if (cracoConfig.configureWebpack) {
-        webpackConfig = giveTotalControl(webpackConfig, cracoConfig.configureWebpack, context);
+        if (configure) {
+            webpackConfig = giveTotalControl(webpackConfig, configure, context);
+        }
     }
 
     webpackConfig = applyWebpackConfigPlugins(cracoConfig, webpackConfig, context);

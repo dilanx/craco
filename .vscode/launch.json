@@ -5,21 +5,19 @@
             "type": "node",
             "request": "launch",
             "name": "craco start",
-            "program": "${workspaceFolder}/packages/craco/scripts/start.js",
-            "args": [
-                "--react-scripts",
-                "${workspaceFolder}/node_modules/react-scripts"
-            ]
+            "program": "${workspaceFolder}/packages/craco/scripts/start.js"
         },
         {
             "type": "node",
             "request": "launch",
             "name": "craco build",
-            "program": "${workspaceFolder}/packages/craco/scripts/build.js",
-            "args": [
-                "--react-scripts",
-                "${workspaceFolder}/node_modules/react-scripts"
-            ]
+            "program": "${workspaceFolder}/packages/craco/scripts/build.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "craco test",
+            "program": "${workspaceFolder}/packages/craco/scripts/test.js"
         }
     ]
 }

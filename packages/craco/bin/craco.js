@@ -11,7 +11,7 @@ switch (script) {
     case "start":
     case "test": {
         const nodeArgs = scriptIndex > 0 ? args.slice(0, scriptIndex) : [];
-        const scriptPath = require.resolve("../scripts/" + script);
+        const scriptPath = require.resolve(`../scripts/${script}`);
         const scriptArgs = args.slice(scriptIndex + 1);
         const processArgs = nodeArgs.concat(scriptPath).concat(scriptArgs);
 

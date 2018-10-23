@@ -1,5 +1,5 @@
 const { getLoader, removeLoader, loaderByName } = require("../loaders");
-const { log, error } = require("../logger");
+const { log, logError } = require("../logger");
 const { isFunction, isArray, deepMergeWithArray } = require("../utils");
 
 const ESLINT_MODES = {
@@ -19,57 +19,38 @@ function resetDefaultOptions(loader) {
     log("Reseted ESLint default options.");
 }
 
-function setFormatter(loader, formatter) {
-    loader.options.formatter = formatter;
+function extendsEslintConfig(loader, eslintConfig, context) {
+    const { configure } = eslintConfig;
 
-    log("Applied ESLint formatter.");
-}
+    if (configure) {
+        if (isFunction(configure)) {
+            if (loader.options) {
+                loader.options.baseConfig = configure(loader.options.baseConfig || {}, context);
+            } else {
+                loader.options = {
+                    baseConfig: configure({}, context)
+                };
+            }
 
-function extendsEslint(loader, eslintConfig) {
-    let baseConfigExtends = {};
+            console.log(JSON.stringify(loader.options.baseConfig, null, 4));
 
-    if (isArray(eslintConfig.globals)) {
-        baseConfigExtends.globals = eslintConfig.globals;
+            if (!loader.options.baseConfig) {
+                throw new Error("craco: 'eslint.configure' function didn't return a config object.");
+            }
+        } else {
+            // TODO: ensure is otherwise a plain object, if not, log an error.
+            if (loader.options) {
+                loader.options.baseConfig = deepMergeWithArray(loader.options.baseConfig || {}, configure);
+            } else {
+                loader.options = {
+                    baseConfig: configure
+                };
+            }
 
-        log("Applied ESLint globals.");
-    }
+            console.log(JSON.stringify(loader.options.baseConfig, null, 4));
+        }
 
-    if (isArray(eslintConfig.plugins)) {
-        baseConfigExtends.plugins = eslintConfig.plugins;
-
-        log("Applied ESLint plugins.");
-    }
-
-    if (isArray(eslintConfig.extends)) {
-        baseConfigExtends.extends = eslintConfig.extends;
-
-        log("Applied ESLint extends.");
-    }
-
-    if (eslintConfig.rules) {
-        baseConfigExtends.rules = eslintConfig.rules;
-
-        log("Applied ESLint rules.");
-    }
-
-    if (eslintConfig.env) {
-        baseConfigExtends.env = eslintConfig.env;
-
-        log("Applied ESLint env.");
-    }
-
-    if (eslintConfig.parserOptions) {
-        baseConfigExtends.parserOptions = eslintConfig.parserOptions;
-
-        log("Applied ESLint parserOptions.");
-    }
-
-    if (loader.options) {
-        loader.options.baseConfig = deepMergeWithArray(loader.options.baseConfig || {}, baseConfigExtends);
-    } else {
-        loader.options = {
-            baseConfig: baseConfigExtends
-        };
+        log("Merged ESLint config with 'eslint.configure'.");
     }
 }
 
@@ -89,6 +70,10 @@ function useEslintConfigFile(loader) {
 function applyLoaderOptions(loader, loaderOptions, context) {
     if (isFunction(loaderOptions)) {
         loader.options = loaderOptions(loader.options || {}, context);
+
+        if (!loader.options) {
+            throw new Error("craco: 'eslint.loaderOptions' function didn't return a loader config object.");
+        }
     } else {
         // TODO: ensure is otherwise a plain object, if not, log an error.
         loader.options = deepMergeWithArray(loader.options || {}, loaderOptions);
@@ -102,12 +87,12 @@ function overrideEsLint(cracoConfig, webpackConfig, context) {
         const { isFound, match } = getLoader(webpackConfig, loaderByName("eslint-loader"));
 
         if (!isFound) {
-            error("Cannot find ESLint loader (eslint-loader).");
+            logError("Cannot find ESLint loader (eslint-loader).");
 
             return webpackConfig;
         }
 
-        const { enable, mode, formatter, loaderOptions } = cracoConfig.eslint;
+        const { enable, mode, loaderOptions } = cracoConfig.eslint;
 
         if (enable === false) {
             disableEslint(webpackConfig);
@@ -117,14 +102,14 @@ function overrideEsLint(cracoConfig, webpackConfig, context) {
 
         resetDefaultOptions(match.loader);
 
-        if (formatter) {
-            setFormatter(match.loader, formatter);
-        }
+        // if (formatter) {
+        //     setFormatter(match.loader, formatter);
+        // }
 
         if (mode === ESLINT_MODES.file) {
             useEslintConfigFile(match.loader);
         } else {
-            extendsEslint(match.loader, cracoConfig.eslint, context);
+            extendsEslintConfig(match.loader, cracoConfig.eslint, context);
         }
 
         if (loaderOptions) {

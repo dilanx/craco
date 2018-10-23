@@ -16,7 +16,7 @@ function overrideCracoConfig({ plugin, options }, cracoConfig, context) {
         }
     }
 
-    log("Overrided Craco config with plugin.");
+    log("Overrided craco config with plugin.");
 
     return cracoConfig;
 }
@@ -28,7 +28,7 @@ function applyCracoConfigPlugins(cracoConfig, context) {
         });
     }
 
-    log("Applied Craco config plugins.");
+    log("Applied craco config plugins.");
 
     return cracoConfig;
 }
@@ -45,11 +45,11 @@ function overrideWebpack({ plugin, options }, cracoConfig, webpackConfig, contex
         });
 
         if (!resultingConfig) {
-            throw new Error("craco: Plugin returned an undefined Webpack config.");
+            throw new Error("craco: Plugin returned an undefined webpack config.");
         }
     }
 
-    log("Overrided Webpack config with plugin.");
+    log("Overrided webpack config with plugin.");
 
     return webpackConfig;
 }
@@ -61,12 +61,46 @@ function applyWebpackConfigPlugins(cracoConfig, webpackConfig, context) {
         });
     }
 
-    log("Applied Webpack config plugins.");
+    log("Applied webpack config plugins.");
 
     return webpackConfig;
 }
 
+/************  Jest Config  *******************/
+
+function overrideJest({ plugin, options }, cracoConfig, jestConfig, context) {
+    if (isFunction(plugin.overrideJestConfig)) {
+        const resultingConfig = plugin.overrideJestConfig({
+            cracoConfig: cracoConfig,
+            jestConfig: jestConfig,
+            pluginOptions: options,
+            context: context
+        });
+
+        if (!resultingConfig) {
+            throw new Error("craco: Plugin returned an undefined Jest config.");
+        }
+    }
+
+    log("Overrided Jest config with plugin.");
+
+    return jestConfig;
+}
+
+function applyJestConfigPlugins(cracoConfig, jestConfig, context) {
+    if (isArray(cracoConfig.plugins)) {
+        cracoConfig.plugins.forEach(x => {
+            jestConfig = overrideJest(x, cracoConfig, jestConfig, context);
+        });
+    }
+
+    log("Applied Jest config plugins.");
+
+    return jestConfig;
+}
+
 module.exports = {
     applyCracoConfigPlugins,
-    applyWebpackConfigPlugins
+    applyWebpackConfigPlugins,
+    applyJestConfigPlugins
 };

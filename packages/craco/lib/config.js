@@ -1,9 +1,19 @@
 const args = require("./args");
 
 const { projectRoot } = require("./paths");
-const { isFunction } = require("./utils");
+const { isFunction, isArray } = require("./utils");
 const { log } = require("./logger");
 const { applyCracoConfigPlugins } = require("./features/plugins");
+
+function ensureConfigSanity(cracoConfig) {
+    if (isArray(cracoConfig.plugins)) {
+        cracoConfig.plugins.forEach((x, index) => {
+            if (!x.plugin) {
+                throw new Error(`craco: Malformed plugin at index: ${index} of 'plugins'.`);
+            }
+        });
+    }
+}
 
 function loadCracoConfig(context) {
     let configFilePath = "";
@@ -19,6 +29,7 @@ function loadCracoConfig(context) {
     const config = require(configFilePath);
 
     let resultingConfig = isFunction(config) ? config(context) : config;
+    ensureConfigSanity(resultingConfig);
     resultingConfig = applyCracoConfigPlugins(resultingConfig, context);
 
     return resultingConfig;

@@ -5,26 +5,27 @@ const { log } = require("../logger");
 const { overrideDevServerConfigProvider, loadDevServerConfigProvider } = require("../cra");
 
 function createConfigProviderProxy(cracoConfig, craDevServerConfigProvider, context) {
-    const proxy = (...rest) => {
-        const craDevServerConfig = craDevServerConfigProvider(...rest);
-        let mergedConfig;
+    const proxy = (proxy, allowedHost) => {
+        let devServerConfig = craDevServerConfigProvider(proxy, allowedHost);
 
         if (isFunction(cracoConfig.devServer)) {
-            // DOC: The function can either mutate the config and return nothing, OR return a cloned or merged version of the config.
-            const resultingConfig = cracoConfig.devServer(craDevServerConfig, {
+            devServerConfig = cracoConfig.devServer(devServerConfig, {
                 ...context,
-                ...rest
+                proxy,
+                allowedHost
             });
 
-            mergedConfig = resultingConfig || craDevServerConfig;
+            if (!devServerConfig) {
+                throw new Error("craco: 'devServer' function didn't return a config object.");
+            }
         } else {
             // TODO: ensure is otherwise a plain object, if not, log an error.
-            mergedConfig = merge(craDevServerConfig, cracoConfig.devServer);
+            devServerConfig = merge(devServerConfig, cracoConfig.devServer);
         }
 
-        log("Merged dev server config");
+        log("Overrided DevServer config.");
 
-        return mergedConfig;
+        return devServerConfig;
     };
 
     return proxy;

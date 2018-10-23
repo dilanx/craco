@@ -1,5 +1,5 @@
 const { getLoaders, loaderByName } = require("../../loaders");
-const { log, error } = require("../../logger");
+const { log, logError } = require("../../logger");
 const { isFunction, deepMergeWithArray } = require("../../utils");
 
 function setModuleLocalIdentName(match, localIdentName) {
@@ -18,6 +18,10 @@ function setModuleLocalIdentName(match, localIdentName) {
 function applyLoaderOptions(match, loaderOptions, context) {
     if (isFunction(loaderOptions)) {
         match.loader.options = loaderOptions(match.loader.options || {}, context);
+
+        if (!match.loader.options) {
+            throw new Error("craco: 'style.css.loaderOptions' function didn't return a loader config object.");
+        }
     } else {
         // TODO: ensure is otherwise a plain object, if not, log an error.
         match.loader.options = deepMergeWithArray(match.loader.options || {}, loaderOptions);
@@ -46,10 +50,8 @@ function overrideCss(styleConfig, webpackConfig, context) {
     if (styleConfig.modules || styleConfig.css) {
         const { hasFoundAny, matches } = getLoaders(webpackConfig, loaderByName("css-loader"));
 
-        // console.log(JSON.stringify(webpackConfig, null, 2));
-
         if (!hasFoundAny) {
-            error("Cannot find any CSS loaders.");
+            logError("Cannot find any CSS loaders.");
 
             return webpackConfig;
         }

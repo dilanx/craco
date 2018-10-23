@@ -6,18 +6,11 @@ function log(...rest) {
     }
 }
 
-function lazyLog(fct) {
-    if (args.isVerbose) {
-        fct();
-    }
-}
-
-function error(...rest) {
+function logError(...rest) {
     console.error("craco:  ***", ...rest, "***");
 }
 
 module.exports = {
     log,
-    lazyLog,
-    error
+    logError
 };

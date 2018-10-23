@@ -35,6 +35,9 @@
     "peerDependencies": {
         "react-scripts": "^2.0.5"
     },
+    "devDependencies": {
+        "react-scripts": "2.0.5"
+    },
     "dependencies": {
         "cross-spawn": "6.0.5",
         "lodash.mergewith": "4.6.1",

@@ -1,5 +1,5 @@
 const { getLoaders, loaderByName } = require("../../loaders");
-const { log, error } = require("../../logger");
+const { log, logError } = require("../../logger");
 const { isArray, isFunction, deepMergeWithArray } = require("../../utils");
 
 const POSTCSS_MODES = {
@@ -45,6 +45,10 @@ function addPlugins(match, postcssPlugins) {
 function applyLoaderOptions(match, loaderOptions, context) {
     if (isFunction(loaderOptions)) {
         match.loader.options = loaderOptions(match.loader.options || {}, context);
+
+        if (!match.loader.options) {
+            throw new Error("craco: 'style.postcss.loaderOptions' function didn't return a loader config object.");
+        }
     } else {
         // TODO: ensure is otherwise a plain object, if not, log an error.
         match.loader.options = deepMergeWithArray(match.loader.options || {}, loaderOptions);
@@ -74,7 +78,7 @@ function overridePostcss(cracoConfig, webpackConfig) {
         const { hasFoundAny, matches } = getLoaders(webpackConfig, loaderByName("postcss-loader"));
 
         if (!hasFoundAny) {
-            error("Cannot find any PostCSS loaders.");
+            logError("Cannot find any PostCSS loaders.");
 
             return webpackConfig;
         }
