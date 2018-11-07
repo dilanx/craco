@@ -36,7 +36,7 @@
         "react-scripts": "^2.1.1"
     },
     "devDependencies": {
-        "react-scripts": "2.0.5"
+        "react-scripts": "2.1.1"
     },
     "dependencies": {
         "cross-spawn": "6.0.5",
