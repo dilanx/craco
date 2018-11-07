@@ -70,8 +70,8 @@ Update the existing calls to `react-scripts` in the `scripts` section of your `p
 +   "start": "craco start",
 -   "build": "react-scripts build",
 +   "build": "craco build"
--   "build": "react-scripts test",
-+   "build": "craco test"
+-   "test": "react-scripts test",
++   "test": "craco test"
 }
 ```
 
