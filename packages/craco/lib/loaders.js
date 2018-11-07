@@ -123,12 +123,12 @@ function removeLoaders(webpackConfig, matcher) {
     };
 }
 
-function addLoader(webpackConfig, targetMatcher, newLoader, positionAdapter) {
+function addLoader(webpackConfig, matcher, newLoader, positionAdapter) {
     const result = isAdded => ({
         isAdded
     });
 
-    const { isFound, match } = getLoader(webpackConfig, targetMatcher);
+    const { isFound, match } = getLoader(webpackConfig, matcher);
 
     if (isFound) {
         match.parent.splice(positionAdapter(match.index), 0, newLoader);
@@ -139,16 +139,16 @@ function addLoader(webpackConfig, targetMatcher, newLoader, positionAdapter) {
     return result(false);
 }
 
-const addBeforeLoader = (webpackConfig, targetMatcher, newLoader) => addLoader(webpackConfig, targetMatcher, newLoader, x => x);
-const addAfterLoader = (webpackConfig, targetMatcher, newLoader) => addLoader(webpackConfig, targetMatcher, newLoader, x => x + 1);
+const addBeforeLoader = (webpackConfig, matcher, newLoader) => addLoader(webpackConfig, matcher, newLoader, x => x);
+const addAfterLoader = (webpackConfig, matcher, newLoader) => addLoader(webpackConfig, matcher, newLoader, x => x + 1);
 
-function addLoaders(webpackConfig, targetMatcher, newLoader, positionAdapter) {
+function addLoaders(webpackConfig, matcher, newLoader, positionAdapter) {
     const result = (isAdded, addedCount = 0) => ({
         isAdded,
         addedCount
     });
 
-    const { hasFoundAny, matches } = getLoaders(webpackConfig, targetMatcher);
+    const { hasFoundAny, matches } = getLoaders(webpackConfig, matcher);
 
     if (hasFoundAny) {
         matches.forEach(match => {
@@ -161,8 +161,8 @@ function addLoaders(webpackConfig, targetMatcher, newLoader, positionAdapter) {
     return result(false);
 }
 
-const addBeforeLoaders = (webpackConfig, targetMatcher, newLoader) => addLoaders(webpackConfig, targetMatcher, newLoader, x => x);
-const addAfterLoaders = (webpackConfig, targetMatcher, newLoader) => addLoaders(webpackConfig, targetMatcher, newLoader, x => x + 1);
+const addBeforeLoaders = (webpackConfig, matcher, newLoader) => addLoaders(webpackConfig, matcher, newLoader, x => x);
+const addAfterLoaders = (webpackConfig, matcher, newLoader) => addLoaders(webpackConfig, matcher, newLoader, x => x + 1);
 
 module.exports = {
     getLoader,
