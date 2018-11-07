@@ -1,4 +1,4 @@
-const { getLoader, removeLoader, loaderByName } = require("../loaders");
+const { getLoader, removeLoaders, loaderByName } = require("../loaders");
 const { log, logError } = require("../logger");
 const { isFunction, deepMergeWithArray } = require("../utils");
 
@@ -8,9 +8,13 @@ const ESLINT_MODES = {
 };
 
 function disableEslint(webpackConfig) {
-    removeLoader(webpackConfig, loaderByName("eslint-loader"));
+    const { hasRemovedAny } = removeLoaders(webpackConfig, loaderByName("eslint-loader"));
 
-    log("Disabled ESLint.");
+    if (hasRemovedAny) {
+        log("Disabled ESLint.");
+    } else {
+        logError("Couldn't disabled ESLint.");
+    }
 }
 
 function resetDefaultOptions(loader) {

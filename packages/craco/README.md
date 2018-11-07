@@ -433,21 +433,18 @@ if (hasFoundAny) {
 }
 ```
 
-#### removeLoader
-
-Remove the **first** loader that match the specified criteria from the webpack config.
-
-Usage: 
-
-```javascript
-const { removeLoader, loaderByName } = require("craco");
-
-removeLoader(webpackConfig, loaderByName("eslint-loader"));
-```
-
 #### removeLoaders
 
-Remove all the loaders that match the specified criteria from the webpack config.
+Remove **all** the loaders that match the specified criteria from the webpack config.
+
+Returns:
+
+```javascript
+{
+    hasRemovedAny:: true | false,
+    removedCount:: int
+}
+```
 
 Usage: 
 
@@ -455,6 +452,104 @@ Usage:
 const { removeLoaders, loaderByName } = require("craco");
 
 removeLoaders(webpackConfig, loaderByName("eslint-loader"));
+```
+
+#### addBeforeLoader
+
+Add a new *loader* **before** the loader that match specified criteria to the webpack config.
+
+Returns:
+
+```javascript
+{
+    isAdded: true | false
+}
+```
+
+Usage:
+
+```javascript
+const { addBeforeLoader, loaderByName } = require("craco");
+
+const myNewWebpackLoader = {
+    loader: require.resolve("tslint-loader")
+};
+
+addBeforeLoader(webpackConfig, loaderByName("eslint-loader"), myNewWebpackLoader);
+```
+
+#### addBeforeLoaders
+
+Add a new *loader* **before** all the loaders that match specified criteria to the webpack config.
+
+Returns:
+
+```javascript
+{
+    isAdded: true | false,
+    addedCount: int
+}
+```
+
+Usage:
+
+```javascript
+const { addBeforeLoaders, loaderByName } = require("craco");
+
+const myNewWebpackLoader = {
+    loader: require.resolve("tslint-loader")
+};
+
+addBeforeLoaders(webpackConfig, loaderByName("eslint-loader"), myNewWebpackLoader);
+```
+
+#### addAfterLoader
+
+Add a new *loader* **after** the loader that match specified criteria to the webpack config.
+
+Returns:
+
+```javascript
+{
+    isAdded: true | false
+}
+```
+
+Usage:
+
+```javascript
+const { addAfterLoader, loaderByName } = require("craco");
+
+const myNewWebpackLoader = {
+    loader: require.resolve("tslint-loader")
+};
+
+addAfterLoader(webpackConfig, loaderByName("eslint-loader"), myNewWebpackLoader);
+```
+
+#### addAfterLoaders
+
+Add a new *loader* **after** all the loaders that match specified criteria to the webpack config.
+
+Returns:
+
+```javascript
+{
+    isAdded: true | false,
+    addedCount: int
+}
+```
+
+Usage:
+
+```javascript
+const { addAfterLoaders, loaderByName } = require("craco");
+
+const myNewWebpackLoader = {
+    loader: require.resolve("tslint-loader")
+};
+
+addAfterLoaders(webpackConfig, loaderByName("eslint-loader"), myNewWebpackLoader);
 ```
 
 ## Acknowledgements

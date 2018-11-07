@@ -80,41 +80,97 @@ function getLoaders(webpackConfig, matcher) {
     };
 }
 
-// TODO: Should remove ALL the matching loaders...
-function removeLoadersRecursively(rules, matcher, options = {}) {
+function removeLoadersRecursively(rules, matcher) {
+    const toRemove = [];
+    let removedCount = 0;
+
     for (let i = 0, max = rules.length; i < max; i += 1) {
         const rule = rules[i];
 
         if (rule) {
             if (matcher(rule)) {
-                rules.splice(i, 1);
-
-                if (options.stopAtFirst) {
-                    break;
-                }
+                toRemove.push(i);
             } else if (rule.use) {
-                rule.use = removeLoadersRecursively(rule.use, matcher);
+                const result = removeLoadersRecursively(rule.use, matcher);
+
+                removedCount += result.removedCount;
+                rule.use = result.rules;
             } else if (rule.oneOf) {
-                rule.oneOf = removeLoadersRecursively(rule.oneOf, matcher);
+                const result = removeLoadersRecursively(rule.oneOf, matcher);
+
+                removedCount += result.removedCount;
+                rule.oneOf = result.rules;
             }
         }
     }
 
-    return rules;
-}
+    toRemove.forEach((ruleIndex, i) => {
+        rules.splice(ruleIndex - i, 1);
+    });
 
-function removeLoader(webpackConfig, matcher) {
-    webpackConfig.module.rules = removeLoadersRecursively(webpackConfig.module.rules, matcher, { stopAtFirst: true });
+    return {
+        rules,
+        removedCount: removedCount + toRemove.length
+    };
 }
 
 function removeLoaders(webpackConfig, matcher) {
-    webpackConfig.module.rules = removeLoadersRecursively(webpackConfig.module.rules, matcher);
+    const result = removeLoadersRecursively(webpackConfig.module.rules, matcher);
+
+    return {
+        hasRemovedAny: result.removedCount > 0,
+        removedCount: result.removedCount
+    };
 }
+
+function addLoader(webpackConfig, targetMatcher, newLoader, positionAdapter) {
+    const result = isAdded => ({
+        isAdded
+    });
+
+    const { isFound, match } = getLoader(webpackConfig, targetMatcher);
+
+    if (isFound) {
+        match.parent.splice(positionAdapter(match.index), 0, newLoader);
+
+        return result(true);
+    }
+
+    return result(false);
+}
+
+const addBeforeLoader = (webpackConfig, targetMatcher, newLoader) => addLoader(webpackConfig, targetMatcher, newLoader, x => x);
+const addAfterLoader = (webpackConfig, targetMatcher, newLoader) => addLoader(webpackConfig, targetMatcher, newLoader, x => x + 1);
+
+function addLoaders(webpackConfig, targetMatcher, newLoader, positionAdapter) {
+    const result = (isAdded, addedCount = 0) => ({
+        isAdded,
+        addedCount
+    });
+
+    const { hasFoundAny, matches } = getLoaders(webpackConfig, targetMatcher);
+
+    if (hasFoundAny) {
+        matches.forEach(match => {
+            match.parent.splice(positionAdapter(match.index), 0, newLoader);
+        });
+
+        return result(true, matches.length);
+    }
+
+    return result(false);
+}
+
+const addBeforeLoaders = (webpackConfig, targetMatcher, newLoader) => addLoaders(webpackConfig, targetMatcher, newLoader, x => x);
+const addAfterLoaders = (webpackConfig, targetMatcher, newLoader) => addLoaders(webpackConfig, targetMatcher, newLoader, x => x + 1);
 
 module.exports = {
     getLoader,
     getLoaders,
-    removeLoader,
     removeLoaders,
+    addBeforeLoader,
+    addAfterLoader,
+    addBeforeLoaders,
+    addAfterLoaders,
     loaderByName
 };
