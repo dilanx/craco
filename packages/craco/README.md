@@ -445,6 +445,18 @@ const { removeLoader, loaderByName } = require("craco");
 removeLoader(webpackConfig, loaderByName("eslint-loader"));
 ```
 
+#### removeLoaders
+
+Remove all the loaders that match the specified criteria from the webpack config.
+
+Usage: 
+
+```javascript
+const { removeLoaders, loaderByName } = require("craco");
+
+removeLoaders(webpackConfig, loaderByName("eslint-loader"));
+```
+
 ## Acknowledgements
 
 [@timarney](https://github.com/timarney) for having created [react-app-rewired](https://github.com/timarney/react-app-rewired).

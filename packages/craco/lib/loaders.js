@@ -81,18 +81,21 @@ function getLoaders(webpackConfig, matcher) {
 }
 
 // TODO: Should remove ALL the matching loaders...
-function removeLoaderRecursively(rules, matcher) {
+function removeLoadersRecursively(rules, matcher, options = {}) {
     for (let i = 0, max = rules.length; i < max; i += 1) {
         const rule = rules[i];
 
         if (rule) {
             if (matcher(rule)) {
                 rules.splice(i, 1);
-                break;
+
+                if (options.stopAtFirst) {
+                    break;
+                }
             } else if (rule.use) {
-                rule.use = removeLoaderRecursively(rule.use, matcher);
+                rule.use = removeLoadersRecursively(rule.use, matcher);
             } else if (rule.oneOf) {
-                rule.oneOf = removeLoaderRecursively(rule.oneOf, matcher);
+                rule.oneOf = removeLoadersRecursively(rule.oneOf, matcher);
             }
         }
     }
@@ -101,12 +104,17 @@ function removeLoaderRecursively(rules, matcher) {
 }
 
 function removeLoader(webpackConfig, matcher) {
-    webpackConfig.module.rules = removeLoaderRecursively(webpackConfig.module.rules, matcher);
+    webpackConfig.module.rules = removeLoadersRecursively(webpackConfig.module.rules, matcher, { stopAtFirst: true });
+}
+
+function removeLoaders(webpackConfig, matcher) {
+    webpackConfig.module.rules = removeLoadersRecursively(webpackConfig.module.rules, matcher);
 }
 
 module.exports = {
     getLoader,
     getLoaders,
     removeLoader,
+    removeLoaders,
     loaderByName
 };

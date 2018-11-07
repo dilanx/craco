@@ -1,6 +1,6 @@
 const { getLoader, removeLoader, loaderByName } = require("../loaders");
 const { log, logError } = require("../logger");
-const { isFunction, isArray, deepMergeWithArray } = require("../utils");
+const { isFunction, deepMergeWithArray } = require("../utils");
 
 const ESLINT_MODES = {
     extends: "extends",
