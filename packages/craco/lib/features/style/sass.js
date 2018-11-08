@@ -34,15 +34,17 @@ function applyLoaderOptions(match, loaderOptions, context) {
     log("Applied Sass loaders options.");
 }
 
-function overrideLoader(match, sassOptions) {
-    if (sassOptions.loaderOptions) {
-        applyLoaderOptions(match, sassOptions.loaderOptions);
-    }
+function overrideLoader(match, sassOptions, context) {
+    const { loaderOptions } = sassOptions;
 
-    log("Overrided Sass loader.");
+    if (loaderOptions) {
+        applyLoaderOptions(match, loaderOptions, context);
+
+        log("Overrided Sass loader.");
+    }
 }
 
-function overrideSass(styleConfig, webpackConfig) {
+function overrideSass(styleConfig, webpackConfig, context) {
     if (styleConfig.sass) {
         const { hasFoundAny, matches } = getLoaders(webpackConfig, loaderByName("sass-loader"));
 
@@ -53,7 +55,7 @@ function overrideSass(styleConfig, webpackConfig) {
         }
 
         matches.forEach(x => {
-            overrideLoader(x, styleConfig.sass.loaderOptions);
+            overrideLoader(x, styleConfig.sass, context);
         });
     }
 

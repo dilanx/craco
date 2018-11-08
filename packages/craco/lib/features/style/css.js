@@ -33,17 +33,17 @@ function applyLoaderOptions(match, loaderOptions, context) {
 function overrideCssLoader(match, cssOptions, context) {
     if (cssOptions.loaderOptions) {
         applyLoaderOptions(match, cssOptions.loaderOptions, context);
-    }
 
-    log("Overrided CSS loader.");
+        log("Overrided CSS loader.");
+    }
 }
 
 function overrideModuleLoader(match, modulesOptions) {
     if (modulesOptions.localIdentName) {
         setModuleLocalIdentName(match, modulesOptions.localIdentName);
-    }
 
-    log("Overrided CSS module loader.");
+        log("Overrided CSS module loader.");
+    }
 }
 
 function overrideCss(styleConfig, webpackConfig, context) {

@@ -10,13 +10,15 @@ const POSTCSS_MODES = {
 function usePostcssConfigFile(match) {
     if (match.loader.options) {
         const ident = match.loader.options.ident;
+        const sourceMap = match.loader.options.sourceMap;
 
         match.loader.options = {
-            ident: ident
+            ident: ident,
+            sourceMap: sourceMap
         };
-    }
 
-    log("Overwrited PostCSS config to use a config file.");
+        log("Overwrited PostCSS config to use a config file.");
+    }
 }
 
 function extendsPostcss(match, { plugins }) {
@@ -57,7 +59,7 @@ function applyLoaderOptions(match, loaderOptions, context) {
     log("Applied PostCSS loaders options.");
 }
 
-function overrideLoader(match, postcssConfig) {
+function overrideLoader(match, postcssConfig, context) {
     const { mode, loaderOptions } = postcssConfig;
 
     if (mode === POSTCSS_MODES.file) {
@@ -67,13 +69,13 @@ function overrideLoader(match, postcssConfig) {
     }
 
     if (loaderOptions) {
-        applyLoaderOptions(match, loaderOptions);
+        applyLoaderOptions(match, loaderOptions, context);
     }
 
     log("Overrided PostCSS loader.");
 }
 
-function overridePostcss(cracoConfig, webpackConfig) {
+function overridePostcss(cracoConfig, webpackConfig, context) {
     if (cracoConfig.postcss) {
         const { hasFoundAny, matches } = getLoaders(webpackConfig, loaderByName("postcss-loader"));
 
@@ -84,7 +86,7 @@ function overridePostcss(cracoConfig, webpackConfig) {
         }
 
         matches.forEach(x => {
-            overrideLoader(x, cracoConfig.postcss);
+            overrideLoader(x, cracoConfig.postcss, context);
         });
     }
 
