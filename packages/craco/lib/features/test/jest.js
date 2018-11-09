@@ -8,7 +8,7 @@ const { getJestBabelConfig } = require("./jest-config-utils");
 const { applyJestConfigPlugins } = require("../plugins");
 const { nodeModulesPath } = require("../../paths");
 
-const BABEL_TRANSFORM_ENTRY_KEY = "^.+\\.(js|jsx|ts|tsx)$";
+const BABEL_TRANSFORM_ENTRY_KEY = "^.+\\.(js|jsx)$";
 
 function configureBabel(jestConfig, cracoConfig) {
     const { addPresets, addPlugins } = getJestBabelConfig(cracoConfig.jest);
