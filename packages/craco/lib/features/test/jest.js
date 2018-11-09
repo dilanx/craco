@@ -8,7 +8,14 @@ const { getJestBabelConfig } = require("./jest-config-utils");
 const { applyJestConfigPlugins } = require("../plugins");
 const { nodeModulesPath } = require("../../paths");
 
+const BABEL_TRANSFORM_ENTRY_KEY_BEFORE_2_1_0 = "^.+\\.(js|jsx)$";
 const BABEL_TRANSFORM_ENTRY_KEY = "^.+\\.(js|jsx|ts|tsx)$";
+
+function overrideBabelTransform(jestConfig, transformKey) {
+    jestConfig.transform[transformKey] = require.resolve(path.resolve(__dirname, "jest-babel-transform.js"));
+
+    log("Overrided Jest Babel transformer.");
+}
 
 function configureBabel(jestConfig, cracoConfig) {
     const { addPresets, addPlugins } = getJestBabelConfig(cracoConfig.jest);
@@ -19,11 +26,11 @@ function configureBabel(jestConfig, cracoConfig) {
 
             if (isArray(presets) || isArray(plugins)) {
                 if (jestConfig.transform[BABEL_TRANSFORM_ENTRY_KEY]) {
-                    jestConfig.transform[BABEL_TRANSFORM_ENTRY_KEY] = require.resolve(path.resolve(__dirname, "jest-babel-transform.js"));
-
-                    log("Overrided Jest Babel transformer.");
+                    overrideBabelTransform(jestConfig, BABEL_TRANSFORM_ENTRY_KEY);
+                } else if (jestConfig.transform[BABEL_TRANSFORM_ENTRY_KEY_BEFORE_2_1_0]) {
+                    overrideBabelTransform(jestConfig, BABEL_TRANSFORM_ENTRY_KEY_BEFORE_2_1_0);
                 } else {
-                    logError(`Cannot find Jest transform entry for Babel ${BABEL_TRANSFORM_ENTRY_KEY}).`);
+                    logError(`Cannot find Jest transform entry for Babel ${BABEL_TRANSFORM_ENTRY_KEY} or ${BABEL_TRANSFORM_ENTRY_KEY_BEFORE_2_1_0}.`);
                 }
             }
         }
