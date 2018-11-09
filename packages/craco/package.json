@@ -33,7 +33,7 @@
         "craco": "./bin/craco.js"
     },
     "peerDependencies": {
-        "react-scripts": "^2.1.1"
+        "react-scripts": "*"
     },
     "devDependencies": {
         "react-scripts": "2.1.1"
@@ -44,5 +44,5 @@
         "webpack-merge": "4.1.4"
     },
     "version": "2.2.3",
-    "gitHead": "3e7ba97921610513d4f4b8b043d6c1b80c717692"
+    "gitHead": "702006083f4d854b74556149702585a1ceb57ec0"
 }
