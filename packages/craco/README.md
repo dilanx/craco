@@ -239,7 +239,7 @@ module.exports = {
         console.log(JSON.stringify(craconfig, null, 4));
 
         // Always return the config object.
-        return cracoConfig; 
+        return cracoConfig;
     }
 };
 ```
@@ -293,7 +293,7 @@ module.exports = {
         console.log(JSON.stringify(webpackConfig, null, 4));
 
         // Always return the config object.
-        return webpackConfig; 
+        return webpackConfig;
     }
 };
 ```
@@ -349,7 +349,7 @@ module.exports = {
         console.log(JSON.stringify(jestConfig, null, 4));
 
         // Always return the config object.
-        return jestConfig; 
+        return jestConfig;
     }
 };
 ```
@@ -372,7 +372,7 @@ module.exports = {
 A few utility functions are provided by `craco` to develop a plugin:
 
 ```javascript
-const { getLoader, getLoaders, removeLoader, loaderByName } = require("@craco/craco");
+const { getLoader, getLoaders, removeLoader, loaderByName, throwUnexpectedConfigError } = require("@craco/craco");
 ```
 
 #### getLoader
@@ -555,6 +555,80 @@ const myNewWebpackLoader = {
 
 addAfterLoaders(webpackConfig, loaderByName("eslint-loader"), myNewWebpackLoader);
 ```
+
+#### throwUnexpectedConfigError
+
+Throw an error if the webpack configuration changes and does not match your expectations. (For example, `getLoader` cannot find a loader and `isFound` is `false`.) `create-react-app` might update the structure of their webpack config, so it is very important to show a helpful error message when something breaks.
+
+Raises an error and crashes Node.js:
+
+```bash
+$ yarn start
+yarn run v1.12.3
+$ craco start
+/path/to/your/app/craco.config.js:23
+            throw new Error(
+            ^
+
+    Error: Can't find file-loader in the webpack config!
+
+    This error probably occurred because you updated react-scripts or craco. Please try updating craco-less to the latest version:
+
+       $ yarn upgrade craco-less
+
+    Or:
+
+       $ npm update craco-less
+
+    If that doesn't work, craco-less needs to be fixed to support the latest version.
+    Please check to see if there's already an issue in the ndbroadbent/craco-less repo:
+
+       * https://github.com/ndbroadbent/craco-less/issues?q=is%3Aissue+webpack+file-loader
+
+    If not, please open an issue and we'll take a look. (Or you can send a PR!)
+
+    You might also want to look for related issues in the craco and create-react-app repos:
+
+       * https://github.com/sharegate/craco/issues?q=is%3Aissue+webpack+file-loader
+       * https://github.com/facebook/create-react-app/issues?q=is%3Aissue+webpack+file-loader
+
+    at throwUnexpectedConfigError (/path/to/your/app/craco.config.js:23:19)
+    ...
+```
+
+Usage:
+
+```javascript
+const { getLoader, loaderByName, throwUnexpectedConfigError } = require("@craco/craco");
+
+// Create a helper function if you need to call this multiple times
+const throwError = (message, githubIssueQuery) =>
+    throwUnexpectedConfigError({
+        packageName: "craco-less",
+        githubRepo: "ndbroadbent/craco-less",
+        message,
+        githubIssueQuery,
+    });
+
+const { isFound, match } = getLoader(webpackConfig, loaderByName("eslint-loader"));
+
+if (!isFound) {
+    throwError("Can't find file-loader in the webpack config!", "webpack+file-loader")
+}
+```
+
+Options:
+
+```javascript
+{
+    message: "An error message explaining what went wrong",
+    packageName: "NPM package name",
+    githubRepo: "GitHub repo where people can open an issue. Format: username/repo",
+    githubIssueQuery: "Search string to find related issues"
+}
+```
+
+> Only `message` is required.
 
 ## Acknowledgements
 
