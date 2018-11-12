@@ -122,7 +122,7 @@ When the property **mode** is available there are 2 possible values:
 - `file`: the CRA settings will be reseted and you will provide an official configuration file for the plugin ([postcss](https://github.com/michael-ciniawsky/postcss-load-config#postcssrc), [eslint](https://eslint.org/docs/user-guide/configuring#configuration-file-formats)) that will supersede any settings.
 
 ```javascript
-const { paths, when, whenDev, whenProd, whenTest, ESLINT_MODES, POSTCSS_MODES } = require("craco");
+const { paths, when, whenDev, whenProd, whenTest, ESLINT_MODES, POSTCSS_MODES } = require("@craco/craco");
 
 module.exports = {
     style: {
@@ -368,7 +368,7 @@ module.exports = {
 A few utility functions are provided by `craco` to develop a plugin:
 
 ```javascript
-const { getLoader, getLoaders, removeLoader, loaderByName } = require("craco");
+const { getLoader, getLoaders, removeLoader, loaderByName } = require("@craco/craco");
 ```
 
 #### getLoader
@@ -391,7 +391,7 @@ Returns:
 Usage:
 
 ```javascript
-const { getLoader, loaderByName } = require("craco");
+const { getLoader, loaderByName } = require("@craco/craco");
 
 const { isFound, match } = getLoader(webpackConfig, loaderByName("eslint-loader"));
 
@@ -422,7 +422,7 @@ Returns:
 Usage:
 
 ```javascript
-const { getLoaders, loaderByName } = require("craco");
+const { getLoaders, loaderByName } = require("@craco/craco");
 
 const { hasFoundAny, matches } = getLoaders(webpackConfig, loaderByName("babel-loader"));
 
@@ -446,10 +446,10 @@ Returns:
 }
 ```
 
-Usage: 
+Usage:
 
 ```javascript
-const { removeLoaders, loaderByName } = require("craco");
+const { removeLoaders, loaderByName } = require("@craco/craco");
 
 removeLoaders(webpackConfig, loaderByName("eslint-loader"));
 ```
@@ -469,7 +469,7 @@ Returns:
 Usage:
 
 ```javascript
-const { addBeforeLoader, loaderByName } = require("craco");
+const { addBeforeLoader, loaderByName } = require("@craco/craco");
 
 const myNewWebpackLoader = {
     loader: require.resolve("tslint-loader")
@@ -494,7 +494,7 @@ Returns:
 Usage:
 
 ```javascript
-const { addBeforeLoaders, loaderByName } = require("craco");
+const { addBeforeLoaders, loaderByName } = require("@craco/craco");
 
 const myNewWebpackLoader = {
     loader: require.resolve("tslint-loader")
@@ -518,7 +518,7 @@ Returns:
 Usage:
 
 ```javascript
-const { addAfterLoader, loaderByName } = require("craco");
+const { addAfterLoader, loaderByName } = require("@craco/craco");
 
 const myNewWebpackLoader = {
     loader: require.resolve("tslint-loader")
@@ -543,7 +543,7 @@ Returns:
 Usage:
 
 ```javascript
-const { addAfterLoaders, loaderByName } = require("craco");
+const { addAfterLoaders, loaderByName } = require("@craco/craco");
 
 const myNewWebpackLoader = {
     loader: require.resolve("tslint-loader")
