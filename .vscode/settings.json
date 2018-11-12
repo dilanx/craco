@@ -1,6 +1,6 @@
 {
     "editor.minimap.enabled": false,
-    "editor.wordWrap": "off",
+    "editor.wordWrap": "bounded",
     // Turns on auto format on save for all files types.
     // This is also required to allow Prettier to auto format files on save.
     "editor.formatOnSave": true,
