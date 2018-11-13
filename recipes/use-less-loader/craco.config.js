@@ -3,7 +3,7 @@
 // Yarn:   yarn add craco-less
 // NPM:    npm i -S craco-less
 //
-// craco-less documentation: https://github.com/ndbroadbent/craco-less
+// craco-less documentation: https://github.com/FormAPI/craco-less
 
 const CracoLessPlugin = require('craco-less');
 
