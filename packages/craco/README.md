@@ -26,7 +26,11 @@ By doing this you're breaking the ["guarantees"](https://github.com/facebookincu
 Install the plugin from **npm**:
 
 ```bash
-$ npm install @craco/craco --save-dev
+$ yarn add @craco/craco
+
+# OR
+
+$ npm install @craco/craco --save
 ```
 
 Create a `craco.config.js` file in the root directory:
