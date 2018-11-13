@@ -12,6 +12,11 @@ All you have to do is create your app using [create-react-app](https://github.co
 - [Recipes](https://github.com/sharegate/craco/tree/master/recipes) – Short recipes for common use cases.
 - [Develop a Plugin](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#develop-a-plugin) - How to develop a plugin for `craco`.
 
+## Community Maintained Plugins
+
+* [craco-less](https://github.com/ndbroadbent/craco-less) by [@ndbroadbent](https://github.com/ndbroadbent)
+* [craco-antd](https://github.com/ndbroadbent/craco-antd) by [@ndbroadbent](https://github.com/ndbroadbent)
+
 ## Acknowledgements
 
 [@timarney](https://github.com/timarney) for having created [react-app-rewired](https://github.com/timarney/react-app-rewired).
