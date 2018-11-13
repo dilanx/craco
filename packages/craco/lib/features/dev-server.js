@@ -2,9 +2,16 @@ const merge = require("webpack-merge");
 
 const { isFunction, isString } = require("../utils");
 const { log } = require("../logger");
-const { overrideDevServerConfigProvider, loadDevServerConfigProvider } = require("../cra");
+const {
+    overrideDevServerConfigProvider,
+    loadDevServerConfigProvider
+} = require("../cra");
 
-function createConfigProviderProxy(cracoConfig, craDevServerConfigProvider, context) {
+function createConfigProviderProxy(
+    cracoConfig,
+    craDevServerConfigProvider,
+    context
+) {
     const proxy = (proxy, allowedHost) => {
         let devServerConfig = craDevServerConfigProvider(proxy, allowedHost);
 
@@ -16,7 +23,9 @@ function createConfigProviderProxy(cracoConfig, craDevServerConfigProvider, cont
             });
 
             if (!devServerConfig) {
-                throw new Error("craco: 'devServer' function didn't return a config object.");
+                throw new Error(
+                    "craco: 'devServer' function didn't return a config object."
+                );
             }
         } else {
             // TODO: ensure is otherwise a plain object, if not, log an error.
@@ -39,7 +48,13 @@ function setEnvironmentVariable(envProperty, value) {
     }
 }
 
-function setMatchingEnvironmentVariables({ browser, https, host, port, publicUrl }) {
+function setMatchingEnvironmentVariables({
+    browser,
+    https,
+    host,
+    port,
+    publicUrl
+}) {
     if (browser) {
         setEnvironmentVariable("BROWSER", browser);
     }
@@ -66,7 +81,11 @@ function overrideDevServer(cracoConfig, context) {
         setMatchingEnvironmentVariables(cracoConfig.devServer);
 
         const craDevServerConfigProvider = loadDevServerConfigProvider();
-        const proxy = createConfigProviderProxy(cracoConfig, craDevServerConfigProvider, context);
+        const proxy = createConfigProviderProxy(
+            cracoConfig,
+            craDevServerConfigProvider,
+            context
+        );
 
         overrideDevServerConfigProvider(proxy);
     }

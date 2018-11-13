@@ -46,14 +46,22 @@ function addPlugins(match, postcssPlugins) {
 
 function applyLoaderOptions(match, loaderOptions, context) {
     if (isFunction(loaderOptions)) {
-        match.loader.options = loaderOptions(match.loader.options || {}, context);
+        match.loader.options = loaderOptions(
+            match.loader.options || {},
+            context
+        );
 
         if (!match.loader.options) {
-            throw new Error("craco: 'style.postcss.loaderOptions' function didn't return a loader config object.");
+            throw new Error(
+                "craco: 'style.postcss.loaderOptions' function didn't return a loader config object."
+            );
         }
     } else {
         // TODO: ensure is otherwise a plain object, if not, log an error.
-        match.loader.options = deepMergeWithArray(match.loader.options || {}, loaderOptions);
+        match.loader.options = deepMergeWithArray(
+            match.loader.options || {},
+            loaderOptions
+        );
     }
 
     log("Applied PostCSS loaders options.");
@@ -77,7 +85,10 @@ function overrideLoader(match, postcssConfig, context) {
 
 function overridePostcss(cracoConfig, webpackConfig, context) {
     if (cracoConfig.postcss) {
-        const { hasFoundAny, matches } = getLoaders(webpackConfig, loaderByName("postcss-loader"));
+        const { hasFoundAny, matches } = getLoaders(
+            webpackConfig,
+            loaderByName("postcss-loader")
+        );
 
         if (!hasFoundAny) {
             logError("Cannot find any PostCSS loaders.");

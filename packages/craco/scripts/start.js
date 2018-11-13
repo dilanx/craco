@@ -1,7 +1,12 @@
 process.env.NODE_ENV = process.env.NODE_ENV || "development";
 
 const { log } = require("../lib/logger");
-const { craPaths, loadWebpackDevConfig, overrideWebpackDevConfig, start } = require("../lib/cra");
+const {
+    craPaths,
+    loadWebpackDevConfig,
+    overrideWebpackDevConfig,
+    start
+} = require("../lib/cra");
 const { loadCracoConfig } = require("../lib/config");
 const { overrideWebpack } = require("../lib/features/webpack");
 const { overrideDevServer } = require("../lib/features/dev-server");
@@ -17,7 +22,12 @@ const context = {
 const cracoConfig = loadCracoConfig(context);
 const craWebpackConfig = loadWebpackDevConfig();
 
-overrideWebpack(cracoConfig, craWebpackConfig, overrideWebpackDevConfig, context);
+overrideWebpack(
+    cracoConfig,
+    craWebpackConfig,
+    overrideWebpackDevConfig,
+    context
+);
 overrideDevServer(cracoConfig, context);
 
 start();

@@ -9,7 +9,9 @@ function ensureConfigSanity(cracoConfig) {
     if (isArray(cracoConfig.plugins)) {
         cracoConfig.plugins.forEach((x, index) => {
             if (!x.plugin) {
-                throw new Error(`craco: Malformed plugin at index: ${index} of 'plugins'.`);
+                throw new Error(
+                    `craco: Malformed plugin at index: ${index} of 'plugins'.`
+                );
             }
         });
     }

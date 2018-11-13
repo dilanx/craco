@@ -9,14 +9,19 @@ const { applyWebpackConfigPlugins } = require("./plugins");
 
 function addAlias(webpackConfig, webpackAlias) {
     // TODO: ensure is a plain object, if not, log an error.
-    webpackConfig.resolve.alias = Object.assign(webpackConfig.resolve.alias || {}, webpackAlias);
+    webpackConfig.resolve.alias = Object.assign(
+        webpackConfig.resolve.alias || {},
+        webpackAlias
+    );
 
     log("Added webpack alias.");
 }
 
 function addPlugins(webpackConfig, webpackPlugins) {
     if (isArray(webpackPlugins)) {
-        webpackConfig.plugins = webpackPlugins.concat(webpackConfig.plugins || []);
+        webpackConfig.plugins = webpackPlugins.concat(
+            webpackConfig.plugins || []
+        );
 
         log("Added webpack plugins.");
     }
@@ -27,7 +32,9 @@ function giveTotalControl(webpackConfig, configureWebpack, context) {
         webpackConfig = configureWebpack(webpackConfig, context);
 
         if (!webpackConfig) {
-            throw new Error("craco: 'webpack.configure' function didn't returned a webpack config object.");
+            throw new Error(
+                "craco: 'webpack.configure' function didn't returned a webpack config object."
+            );
         }
     } else {
         // TODO: ensure is otherwise a plain object, if not, log an error.
@@ -60,7 +67,11 @@ function overrideWebpack(cracoConfig, webpackConfig, overrideConfig, context) {
         }
     }
 
-    webpackConfig = applyWebpackConfigPlugins(cracoConfig, webpackConfig, context);
+    webpackConfig = applyWebpackConfigPlugins(
+        cracoConfig,
+        webpackConfig,
+        context
+    );
 
     overrideConfig(webpackConfig);
 }
