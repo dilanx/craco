@@ -3,7 +3,7 @@
 // Yarn:   yarn add craco-antd
 // NPM:    npm i -S craco-antd
 //
-// craco-antd documentation: https://github.com/ndbroadbent/craco-antd
+// craco-antd documentation: https://github.com/FormAPI/craco-antd
 
 const CracoAntDesignPlugin = require('craco-antd');
 
