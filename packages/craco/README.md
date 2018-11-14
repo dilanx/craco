@@ -26,7 +26,11 @@ By doing this you're breaking the ["guarantees"](https://github.com/facebookincu
 Install the plugin from **npm**:
 
 ```bash
-$ npm install @craco/craco --save-dev
+$ yarn add @craco/craco
+
+# OR
+
+$ npm install @craco/craco --save
 ```
 
 Create a `craco.config.js` file in the root directory:
@@ -95,7 +99,7 @@ To change the location of the configuration file:
 
 ```javascript
 "scripts": {
-    "start": "craco --config config/craco-config-with-custom-name.js"
+    "start": "craco start --config config/craco-config-with-custom-name.js"
 }
 ```
 
@@ -103,7 +107,7 @@ To use a custom version of the `react-scripts` packages:
 
 ```javascript
 "scripts": {
-    "start": "craco --react-scripts react-scripts-ts"
+    "start": "craco start --react-scripts react-scripts-ts"
 }
 ```
 
@@ -111,7 +115,7 @@ To activate **verbose** logging:
 
 ```javascript
 "scripts": {
-    "start": "craco --verbose"
+    "start": "craco start --verbose"
 }
 ```
 
