@@ -14,6 +14,7 @@ All you have to do is create your app using [create-react-app](https://github.co
 
 ## Community Maintained Plugins
 
+* [craco-preact](https://github.com/FormAPI/craco-preact) by [@FormAPI](https://github.com/FormAPI)
 * [craco-less](https://github.com/FormAPI/craco-less) by [@FormAPI](https://github.com/FormAPI)
 * [craco-antd](https://github.com/FormAPI/craco-antd) by [@FormAPI](https://github.com/FormAPI)
 
