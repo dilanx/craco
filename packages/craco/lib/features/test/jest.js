@@ -1,10 +1,7 @@
 const path = require("path");
 const args = require("../../args");
 
-const {
-    overrideJestConfigProvider,
-    loadJestConfigProvider
-} = require("../../cra");
+const { overrideJestConfigProvider, loadJestConfigProvider } = require("../../cra");
 const { isFunction, isArray, deepMergeWithArray } = require("../../utils");
 const { log, logError } = require("../../logger");
 const { getJestBabelConfig } = require("./jest-config-utils");
@@ -15,9 +12,7 @@ const BABEL_TRANSFORM_ENTRY_KEY_BEFORE_2_1_0 = "^.+\\.(js|jsx)$";
 const BABEL_TRANSFORM_ENTRY_KEY = "^.+\\.(js|jsx|ts|tsx)$";
 
 function overrideBabelTransform(jestConfig, transformKey) {
-    jestConfig.transform[transformKey] = require.resolve(
-        path.resolve(__dirname, "jest-babel-transform.js")
-    );
+    jestConfig.transform[transformKey] = require.resolve(path.resolve(__dirname, "jest-babel-transform.js"));
 
     log("Overrided Jest Babel transformer.");
 }
@@ -31,17 +26,9 @@ function configureBabel(jestConfig, cracoConfig) {
 
             if (isArray(presets) || isArray(plugins)) {
                 if (jestConfig.transform[BABEL_TRANSFORM_ENTRY_KEY]) {
-                    overrideBabelTransform(
-                        jestConfig,
-                        BABEL_TRANSFORM_ENTRY_KEY
-                    );
-                } else if (
-                    jestConfig.transform[BABEL_TRANSFORM_ENTRY_KEY_BEFORE_2_1_0]
-                ) {
-                    overrideBabelTransform(
-                        jestConfig,
-                        BABEL_TRANSFORM_ENTRY_KEY_BEFORE_2_1_0
-                    );
+                    overrideBabelTransform(jestConfig, BABEL_TRANSFORM_ENTRY_KEY);
+                } else if (jestConfig.transform[BABEL_TRANSFORM_ENTRY_KEY_BEFORE_2_1_0]) {
+                    overrideBabelTransform(jestConfig, BABEL_TRANSFORM_ENTRY_KEY_BEFORE_2_1_0);
                 } else {
                     logError(
                         `Cannot find Jest transform entry for Babel ${BABEL_TRANSFORM_ENTRY_KEY} or ${BABEL_TRANSFORM_ENTRY_KEY_BEFORE_2_1_0}.`
@@ -57,9 +44,7 @@ function giveTotalControl(jestConfig, configureJest, context) {
         jestConfig = configureJest(jestConfig, context);
 
         if (!jestConfig) {
-            throw new Error(
-                "craco: 'jest.configure' function didn't returned a Jest config object."
-            );
+            throw new Error("craco: 'jest.configure' function didn't returned a Jest config object.");
         }
     } else {
         // TODO: ensure is otherwise a plain object, if not, log an error.
@@ -71,11 +56,7 @@ function giveTotalControl(jestConfig, configureJest, context) {
     return jestConfig;
 }
 
-function createConfigProviderProxy(
-    cracoConfig,
-    craJestConfigProvider,
-    context
-) {
+function createConfigProviderProxy(cracoConfig, craJestConfigProvider, context) {
     const proxy = (resolve, rootDir) => {
         const jestContext = {
             ...context,
@@ -84,12 +65,7 @@ function createConfigProviderProxy(
         };
 
         if (args.reactScripts.isOverrided) {
-            jestContext.resolve = relativePath =>
-                path.resolve(
-                    nodeModulesPath,
-                    args.reactScripts.value,
-                    relativePath
-                );
+            jestContext.resolve = relativePath => path.resolve(nodeModulesPath, args.reactScripts.value, relativePath);
         }
 
         let jestConfig = craJestConfigProvider(resolve, rootDir, false);
@@ -97,18 +73,10 @@ function createConfigProviderProxy(
         configureBabel(jestConfig, cracoConfig);
 
         if (cracoConfig.jest.configure) {
-            jestConfig = giveTotalControl(
-                jestConfig,
-                cracoConfig.jest.configure,
-                jestContext
-            );
+            jestConfig = giveTotalControl(jestConfig, cracoConfig.jest.configure, jestContext);
         }
 
-        jestConfig = applyJestConfigPlugins(
-            cracoConfig,
-            jestConfig,
-            jestContext
-        );
+        jestConfig = applyJestConfigPlugins(cracoConfig, jestConfig, jestContext);
 
         log("Overrided Jest config.");
 
@@ -121,11 +89,7 @@ function createConfigProviderProxy(
 function overrideJest(cracoConfig, context) {
     if (cracoConfig.jest) {
         const craJestConfigProvider = loadJestConfigProvider();
-        const proxy = createConfigProviderProxy(
-            cracoConfig,
-            craJestConfigProvider,
-            context
-        );
+        const proxy = createConfigProviderProxy(cracoConfig, craJestConfigProvider, context);
 
         overrideJestConfigProvider(proxy);
     }

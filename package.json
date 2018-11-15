@@ -4,16 +4,21 @@
         "publish": "lerna publish --progress",
         "publish:alpha": "lerna publish --npm-tag alpha --progress",
         "bootstrap": "lerna bootstrap",
-        "clean": "lerna clean",
-        "changed": "lerna changed",
-        "diff": "lerna diff",
         "test": "jest"
     },
     "license": "Apache-2.0",
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
     "devDependencies": {
         "eslint": "5.7.0",
+        "husky": "1.1.4",
         "jest": "23.6.0",
-        "lerna": "^3.4.3"
+        "lerna": "^3.4.3",
+        "lint-staged": "8.0.4",
+        "prettier": "1.15.2"
     },
     "dependencies": {
         "lodash.mergewith": "4.6.1",

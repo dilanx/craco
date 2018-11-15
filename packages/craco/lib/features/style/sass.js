@@ -21,16 +21,13 @@ function applyLoaderOptions(match, loaderOptions, context) {
         });
 
         if (!match.loader.options) {
-            throw new Error(
-                "craco: 'style.sass.loaderOptions' function didn't return a loader config object."
-            );
+            throw new Error("craco: 'style.sass.loaderOptions' function didn't return a loader config object.");
         }
     } else {
         // TODO: ensure is otherwise a plain object, if not, log an error.
         setLoaderProperty(match, "options", {
             whenString: () => loaderOptions,
-            whenObject: () =>
-                deepMergeWithArray(match.loader.options || {}, loaderOptions)
+            whenObject: () => deepMergeWithArray(match.loader.options || {}, loaderOptions)
         });
     }
 
@@ -49,10 +46,7 @@ function overrideLoader(match, sassOptions, context) {
 
 function overrideSass(styleConfig, webpackConfig, context) {
     if (styleConfig.sass) {
-        const { hasFoundAny, matches } = getLoaders(
-            webpackConfig,
-            loaderByName("sass-loader")
-        );
+        const { hasFoundAny, matches } = getLoaders(webpackConfig, loaderByName("sass-loader"));
 
         if (!hasFoundAny) {
             logError("Cannot find any Sass loaders.");

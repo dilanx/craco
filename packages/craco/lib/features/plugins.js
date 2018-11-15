@@ -12,9 +12,7 @@ function overrideCracoConfig({ plugin, options }, cracoConfig, context) {
         });
 
         if (!resultingConfig) {
-            throw new Error(
-                "craco: Plugin returned an undefined craco config."
-            );
+            throw new Error("craco: Plugin returned an undefined craco config.");
         }
     }
 
@@ -37,12 +35,7 @@ function applyCracoConfigPlugins(cracoConfig, context) {
 
 /************  Webpack Config  *******************/
 
-function overrideWebpack(
-    { plugin, options },
-    cracoConfig,
-    webpackConfig,
-    context
-) {
+function overrideWebpack({ plugin, options }, cracoConfig, webpackConfig, context) {
     if (isFunction(plugin.overrideWebpackConfig)) {
         const resultingConfig = plugin.overrideWebpackConfig({
             cracoConfig: cracoConfig,
@@ -52,9 +45,7 @@ function overrideWebpack(
         });
 
         if (!resultingConfig) {
-            throw new Error(
-                "craco: Plugin returned an undefined webpack config."
-            );
+            throw new Error("craco: Plugin returned an undefined webpack config.");
         }
     }
 
@@ -66,12 +57,7 @@ function overrideWebpack(
 function applyWebpackConfigPlugins(cracoConfig, webpackConfig, context) {
     if (isArray(cracoConfig.plugins)) {
         cracoConfig.plugins.forEach(x => {
-            webpackConfig = overrideWebpack(
-                x,
-                cracoConfig,
-                webpackConfig,
-                context
-            );
+            webpackConfig = overrideWebpack(x, cracoConfig, webpackConfig, context);
         });
     }
 

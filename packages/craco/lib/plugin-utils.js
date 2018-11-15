@@ -1,7 +1,5 @@
 function gitHubIssueUrl(repo, query) {
-    return `https://github.com/${repo}/issues?q=is%3Aissue${
-        query ? `+${query}` : ""
-    }`;
+    return `https://github.com/${repo}/issues?q=is%3Aissue${query ? `+${query}` : ""}`;
 }
 
 function showNpmPackageUrl(packageName) {
@@ -23,18 +21,11 @@ function showPackageUpdateInstructions(packageName, repo, query) {
         "Or:\n\n" +
         `   $ npm update ${packageName}\n\n` +
         `If that doesn't work, ${packageName} needs to be fixed to support the latest version.\n` +
-        (repo
-            ? showGitHubIssueUrl(repo, query)
-            : showNpmPackageUrl(packageName))
+        (repo ? showGitHubIssueUrl(repo, query) : showNpmPackageUrl(packageName))
     );
 }
 
-function throwUnexpectedConfigError({
-    message,
-    packageName,
-    githubRepo: repo,
-    githubIssueQuery: query
-}) {
+function throwUnexpectedConfigError({ message, packageName, githubRepo: repo, githubIssueQuery: query }) {
     throw new Error(
         `${message}\n\n` +
             "This error probably occurred because you updated react-scripts or craco. " +

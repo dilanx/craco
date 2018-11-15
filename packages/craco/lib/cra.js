@@ -10,9 +10,7 @@ function getReactScriptsFolderPath() {
     let filepath = "";
 
     if (args.reactScripts.isOverrided) {
-        filepath = path.resolve(
-            `${nodeModulesPath}/${args.reactScripts.value}/`
-        );
+        filepath = path.resolve(`${nodeModulesPath}/${args.reactScripts.value}/`);
     } else {
         filepath = path.resolve(`${nodeModulesPath}/react-scripts/`);
     }
@@ -37,10 +35,7 @@ function overrideModule(modulePath, newModule) {
 }
 
 const reactScriptsFolderPath = getReactScriptsFolderPath();
-const craPaths = require(resolveConfigFilePath(
-    reactScriptsFolderPath,
-    "paths.js"
-));
+const craPaths = require(resolveConfigFilePath(reactScriptsFolderPath, "paths.js"));
 
 /************  Webpack Dev Config  *******************/
 
@@ -85,10 +80,7 @@ function overrideWebpackProdConfig(newConfig) {
 /************  Dev Server  *******************/
 
 function getDevServerConfigPath() {
-    return resolveConfigFilePath(
-        reactScriptsFolderPath,
-        "webpackDevServer.config.js"
-    );
+    return resolveConfigFilePath(reactScriptsFolderPath, "webpackDevServer.config.js");
 }
 
 function loadDevServerConfigProvider() {
@@ -108,10 +100,7 @@ function overrideDevServerConfigProvider(configProvider) {
 /************  Jest  *******************/
 
 function getCreateJestConfigPath() {
-    return resolveScriptsFilePath(
-        reactScriptsFolderPath,
-        "utils/createJestConfig.js"
-    );
+    return resolveScriptsFilePath(reactScriptsFolderPath, "utils/createJestConfig.js");
 }
 
 function loadJestConfigProvider() {

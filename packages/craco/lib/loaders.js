@@ -6,15 +6,13 @@ function loaderByName(targetLoaderName) {
     return rule => {
         if (isString(rule.loader)) {
             return (
-                rule.loader.indexOf(
-                    `${path.sep}${targetLoaderName}${path.sep}`
-                ) !== -1 ||
+                rule.loader.indexOf(`${path.sep}${targetLoaderName}${path.sep}`) !== -1 ||
                 rule.loader.indexOf(`@${targetLoaderName}${path.sep}`) !== -1
             );
         } else if (isString(rule)) {
             return (
-                rule.indexOf(`${path.sep}${targetLoaderName}${path.sep}`) !==
-                    -1 || rule.indexOf(`@${targetLoaderName}${path.sep}`) !== -1
+                rule.indexOf(`${path.sep}${targetLoaderName}${path.sep}`) !== -1 ||
+                rule.indexOf(`@${targetLoaderName}${path.sep}`) !== -1
             );
         }
 
@@ -53,10 +51,7 @@ function getLoaderRecursively(rules, matcher) {
 }
 
 function getLoader(webpackConfig, matcher) {
-    const matchingLoader = getLoaderRecursively(
-        webpackConfig.module.rules,
-        matcher
-    );
+    const matchingLoader = getLoaderRecursively(webpackConfig.module.rules, matcher);
 
     return {
         isFound: matchingLoader !== undefined,
@@ -126,10 +121,7 @@ function removeLoadersRecursively(rules, matcher) {
 }
 
 function removeLoaders(webpackConfig, matcher) {
-    const result = removeLoadersRecursively(
-        webpackConfig.module.rules,
-        matcher
-    );
+    const result = removeLoadersRecursively(webpackConfig.module.rules, matcher);
 
     return {
         hasRemovedAny: result.removedCount > 0,
@@ -153,10 +145,8 @@ function addLoader(webpackConfig, matcher, newLoader, positionAdapter) {
     return result(false);
 }
 
-const addBeforeLoader = (webpackConfig, matcher, newLoader) =>
-    addLoader(webpackConfig, matcher, newLoader, x => x);
-const addAfterLoader = (webpackConfig, matcher, newLoader) =>
-    addLoader(webpackConfig, matcher, newLoader, x => x + 1);
+const addBeforeLoader = (webpackConfig, matcher, newLoader) => addLoader(webpackConfig, matcher, newLoader, x => x);
+const addAfterLoader = (webpackConfig, matcher, newLoader) => addLoader(webpackConfig, matcher, newLoader, x => x + 1);
 
 function addLoaders(webpackConfig, matcher, newLoader, positionAdapter) {
     const result = (isAdded, addedCount = 0) => ({
@@ -177,8 +167,7 @@ function addLoaders(webpackConfig, matcher, newLoader, positionAdapter) {
     return result(false);
 }
 
-const addBeforeLoaders = (webpackConfig, matcher, newLoader) =>
-    addLoaders(webpackConfig, matcher, newLoader, x => x);
+const addBeforeLoaders = (webpackConfig, matcher, newLoader) => addLoaders(webpackConfig, matcher, newLoader, x => x);
 const addAfterLoaders = (webpackConfig, matcher, newLoader) =>
     addLoaders(webpackConfig, matcher, newLoader, x => x + 1);
 

@@ -7,9 +7,7 @@ const { isFunction, isArray, deepMergeWithArray } = require("../utils");
 function addPresets(loader, babelPresets) {
     if (isArray(babelPresets)) {
         if (loader.options) {
-            loader.options.presets = babelPresets.concat(
-                loader.options.presets || []
-            );
+            loader.options.presets = babelPresets.concat(loader.options.presets || []);
         } else {
             loader.options = {
                 presets: babelPresets
@@ -23,9 +21,7 @@ function addPresets(loader, babelPresets) {
 function addPlugins(loader, babelPlugins) {
     if (isArray(babelPlugins)) {
         if (loader.options) {
-            loader.options.plugins = babelPlugins.concat(
-                loader.options.plugins || []
-            );
+            loader.options.plugins = babelPlugins.concat(loader.options.plugins || []);
         } else {
             loader.options = {
                 plugins: babelPlugins
@@ -41,16 +37,11 @@ function applyLoaderOptions(loader, loaderOptions, context) {
         loader.options = loaderOptions(loader.options || {}, context);
 
         if (!loader.options) {
-            throw new Error(
-                "craco: 'babel.loaderOptions' function didn't return a loader config object."
-            );
+            throw new Error("craco: 'babel.loaderOptions' function didn't return a loader config object.");
         }
     } else {
         // TODO: ensure is otherwise a plain object, if not, log an error.
-        loader.options = deepMergeWithArray(
-            loader.options || {},
-            loaderOptions
-        );
+        loader.options = deepMergeWithArray(loader.options || {}, loaderOptions);
     }
 
     log("Applied Babel loader options.");
@@ -74,10 +65,7 @@ function overrideLoader(match, cracoConfig, context) {
 
 function overrideBabel(cracoConfig, webpackConfig, context) {
     if (cracoConfig.babel) {
-        const { hasFoundAny, matches } = getLoaders(
-            webpackConfig,
-            loaderByName("babel-loader")
-        );
+        const { hasFoundAny, matches } = getLoaders(webpackConfig, loaderByName("babel-loader"));
 
         if (!hasFoundAny) {
             logError("Cannot find any Babel loaders.");

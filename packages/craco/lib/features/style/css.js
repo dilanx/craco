@@ -17,22 +17,14 @@ function setModuleLocalIdentName(match, localIdentName) {
 
 function applyLoaderOptions(match, loaderOptions, context) {
     if (isFunction(loaderOptions)) {
-        match.loader.options = loaderOptions(
-            match.loader.options || {},
-            context
-        );
+        match.loader.options = loaderOptions(match.loader.options || {}, context);
 
         if (!match.loader.options) {
-            throw new Error(
-                "craco: 'style.css.loaderOptions' function didn't return a loader config object."
-            );
+            throw new Error("craco: 'style.css.loaderOptions' function didn't return a loader config object.");
         }
     } else {
         // TODO: ensure is otherwise a plain object, if not, log an error.
-        match.loader.options = deepMergeWithArray(
-            match.loader.options || {},
-            loaderOptions
-        );
+        match.loader.options = deepMergeWithArray(match.loader.options || {}, loaderOptions);
     }
 
     log("Applied CSS loaders options.");
@@ -56,10 +48,7 @@ function overrideModuleLoader(match, modulesOptions) {
 
 function overrideCss(styleConfig, webpackConfig, context) {
     if (styleConfig.modules || styleConfig.css) {
-        const { hasFoundAny, matches } = getLoaders(
-            webpackConfig,
-            loaderByName("css-loader")
-        );
+        const { hasFoundAny, matches } = getLoaders(webpackConfig, loaderByName("css-loader"));
 
         if (!hasFoundAny) {
             logError("Cannot find any CSS loaders.");
@@ -68,9 +57,7 @@ function overrideCss(styleConfig, webpackConfig, context) {
         }
 
         if (styleConfig.modules) {
-            const cssModuleLoaders = matches.filter(
-                x => x.loader.options && x.loader.options.modules === true
-            );
+            const cssModuleLoaders = matches.filter(x => x.loader.options && x.loader.options.modules === true);
 
             cssModuleLoaders.forEach(x => {
                 overrideModuleLoader(x, styleConfig.modules);
