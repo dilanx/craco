@@ -1,14 +1,10 @@
-// You just need to add the "preact" and "preact-compat" libraries
-// to your package.json:
+// Install the craco-preact plugin:
 //
-// $ yarn add preact preact-compat
+// Yarn:   yarn add craco-preact
+// NPM:    npm i -S craco-preact
 //
-// OR
-//
-// $ npm i -S preact preact-compat
+// craco-preact documentation: https://github.com/FormAPI/craco-preact
 
 module.exports = {
-  webpack: {
-    alias: { react: 'preact-compat', 'react-dom': 'preact-compat' },
-  }
+    plugins: [{ plugin: require("craco-preact") }]
 };
