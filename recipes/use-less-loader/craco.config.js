@@ -5,16 +5,14 @@
 //
 // craco-less documentation: https://github.com/FormAPI/craco-less
 
-const CracoLessPlugin = require('craco-less');
-
 module.exports = {
-  plugins: [
-    {
-      plugin: CracoLessPlugin,
-      options: {
-        // less-loader options
-        // See: https://webpack.js.org/loaders/less-loader/
-      }
-    },
-  ],
+    plugins: [
+        {
+            plugin: require("craco-less"),
+            options: {
+                // less-loader options
+                // See: https://webpack.js.org/loaders/less-loader/
+            }
+        }
+    ]
 };
