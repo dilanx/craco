@@ -570,7 +570,7 @@ $ craco start
             throw new Error(
             ^
 
-    Error: Can't find file-loader in the webpack config!
+    Error: Can't find eslint-loader in the webpack config!
 
     This error probably occurred because you updated react-scripts or craco. Please try updating craco-less to the latest version:
 
@@ -583,14 +583,14 @@ $ craco start
     If that doesn't work, craco-less needs to be fixed to support the latest version.
     Please check to see if there's already an issue in the ndbroadbent/craco-less repo:
 
-       * https://github.com/ndbroadbent/craco-less/issues?q=is%3Aissue+webpack+file-loader
+       * https://github.com/ndbroadbent/craco-less/issues?q=is%3Aissue+webpack+eslint-loader
 
     If not, please open an issue and we'll take a look. (Or you can send a PR!)
 
     You might also want to look for related issues in the craco and create-react-app repos:
 
-       * https://github.com/sharegate/craco/issues?q=is%3Aissue+webpack+file-loader
-       * https://github.com/facebook/create-react-app/issues?q=is%3Aissue+webpack+file-loader
+       * https://github.com/sharegate/craco/issues?q=is%3Aissue+webpack+eslint-loader
+       * https://github.com/facebook/create-react-app/issues?q=is%3Aissue+webpack+eslint-loader
 
     at throwUnexpectedConfigError (/path/to/your/app/craco.config.js:23:19)
     ...
@@ -613,7 +613,7 @@ const throwError = (message, githubIssueQuery) =>
 const { isFound, match } = getLoader(webpackConfig, loaderByName("eslint-loader"));
 
 if (!isFound) {
-    throwError("Can't find file-loader in the webpack config!", "webpack+file-loader")
+    throwError("Can't find eslint-loader in the webpack config!", "webpack+eslint-loader")
 }
 ```
 
