@@ -18,11 +18,5 @@
     "dependencies": {
         "lodash.mergewith": "4.6.1",
         "webpack-merge": "4.1.4"
-    },
-    "jest": {
-        "testPathIgnorePatterns": [
-            "/node_modules/",
-            "packages/craco/scripts/test.js"
-        ]
     }
 }
