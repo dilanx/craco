@@ -5,3 +5,4 @@ package-lock.json
 .editorconfig
 README.md
 recipes
+jest.config.js

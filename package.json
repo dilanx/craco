@@ -6,11 +6,13 @@
         "bootstrap": "lerna bootstrap",
         "clean": "lerna clean",
         "changed": "lerna changed",
-        "diff": "lerna diff"
+        "diff": "lerna diff",
+        "test": "jest"
     },
     "license": "Apache-2.0",
     "devDependencies": {
         "eslint": "5.7.0",
+        "jest": "23.6.0",
         "lerna": "^3.4.3"
     },
     "dependencies": {
