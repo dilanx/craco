@@ -27,7 +27,7 @@ By doing this you're breaking the ["guarantees"](https://github.com/facebookincu
 
 Before logging an issue, please consult the [changelog](https://github.com/sharegate/craco/tree/master/changelog).
 
-If you can't find any solution to your problem in the changelog, log an issue and someone should help you quickly!
+If you can't find a solution to your problem in the changelog, log an issue and someone should help you quickly!
 
 ## Installation
 
