@@ -2,7 +2,6 @@
     "private": true,
     "scripts": {
         "publish": "lerna publish --progress",
-        "publish:alpha": "lerna publish --npm-tag alpha --progress",
         "bootstrap": "lerna bootstrap",
         "test": "jest"
     },
