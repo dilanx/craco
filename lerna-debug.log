@@ -1,5 +1,0 @@
-31 error Error: Command failed: git tag v3.0.0 -m v3.0.0
-31 error fatal: tag 'v3.0.0' already exists
-31 error
-31 error     at makeError (C:\Dev\20_gsoft\craco\node_modules\@lerna\child-process\node_modules\execa\index.js:174:9)
-31 error     at Promise.all.then.arr (C:\Dev\20_gsoft\craco\node_modules\@lerna\child-process\node_modules\execa\index.js:278:16)
