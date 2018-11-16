@@ -1,31 +1,14 @@
-const path = require("path");
-const args = require("./args");
-
 const { log } = require("./logger");
-const { nodeModulesPath } = require("./paths");
+const { reactScriptsPath } = require("./paths");
 
 /************  Common  *******************/
 
-function getReactScriptsFolderPath() {
-    let filepath = "";
-
-    if (args.reactScripts.isProvided) {
-        filepath = path.resolve(`${nodeModulesPath}/${args.reactScripts.value}/`);
-    } else {
-        filepath = path.resolve(`${nodeModulesPath}/react-scripts/`);
-    }
-
-    log("Found react scripts folder at: ", filepath);
-
-    return filepath;
+function resolveConfigFilePath(fileName) {
+    return require.resolve(`${reactScriptsPath}/config/${fileName}`);
 }
 
-function resolveConfigFilePath(scriptsFolderPath, fileName) {
-    return require.resolve(`${scriptsFolderPath}/config/${fileName}`);
-}
-
-function resolveScriptsFilePath(scriptsFolderPath, fileName) {
-    return require.resolve(`${scriptsFolderPath}/scripts/${fileName}`);
+function resolveScriptsFilePath(fileName) {
+    return require.resolve(`${reactScriptsPath}/scripts/${fileName}`);
 }
 
 function overrideModule(modulePath, newModule) {
@@ -34,13 +17,12 @@ function overrideModule(modulePath, newModule) {
     log(`Overrided require cache for module: ${modulePath}`);
 }
 
-const reactScriptsFolderPath = getReactScriptsFolderPath();
-const craPaths = require(resolveConfigFilePath(reactScriptsFolderPath, "paths.js"));
+const craPaths = require(resolveConfigFilePath("paths.js"));
 
 /************  Webpack Dev Config  *******************/
 
 function getWebpackDevConfigPath() {
-    return resolveConfigFilePath(reactScriptsFolderPath, "webpack.config.dev");
+    return resolveConfigFilePath("webpack.config.dev");
 }
 
 function loadWebpackDevConfig() {
@@ -60,7 +42,7 @@ function overrideWebpackDevConfig(newConfig) {
 /************  Webpack Prod Config  *******************/
 
 function getWebpackProdConfigPath() {
-    return resolveConfigFilePath(reactScriptsFolderPath, "webpack.config.prod");
+    return resolveConfigFilePath("webpack.config.prod");
 }
 
 function loadWebpackProdConfig() {
@@ -80,7 +62,7 @@ function overrideWebpackProdConfig(newConfig) {
 /************  Dev Server  *******************/
 
 function getDevServerConfigPath() {
-    return resolveConfigFilePath(reactScriptsFolderPath, "webpackDevServer.config.js");
+    return resolveConfigFilePath("webpackDevServer.config.js");
 }
 
 function loadDevServerConfigProvider() {
@@ -100,7 +82,7 @@ function overrideDevServerConfigProvider(configProvider) {
 /************  Jest  *******************/
 
 function getCreateJestConfigPath() {
-    return resolveScriptsFilePath(reactScriptsFolderPath, "utils/createJestConfig.js");
+    return resolveScriptsFilePath("utils/createJestConfig.js");
 }
 
 function loadJestConfigProvider() {
@@ -120,7 +102,7 @@ function overrideJestConfigProvider(configProvider) {
 /************  Scripts  *******************/
 
 function start() {
-    const filepath = resolveScriptsFilePath(reactScriptsFolderPath, "start.js");
+    const filepath = resolveScriptsFilePath("start.js");
 
     log("Starting CRA at: ", filepath);
 
@@ -128,7 +110,7 @@ function start() {
 }
 
 function build() {
-    const filepath = resolveScriptsFilePath(reactScriptsFolderPath, "build.js");
+    const filepath = resolveScriptsFilePath("build.js");
 
     log("Building CRA at: ", filepath);
 
@@ -136,7 +118,7 @@ function build() {
 }
 
 function test() {
-    const filepath = resolveScriptsFilePath(reactScriptsFolderPath, "test.js");
+    const filepath = resolveScriptsFilePath("test.js");
 
     log("Testing CRA at: ", filepath);
 
@@ -154,7 +136,6 @@ module.exports = {
     overrideDevServerConfigProvider,
     loadJestConfigProvider,
     overrideJestConfigProvider,
-    getReactScriptsFolderPath,
     craPaths,
     start,
     build,

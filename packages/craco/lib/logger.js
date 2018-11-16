@@ -1,7 +1,7 @@
-const args = require("./args");
+const { verbose } = require("./args");
 
 function log(...rest) {
-    if (args.isVerbose) {
+    if (verbose.isProvided) {
         console.log("craco: ", ...rest);
     }
 }

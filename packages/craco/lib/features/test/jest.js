@@ -1,12 +1,11 @@
 const path = require("path");
-const args = require("../../args");
 
 const { overrideJestConfigProvider, loadJestConfigProvider } = require("../../cra");
 const { isFunction, isArray, deepMergeWithArray } = require("../../utils");
-const { log, logError } = require("../../logger");
+const { log } = require("../../logger");
 const { getJestBabelConfig } = require("./jest-config-utils");
 const { applyJestConfigPlugins } = require("../plugins");
-const { nodeModulesPath } = require("../../paths");
+const { reactScriptsPath } = require("../../paths");
 
 const BABEL_TRANSFORM_ENTRY_KEY_BEFORE_2_1_0 = "^.+\\.(js|jsx)$";
 const BABEL_TRANSFORM_ENTRY_KEY = "^.+\\.(js|jsx|ts|tsx)$";
@@ -30,8 +29,8 @@ function configureBabel(jestConfig, cracoConfig) {
                 } else if (jestConfig.transform[BABEL_TRANSFORM_ENTRY_KEY_BEFORE_2_1_0]) {
                     overrideBabelTransform(jestConfig, BABEL_TRANSFORM_ENTRY_KEY_BEFORE_2_1_0);
                 } else {
-                    logError(
-                        `Cannot find Jest transform entry for Babel ${BABEL_TRANSFORM_ENTRY_KEY} or ${BABEL_TRANSFORM_ENTRY_KEY_BEFORE_2_1_0}.`
+                    throw new Error(
+                        `craco: Cannot find Jest transform entry for Babel ${BABEL_TRANSFORM_ENTRY_KEY} or ${BABEL_TRANSFORM_ENTRY_KEY_BEFORE_2_1_0}.`
                     );
                 }
             }
@@ -58,17 +57,15 @@ function giveTotalControl(jestConfig, configureJest, context) {
 
 function createConfigProviderProxy(cracoConfig, craJestConfigProvider, context) {
     const proxy = (resolve, rootDir) => {
+        const customResolve = relativePath => path.resolve(reactScriptsPath, relativePath);
+
         const jestContext = {
             ...context,
-            resolve,
+            resolve: customResolve,
             rootDir
         };
 
-        if (args.reactScripts.isProvided) {
-            jestContext.resolve = relativePath => path.resolve(nodeModulesPath, args.reactScripts.value, relativePath);
-        }
-
-        let jestConfig = craJestConfigProvider(resolve, rootDir, false);
+        let jestConfig = craJestConfigProvider(customResolve, rootDir, false);
 
         configureBabel(jestConfig, cracoConfig);
 
