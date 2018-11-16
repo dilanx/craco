@@ -1,8 +1,10 @@
+const path = require("path");
 const { log } = require("./logger");
 
 const args = process.argv;
 
 const VERBOSE_ARG = "--verbose";
+const WORKSPACE_ARG = "--workspace";
 const REACT_SCRIPTS_ARG = "--react-scripts";
 const CONFIG_ARG = "--config";
 
@@ -11,17 +13,13 @@ function findArg(key) {
 
     return {
         index,
-        isFound: index !== -1
+        isProvided: index !== -1
     };
 }
 
-function isFlagSet(flag) {
-    return findArg(flag).isFound;
-}
-
-function getValue(key) {
-    const result = (isOverrided = false, value, argIndex, valueIndex) => ({
-        isOverrided,
+function getArgWithValue(key) {
+    const result = (isProvided = false, value, argIndex, valueIndex) => ({
+        isProvided,
         value,
         argIndex,
         valueIndex
@@ -29,7 +27,7 @@ function getValue(key) {
 
     const arg = findArg(key);
 
-    if (arg.isFound) {
+    if (arg.isProvided) {
         const valueIndex = arg.index + 1;
 
         if (args[valueIndex]) {
@@ -42,22 +40,61 @@ function getValue(key) {
     return result();
 }
 
+function toFlag({ isProvided }) {
+    return isProvided;
+}
+
+function toValue({ isProvided, value }) {
+    return {
+        isProvided,
+        value
+    };
+}
+
 function removeConflictingCustomArgs() {
-    if (reactScripts.isOverrided) {
-        process.argv.splice(reactScripts.argIndex, 2);
+    if (workspaceArg.isProvided) {
+        process.argv.splice(workspaceArg.index, 1);
     }
 
-    if (config.isOverrided) {
-        process.argv.splice(config.argIndex, 2);
+    if (reactScriptsArg.isProvided) {
+        process.argv.splice(reactScriptsArg.argIndex, 2);
+    }
+
+    if (configArg.isProvided) {
+        process.argv.splice(configArg.argIndex, 2);
     }
 }
 
-const isVerbose = isFlagSet(VERBOSE_ARG);
-const reactScripts = getValue(REACT_SCRIPTS_ARG);
-const config = getValue(CONFIG_ARG);
+const verboseArg = findArg(VERBOSE_ARG);
+const workspaceArg = findArg(WORKSPACE_ARG);
+const reactScriptsArg = getArgWithValue(REACT_SCRIPTS_ARG);
+const configArg = getArgWithValue(CONFIG_ARG);
+
+const isVerbose = toFlag(verboseArg);
+const isWorkspace = toFlag(workspaceArg);
+const reactScripts = toValue(reactScriptsArg);
+const config = toValue(configArg);
+
+if (isWorkspace) {
+    if (reactScripts.isProvided) {
+        log("--workspace flag is ignored since --react-scripts value is provided");
+    } else {
+        reactScripts.isProvided = true;
+        // Set reactScript to a relative path that match the react-scripts folder at the root of the monorepo if the popular convention is followed.
+        // Popular convention means having the following folder structure:
+        // root
+        // ├── node_modules
+        // ├── packages
+        // ├──────repo-1
+        // ├──────repo-2
+        // └── package.json
+        reactScripts.value = "../../../node_modules/react-scripts";
+    }
+}
 
 module.exports = {
     isVerbose,
+    isWorkspace,
     reactScripts,
     config,
     removeConflictingCustomArgs

@@ -9,7 +9,7 @@ const { nodeModulesPath } = require("./paths");
 function getReactScriptsFolderPath() {
     let filepath = "";
 
-    if (args.reactScripts.isOverrided) {
+    if (args.reactScripts.isProvided) {
         filepath = path.resolve(`${nodeModulesPath}/${args.reactScripts.value}/`);
     } else {
         filepath = path.resolve(`${nodeModulesPath}/react-scripts/`);

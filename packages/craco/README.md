@@ -104,11 +104,29 @@ To change the location of the configuration file:
 }
 ```
 
-To use a custom version of the `react-scripts` packages:
+To support **yarn workspace or any monorepo setup** that follows the popular convention `packages/*`:
 
 ```javascript
 "scripts": {
-    "start": "craco start --react-scripts react-scripts-ts"
+    "start": "craco start --workspace"
+}
+```
+
+If you dont follow the popular convention you can still use `craco` by specifying the path of the `react-scripts` folder to use:
+
+```javascript
+"scripts": {
+    "start": "craco start --react-scripts ../react-scripts-with-custom-name"
+}
+```
+
+_The specified `react-scripts` folder path must be relative to the `node_modules` folder where you execute the command._
+
+To use [react-scripts-ts](https://www.npmjs.com/package/react-scripts-ts):
+
+```javascript
+"scripts": {
+    "start": "craco start --react-scripts react-script-ts"
 }
 ```
 

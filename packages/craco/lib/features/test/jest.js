@@ -64,7 +64,7 @@ function createConfigProviderProxy(cracoConfig, craJestConfigProvider, context) 
             rootDir
         };
 
-        if (args.reactScripts.isOverrided) {
+        if (args.reactScripts.isProvided) {
             jestContext.resolve = relativePath => path.resolve(nodeModulesPath, args.reactScripts.value, relativePath);
         }
 
