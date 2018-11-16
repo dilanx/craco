@@ -11,6 +11,7 @@ All you have to do is create your app using [create-react-app](https://github.co
 - [Recipes](https://github.com/sharegate/craco/tree/master/recipes) – Short recipes for common use cases.
 - [Available Plugins](https://github.com/sharegate/craco#community-maintained-plugins) - Plugins maintained by the community.
 - [Develop a Plugin](#develop-a-plugin) - How to develop a plugin for `craco`.
+- [Changelog](https://github.com/sharegate/craco/tree/master/changelog) - List of major changes
 
 **Acknowledgements:**
 
@@ -21,6 +22,12 @@ Also, please note that the configuration style of this plugin has been greatly i
 **Please Note:**
 
 By doing this you're breaking the ["guarantees"](https://github.com/facebookincubator/create-react-app/issues/99#issuecomment-234657710) that CRA provides. That is to say you now "own" the configs. **No support** will be provided. Proceed with caution.
+
+## You updated craco and everything falls apart
+
+Before logging an issue, please consult the [changelog](https://github.com/sharegate/craco/tree/master/changelog).
+
+If you can't find any solution to your problem in the changelog, log an issue and someone should help you quickly!
 
 ## Installation
 

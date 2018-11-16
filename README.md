@@ -12,6 +12,10 @@ All you have to do is create your app using [create-react-app](https://github.co
 - [Recipes](https://github.com/sharegate/craco/tree/master/recipes) – Short recipes for common use cases.
 - [Develop a Plugin](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#develop-a-plugin) - How to develop a plugin for `craco`.
 
+## Changelog
+
+Major changes are available in the [changelog folder](https://github.com/sharegate/craco/tree/master/changelog).
+
 ## Community Maintained Plugins
 
 * [craco-preact](https://github.com/FormAPI/craco-preact) by [@FormAPI](https://github.com/FormAPI)
