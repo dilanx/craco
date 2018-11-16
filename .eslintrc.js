@@ -12,6 +12,6 @@ module.exports = {
     rules: {
         "no-console": "off",
         "curly": "warn",
-        "linebreak-style": ["warn", "windows"]
+        "linebreak-style": ["warn", "unix"]
     }
 };
