@@ -172,6 +172,11 @@ module.exports = {
         postcss: {
             mode: "extends" /* (default value) */ || "file",
             plugins: [],
+            env: {
+                autoprefixer: { /* Any autoprefixer options: https://github.com/postcss/autoprefixer#options */ },
+                stage: 3, /* Any valid stages: https://cssdb.org/#staging-process. */
+                features: { /* Any CSS features: https://preset-env.cssdb.org/features. */ }
+            },
             loaderOptions: { /* Any postcss-loader configuration options: https://github.com/postcss/postcss-loader. */ },
             loaderOptions: (postcssLoaderOptions, { env, paths }) => { return postcssLoaderOptions; }
         }

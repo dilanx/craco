@@ -7,6 +7,21 @@ const POSTCSS_MODES = {
     file: "file"
 };
 
+const CRA_PLUGINS = presetEnv => {
+    // prettier-ignore
+    return [
+        require("postcss-flexbugs-fixes"),
+        require("postcss-preset-env")(presetEnv)
+    ];
+};
+
+const CRA_PRESET_ENV = {
+    autoprefixer: {
+        flexbox: "no-2009"
+    },
+    stage: 3
+};
+
 function usePostcssConfigFile(match) {
     if (match.loader.options) {
         const ident = match.loader.options.ident;
@@ -21,26 +36,38 @@ function usePostcssConfigFile(match) {
     }
 }
 
-function extendsPostcss(match, { plugins }) {
-    if (plugins) {
-        addPlugins(match, plugins);
-    }
-}
+function extendsPostcss(match, { plugins, env }) {
+    if (isArray(plugins) || env) {
+        let postcssPlugins;
 
-function addPlugins(match, postcssPlugins) {
-    if (isArray(postcssPlugins)) {
+        if (env) {
+            const mergedPreset = deepMergeWithArray(CRA_PRESET_ENV, env);
+            postcssPlugins = CRA_PLUGINS(mergedPreset);
+
+            log("Merged PostCSS env preset.");
+        } else {
+            let craPlugins = [];
+
+            if (match.loader.options) {
+                craPlugins = match.loader.options.plugins();
+            }
+
+            postcssPlugins = craPlugins || [];
+        }
+
+        if (plugins) {
+            postcssPlugins = postcssPlugins.concat(plugins);
+
+            log("Added PostCSS plugins.");
+        }
+
         if (match.loader.options) {
-            const craPlugins = match.loader.options.plugins();
-            const mergedPlugins = postcssPlugins.concat(craPlugins || []);
-
-            match.loader.options.plugins = () => mergedPlugins;
+            match.loader.options.plugins = () => postcssPlugins;
         } else {
             match.loader.options = {
                 plugins: () => postcssPlugins
             };
         }
-
-        log("Added PostCSS plugins.");
     }
 }
 

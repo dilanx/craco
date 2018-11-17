@@ -8,4 +8,5 @@ packages/debug
 .DS_Store
 
 npm-debug.log*
+lerna-debug.log*
 *.tgz
