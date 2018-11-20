@@ -23,7 +23,6 @@ Major changes are available in the [changelog folder](https://github.com/sharega
 * [craco-antd](https://github.com/FormAPI/craco-antd) by [@FormAPI](https://github.com/FormAPI)
 * [craco-plugin-react-hot-reload](https://github.com/HasanAyan/craco-plugin-react-hot-reload) by [@HasanAyan](https://github.com/HasanAyan)
 
-
 ## Acknowledgements
 
 [@timarney](https://github.com/timarney) for having created [react-app-rewired](https://github.com/timarney/react-app-rewired).
