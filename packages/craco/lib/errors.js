@@ -34,7 +34,7 @@ class InvalidCracoConfigError extends Error {
             `${message}\n\n` +
             `This error probably occurred because you updated ${CRACO_PACKAGE_NAME}.\n` +
             "Please validate that your craco.config.js file follow the latest version of the documentation\n\n" +
-            "   * https://github.com/sharegate/craco/blob/master/packages/craco/README.md\n\n" +
+            "   * https://github.com/sharegate/craco/blob/master/packages/craco/README.md#configuration-overview\n\n" +
             "You can also look at the changelog for any breaking changes\n\n" +
             "   * https://github.com/sharegate/craco/tree/master/changelog\n\n" +
             `If that doesn't work, ${CRACO_PACKAGE_NAME} needs to be fixed.\n` +
