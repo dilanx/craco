@@ -1,5 +1,3 @@
-const { log } = require("./logger");
-
 const args = process.argv;
 
 const VERBOSE_ARG = "--verbose";
@@ -33,8 +31,6 @@ function getArgWithValue(key) {
 
         if (args[valueIndex]) {
             return result(true, args[valueIndex], arg.index);
-        } else {
-            log(`No value has been provided for CLI argument ${key}`);
         }
     }
 
