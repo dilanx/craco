@@ -22,6 +22,7 @@ Major changes are available in the [changelog folder](https://github.com/sharega
 * [craco-less](https://github.com/FormAPI/craco-less) by [@FormAPI](https://github.com/FormAPI)
 * [craco-antd](https://github.com/FormAPI/craco-antd) by [@FormAPI](https://github.com/FormAPI)
 * [craco-plugin-react-hot-reload](https://github.com/HasanAyan/craco-plugin-react-hot-reload) by [@HasanAyan](https://github.com/HasanAyan)
+* [craco-babel-loader](https://github.com/rjerue/craco-babel-loader) by [@rjerue](https://github.com/rjerue/)
 
 ## Acknowledgements
 
