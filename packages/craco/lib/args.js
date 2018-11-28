@@ -60,6 +60,14 @@ function removeJestConflictingCustomArgs() {
     });
 }
 
+function patchIntelliJEnvironmentVariables() {
+    const isIntelliJ = process.argv.find((argv) => argv.indexOf('jest-intellij-reporter.js') !== -1) !== undefined;
+
+    if (isIntelliJ) {
+        process.env.CI = 1;
+    }
+}
+
 const verbose = findArg(VERBOSE_ARG);
 const workspace = findArg(WORKSPACE_ARG);
 const scriptsVersion = getArgWithValue(SCRIPTS_VERSION_ARG);
@@ -72,5 +80,6 @@ module.exports = {
     scriptsVersion,
     reactScripts,
     config,
-    removeJestConflictingCustomArgs
+    removeJestConflictingCustomArgs,
+    patchIntelliJEnvironmentVariables
 };
