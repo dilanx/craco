@@ -39,9 +39,9 @@ function setEnvironmentVariable(envProperty, value) {
     }
 }
 
-function setMatchingEnvironmentVariables({ browser, https, host, port, publicUrl }) {
-    if (browser) {
-        setEnvironmentVariable("BROWSER", browser);
+function setMatchingEnvironmentVariables({ open, https, host, port }) {
+    if (open === false) {
+        setEnvironmentVariable("BROWSER", "none");
     }
 
     if (https) {
@@ -54,10 +54,6 @@ function setMatchingEnvironmentVariables({ browser, https, host, port, publicUrl
 
     if (port) {
         setEnvironmentVariable("PORT", port);
-    }
-
-    if (publicUrl) {
-        setEnvironmentVariable("PUBLIC_URL", publicUrl);
     }
 }
 
