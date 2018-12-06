@@ -41,7 +41,7 @@ function extendsPostcss(match, { plugins, env }) {
         let postcssPlugins;
 
         if (env) {
-            const mergedPreset = deepMergeWithArray(CRA_PRESET_ENV, env);
+            const mergedPreset = deepMergeWithArray({}, CRA_PRESET_ENV, env);
             postcssPlugins = CRA_PLUGINS(mergedPreset);
 
             log("Merged PostCSS env preset.");
@@ -80,7 +80,7 @@ function applyLoaderOptions(match, loaderOptions, context) {
         }
     } else {
         // TODO: ensure is otherwise a plain object, if not, log an error.
-        match.loader.options = deepMergeWithArray(match.loader.options || {}, loaderOptions);
+        match.loader.options = deepMergeWithArray({}, match.loader.options || {}, loaderOptions);
     }
 
     log("Applied PostCSS loaders options.");

@@ -42,7 +42,7 @@ function extendsEslintConfig(loader, eslintConfig, context) {
         } else {
             // TODO: ensure is otherwise a plain object, if not, log an error.
             if (loader.options) {
-                loader.options.baseConfig = deepMergeWithArray(loader.options.baseConfig || {}, configure);
+                loader.options.baseConfig = deepMergeWithArray({}, loader.options.baseConfig || {}, configure);
             } else {
                 loader.options = {
                     baseConfig: configure

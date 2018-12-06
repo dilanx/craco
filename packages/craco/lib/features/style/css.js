@@ -24,7 +24,7 @@ function applyLoaderOptions(match, loaderOptions, context) {
         }
     } else {
         // TODO: ensure is otherwise a plain object, if not, log an error.
-        match.loader.options = deepMergeWithArray(match.loader.options || {}, loaderOptions);
+        match.loader.options = deepMergeWithArray({}, match.loader.options || {}, loaderOptions);
     }
 
     log("Applied CSS loaders options.");

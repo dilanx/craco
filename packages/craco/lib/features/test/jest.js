@@ -47,7 +47,7 @@ function giveTotalControl(jestConfig, configureJest, context) {
         }
     } else {
         // TODO: ensure is otherwise a plain object, if not, log an error.
-        jestConfig = deepMergeWithArray(jestConfig, configureJest);
+        jestConfig = deepMergeWithArray({}, jestConfig, configureJest);
     }
 
     log("Merged Jest config with 'jest.configure'.");

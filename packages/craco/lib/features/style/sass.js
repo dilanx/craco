@@ -27,7 +27,7 @@ function applyLoaderOptions(match, loaderOptions, context) {
         // TODO: ensure is otherwise a plain object, if not, log an error.
         setLoaderProperty(match, "options", {
             whenString: () => loaderOptions,
-            whenObject: () => deepMergeWithArray(match.loader.options || {}, loaderOptions)
+            whenObject: () => deepMergeWithArray({}, match.loader.options || {}, loaderOptions)
         });
     }
 

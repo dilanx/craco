@@ -1,9 +1,28 @@
 const args = require("./args");
 
 const { projectRoot } = require("./paths");
-const { isFunction, isArray } = require("./utils");
+const { isFunction, isArray, deepMergeWithArray } = require("./utils");
 const { log } = require("./logger");
 const { applyCracoConfigPlugins } = require("./features/plugins");
+const { POSTCSS_MODES } = require("./features/style/postcss");
+const { ESLINT_MODES } = require("./features/eslint");
+
+const DEFAULT_CONFIG = {
+    style: {
+        postcss: {
+            mode: POSTCSS_MODES.extends
+        }
+    },
+    eslint: {
+        mode: ESLINT_MODES.extends
+    },
+    jest: {
+        babel: {
+            addPresets: true,
+            addPlugins: true
+        }
+    }
+};
 
 function ensureConfigSanity(cracoConfig) {
     if (isArray(cracoConfig.plugins)) {
@@ -26,7 +45,7 @@ function loadCracoConfig(context) {
 
     log("Found craco config file at: ", configFilePath);
 
-    const config = require(configFilePath);
+    const config = deepMergeWithArray({}, DEFAULT_CONFIG, require(configFilePath));
 
     let resultingConfig = isFunction(config) ? config(context) : config;
     ensureConfigSanity(resultingConfig);

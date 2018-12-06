@@ -41,7 +41,7 @@ function applyLoaderOptions(loader, loaderOptions, context) {
         }
     } else {
         // TODO: ensure is otherwise a plain object, if not, log an error.
-        loader.options = deepMergeWithArray(loader.options || {}, loaderOptions);
+        loader.options = deepMergeWithArray({}, loader.options || {}, loaderOptions);
     }
 
     log("Applied Babel loader options.");
