@@ -45,7 +45,7 @@ function setMatchingEnvironmentVariables({ open, https, host, port }) {
     }
 
     if (https) {
-        setEnvironmentVariable("HTTPS", https);
+        setEnvironmentVariable("HTTPS", "true");
     }
 
     if (host) {
