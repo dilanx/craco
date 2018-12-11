@@ -45,7 +45,10 @@ function loadCracoConfig(context) {
 
     log("Found craco config file at: ", configFilePath);
 
-    const config = deepMergeWithArray({}, DEFAULT_CONFIG, require(configFilePath));
+    const userConfig = require(configFilePath);
+    const userConfigAsObject = isFunction(userConfig) ? userConfig(context) : userConfig;
+
+    const config = deepMergeWithArray({}, DEFAULT_CONFIG, userConfigAsObject);
 
     let resultingConfig = isFunction(config) ? config(context) : config;
     ensureConfigSanity(resultingConfig);
