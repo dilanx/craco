@@ -3,7 +3,6 @@ const path = require("path");
 const { overrideJestConfigProvider, loadJestConfigProvider } = require("../../cra");
 const { isFunction, isArray, deepMergeWithArray } = require("../../utils");
 const { log } = require("../../logger");
-const { getJestBabelConfig } = require("./jest-config-utils");
 const { applyJestConfigPlugins } = require("../plugins");
 const { reactScriptsPath } = require("../../paths");
 
@@ -17,7 +16,7 @@ function overrideBabelTransform(jestConfig, transformKey) {
 }
 
 function configureBabel(jestConfig, cracoConfig) {
-    const { addPresets, addPlugins } = getJestBabelConfig(cracoConfig.jest);
+    const { addPresets, addPlugins } = cracoConfig.jest.babel;
 
     if (addPresets || addPlugins) {
         if (cracoConfig.babel) {
