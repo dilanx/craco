@@ -1,4 +1,4 @@
-process.env.NODE_ENV = "production";
+process.env.NODE_ENV = process.env.NODE_ENV || "production";
 
 const { log } = require("../lib/logger");
 const { craPaths, loadWebpackProdConfig, overrideWebpackProdConfig, build } = require("../lib/cra");
