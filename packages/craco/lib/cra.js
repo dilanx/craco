@@ -12,7 +12,7 @@ function resolveScriptsFilePath(fileName) {
 }
 
 function overrideModule(modulePath, newModule) {
-    require.cache[modulePath].exports = newModule;
+    require.cache[modulePath].exports = () => newModule;
 
     log(`Overrided require cache for module: ${modulePath}`);
 }
@@ -22,7 +22,7 @@ const craPaths = require(resolveConfigFilePath("paths.js"));
 /************  Webpack Dev Config  *******************/
 
 function getWebpackDevConfigPath() {
-    return resolveConfigFilePath("webpack.config.dev");
+    return resolveConfigFilePath("webpack.config");
 }
 
 function loadWebpackDevConfig() {
@@ -30,7 +30,7 @@ function loadWebpackDevConfig() {
 
     log("Found Webpack dev config at: ", filepath);
 
-    return require(filepath);
+    return require(filepath)("development");
 }
 
 function overrideWebpackDevConfig(newConfig) {
@@ -42,7 +42,7 @@ function overrideWebpackDevConfig(newConfig) {
 /************  Webpack Prod Config  *******************/
 
 function getWebpackProdConfigPath() {
-    return resolveConfigFilePath("webpack.config.prod");
+    return resolveConfigFilePath("webpack.config");
 }
 
 function loadWebpackProdConfig() {
@@ -50,7 +50,7 @@ function loadWebpackProdConfig() {
 
     log("Found Webpack prod config at: ", filepath);
 
-    return require(filepath);
+    return require(filepath)("production");
 }
 
 function overrideWebpackProdConfig(newConfig) {
