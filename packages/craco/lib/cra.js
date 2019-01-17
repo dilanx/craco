@@ -17,7 +17,7 @@ function overrideModule(modulePath, newModule) {
     log(`Overrided require cache for module: ${modulePath}`);
 }
 
-// IMPORTANT: Environment variables must be loaded before the CRA paths, otherwise they will not be applied.
+// Environment variables must be loaded before the CRA paths, otherwise they will not be applied.
 require(resolveConfigFilePath("env.js"));
 const craPaths = require(resolveConfigFilePath("paths.js"));
 

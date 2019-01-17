@@ -48,6 +48,10 @@ function loadCracoConfig(context) {
     const config = require(configFilePath);
     const configAsObject = isFunction(config) ? config(context) : config;
 
+    if (!configAsObject) {
+        throw new Error("craco: Config function didn't returned a config object.");
+    }
+
     let resultingConfig = deepMergeWithArray({}, DEFAULT_CONFIG, configAsObject);
 
     ensureConfigSanity(resultingConfig);
