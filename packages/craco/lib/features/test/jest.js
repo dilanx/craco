@@ -56,7 +56,6 @@ function giveTotalControl(jestConfig, configureJest, context) {
 
 function createConfigProviderProxy(cracoConfig, craJestConfigProvider, context) {
     const proxy = (resolve, rootDir) => {
-        // const customResolve = relativePath => path.resolve(reactScriptsPath, relativePath);
         const customResolve = relativePath => path.resolve(reactScriptsPath, relativePath);
 
         const jestContext = {
@@ -87,7 +86,6 @@ function overrideJest(cracoConfig, context) {
     if (cracoConfig.jest) {
         const craJestConfigProvider = loadJestConfigProvider();
         const proxy = createConfigProviderProxy(cracoConfig, craJestConfigProvider, context);
-
         overrideJestConfigProvider(proxy);
     }
 }
