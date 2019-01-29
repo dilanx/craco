@@ -182,7 +182,7 @@ module.exports = {
         }
     },
     eslint: {
-        enable: true,
+        enable: true /* (default value) */,
         mode: "extends" /* (default value) */ || "file",
         configure: { /* Any eslint configuration options: https://eslint.org/docs/user-guide/configuring */ },
         configure: (eslintConfig, { env, paths }) => { return eslintConfig; },
@@ -203,8 +203,8 @@ module.exports = {
     },
     jest: {
         babel: {
-            addPresets: true, // (default value)
-            addPlugins: true  // (default value)
+            addPresets: true, /* (default value) */
+            addPlugins: true  /* (default value) */
         },
         configure: { /* Any Jest configuration options: https://jestjs.io/docs/en/configuration. */ },
         configure: (jestConfig, { env, paths, resolve, rootDir }) => { return jestConfig; }
