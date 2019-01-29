@@ -60,6 +60,10 @@ function getLoader(webpackConfig, matcher) {
 }
 
 function getLoadersRecursively(rules, matcher, matchingLoaders) {
+    if (!isArray(rules)) {
+        rules = [rules];
+    }
+
     rules.forEach((rule, index) => {
         if (rule) {
             if (matcher(rule)) {
