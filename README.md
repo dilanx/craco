@@ -24,6 +24,7 @@ Major changes are available in the [changelog folder](https://github.com/sharega
 * [craco-plugin-react-hot-reload](https://github.com/HasanAyan/craco-plugin-react-hot-reload) by [@HasanAyan](https://github.com/HasanAyan)
 * [craco-babel-loader](https://github.com/rjerue/craco-babel-loader) by [@rjerue](https://github.com/rjerue/)
 * [craco-raw-loader](https://github.com/melMass/craco-raw-loader) by [@melMass](https://github.com/melMass)
+* [craco-base64-inline-loader](https://github.com/melMass/craco-base64-inline-loader) by [@melMass](https://github.com/melMass)
 
 ## Acknowledgements
 
