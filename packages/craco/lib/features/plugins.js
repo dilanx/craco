@@ -66,6 +66,41 @@ function applyWebpackConfigPlugins(cracoConfig, webpackConfig, context) {
     return webpackConfig;
 }
 
+/************  DevServer Config  *******************/
+
+function overrideDevServer({ plugin, options }, cracoConfig, devServerConfig, context) {
+    if (isFunction(plugin.overrideDevServerConfig)) {
+        const resultingConfig = plugin.overrideDevServerConfig({
+            cracoConfig: cracoConfig,
+            devServerConfig: devServerConfig,
+            pluginOptions: options,
+            context: context
+        });
+
+        if (!resultingConfig) {
+            throw new Error("craco: Plugin returned an undefined devServer config.");
+        }
+
+        return resultingConfig;
+    }
+
+    log("Overrided devServer config with plugin.");
+
+    return devServerConfig;
+}
+
+function applyDevServerConfigPlugins(cracoConfig, devServerConfig, context) {
+    if (isArray(cracoConfig.plugins)) {
+        cracoConfig.plugins.forEach(x => {
+            devServerConfig = overrideDevServer(x, cracoConfig, devServerConfig, context);
+        });
+    }
+
+    log("Applied devServer config plugins.");
+
+    return devServerConfig;
+}
+
 /************  Jest Config  *******************/
 
 function overrideJest({ plugin, options }, cracoConfig, jestConfig, context) {
@@ -102,5 +137,6 @@ function applyJestConfigPlugins(cracoConfig, jestConfig, context) {
 module.exports = {
     applyCracoConfigPlugins,
     applyWebpackConfigPlugins,
+    applyDevServerConfigPlugins,
     applyJestConfigPlugins
 };

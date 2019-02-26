@@ -3,6 +3,7 @@ const merge = require("webpack-merge");
 const { isFunction, isString } = require("../utils");
 const { log } = require("../logger");
 const { overrideDevServerConfigProvider, loadDevServerConfigProvider } = require("../cra");
+const { applyDevServerConfigPlugins } = require("./plugins");
 
 function createConfigProviderProxy(cracoConfig, craDevServerConfigProvider, context) {
     const proxy = (proxy, allowedHost) => {
@@ -20,8 +21,14 @@ function createConfigProviderProxy(cracoConfig, craDevServerConfigProvider, cont
             }
         } else {
             // TODO: ensure is otherwise a plain object, if not, log an error.
-            devServerConfig = merge(devServerConfig, cracoConfig.devServer);
+            devServerConfig = merge(devServerConfig, cracoConfig.devServer || {});
         }
+
+        devServerConfig = applyDevServerConfigPlugins(cracoConfig, devServerConfig, {
+            ...context,
+            proxy,
+            allowedHost
+        });
 
         log("Overrided DevServer config.");
 
@@ -60,12 +67,12 @@ function setMatchingEnvironmentVariables({ open, https, host, port }) {
 function overrideDevServer(cracoConfig, context) {
     if (cracoConfig.devServer) {
         setMatchingEnvironmentVariables(cracoConfig.devServer);
-
-        const craDevServerConfigProvider = loadDevServerConfigProvider();
-        const proxy = createConfigProviderProxy(cracoConfig, craDevServerConfigProvider, context);
-
-        overrideDevServerConfigProvider(proxy);
     }
+
+    const craDevServerConfigProvider = loadDevServerConfigProvider();
+    const proxy = createConfigProviderProxy(cracoConfig, craDevServerConfigProvider, context);
+
+    overrideDevServerConfigProvider(proxy);
 }
 
 module.exports = {
