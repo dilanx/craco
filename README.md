@@ -26,6 +26,7 @@ Major changes are available in the [changelog folder](https://github.com/sharega
 * [craco-raw-loader](https://github.com/melMass/craco-raw-loader) by [@melMass](https://github.com/melMass)
 * [craco-base64-inline-loader](https://github.com/melMass/craco-base64-inline-loader) by [@melMass](https://github.com/melMass)
 * [craco-workbox](https://github.com/kevinsperrine/craco-workbox) by [@kevinsperrine](https://github.com/kevinsperrine)
+* [craco-use-babelrc](https://github.com/jackwilsdon/craco-use-babelrc) by [@jackwilsdon](https://github.com/jackwilsdon)
 
 ## Acknowledgements
 
