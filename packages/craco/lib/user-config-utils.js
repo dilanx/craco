@@ -14,6 +14,10 @@ function whenProd(fct) {
     return when(process.env.NODE_ENV === "production", fct);
 }
 
+function whenCI(fct) {
+    return when(process.env.NODE_ENV === "CI", fct);
+}
+
 function whenTest(fct) {
     return when(process.env.NODE_ENV === "test", fct);
 }
