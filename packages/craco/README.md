@@ -135,8 +135,6 @@ To provided a custom path for the `react-scripts` folder:
 }
 ```
 
-_The provided `react-scripts` folder path must be relative to the current working directory._
-
 _If `--react-scripts` is provided, `--workspace` and `--scripts-version` will be ignored._
 
 To activate **verbose** logging:

@@ -9,6 +9,7 @@ const projectRoot = path.resolve(fs.realpathSync(process.cwd()));
 let scriptsVersion = "react-scripts";
 let nodeModulesPath = "node_modules";
 let reactScriptsPath = "";
+let configFilePath = "";
 
 if (args.workspace.isProvided) {
     if (args.reactScripts.isProvided) {
@@ -33,10 +34,17 @@ if (args.reactScripts.isProvided) {
     reactScriptsPath = path.resolve(projectRoot, nodeModulesPath, scriptsVersion);
 }
 
+if (args.config.isProvided) {
+    configFilePath = path.resolve(projectRoot, args.config.value);
+} else {
+    configFilePath = path.resolve(projectRoot, "craco.config.js");
+}
+
 log("Project root path resolved to: ", projectRoot);
 log("react-scripts folder resolved to: ", reactScriptsPath);
 
 module.exports = {
     projectRoot,
-    reactScriptsPath
+    reactScriptsPath,
+    configFilePath
 };
