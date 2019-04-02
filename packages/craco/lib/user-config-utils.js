@@ -26,5 +26,6 @@ module.exports = {
     when,
     whenDev,
     whenProd,
+    whenCI,
     whenTest
 };

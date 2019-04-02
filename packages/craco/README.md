@@ -111,33 +111,7 @@ To change the location of the configuration file:
 }
 ```
 
-To use with a **yarn workspace** or any **monorepo setup** that follows the popular convention `packages/*`:
-
-```javascript
-"scripts": {
-    "start": "craco start --workspace"
-}
-```
-
-To use with a different version of `react-scripts`:
-
-```javascript
-"scripts": {
-    "start": "craco start --scripts-version react-scripts-ts"
-}
-```
-
-To provided a custom path for the `react-scripts` folder:
-
-```javascript
-"scripts": {
-    "start": "craco start --react-scripts ../../react-scripts-with-custom-name"
-}
-```
-
-_The provided `react-scripts` folder path must be relative to the current working directory._
-
-_If `--react-scripts` is provided, `--workspace` and `--scripts-version` will be ignored._
+_When you provide a custom location for the configuration file, `craco` doesn't offer support for Babel with Jest_
 
 To activate **verbose** logging:
 
@@ -147,6 +121,8 @@ To activate **verbose** logging:
 }
 ```
 
+_For more options view the [configuration overview](#configuration-overview) section._
+
 ## Configuration Overview
 
 When the property **mode** is available there are 2 possible values:
@@ -154,9 +130,12 @@ When the property **mode** is available there are 2 possible values:
 - `file`: the CRA settings will be reseted and you will provide an official configuration file for the plugin ([postcss](https://github.com/michael-ciniawsky/postcss-load-config#postcssrc), [eslint](https://eslint.org/docs/user-guide/configuring#configuration-file-formats)) that will supersede any settings.
 
 ```javascript
-const { paths, when, whenDev, whenProd, whenTest, ESLINT_MODES, POSTCSS_MODES } = require("@craco/craco");
+const { when, whenDev, whenProd, whenTest, ESLINT_MODES, POSTCSS_MODES } = require("@craco/craco");
 
 module.exports = {
+    workspace: false /* (default value) */,
+    reactScriptsVersion: "react-scripts" /* (default value) */,
+    reactScriptsPath: "" /* Absolute or relative path to the react-scripts folder. */,
     style: {
         modules: {
             localIdentName: ""

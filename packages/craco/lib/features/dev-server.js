@@ -69,10 +69,10 @@ function overrideDevServer(cracoConfig, context) {
         setMatchingEnvironmentVariables(cracoConfig.devServer);
     }
 
-    const craDevServerConfigProvider = loadDevServerConfigProvider();
+    const craDevServerConfigProvider = loadDevServerConfigProvider(cracoConfig);
     const proxy = createConfigProviderProxy(cracoConfig, craDevServerConfigProvider, context);
 
-    overrideDevServerConfigProvider(proxy);
+    overrideDevServerConfigProvider(cracoConfig, proxy);
 }
 
 module.exports = {

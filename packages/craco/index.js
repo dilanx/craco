@@ -1,4 +1,3 @@
-const { craPaths } = require("./lib/cra");
 const {
     getLoader,
     getLoaders,
@@ -15,7 +14,6 @@ const { ESLINT_MODES } = require("./lib/features/eslint");
 const { POSTCSS_MODES } = require("./lib/features/style/postcss");
 
 module.exports = {
-    paths: craPaths,
     getLoader,
     getLoaders,
     removeLoaders,

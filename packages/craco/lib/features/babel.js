@@ -2,7 +2,7 @@ const { getLoaders, loaderByName } = require("../loaders");
 const { log, logError } = require("../logger");
 const { isFunction, isArray, deepMergeWithArray } = require("../utils");
 
-// TODO: CRA use a cacheIdentifier, should we update it with the other plugins?
+// TODO: CRA use a cacheIdentifier, should we update it with the new plugins?
 
 function addPresets(loader, babelPresets) {
     if (isArray(babelPresets)) {

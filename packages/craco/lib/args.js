@@ -1,9 +1,6 @@
 const args = process.argv;
 
 const VERBOSE_ARG = "--verbose";
-const WORKSPACE_ARG = "--workspace";
-const SCRIPTS_VERSION_ARG = "--scripts-version";
-const REACT_SCRIPTS_ARG = "--react-scripts";
 const CONFIG_ARG = "--config";
 
 function findArg(key) {
@@ -44,9 +41,6 @@ const jestConflictingArg = (key, hasValue = false) => ({
 
 // prettier-ignore
 const jestConflictingArgs = [
-    jestConflictingArg(WORKSPACE_ARG),
-    jestConflictingArg(SCRIPTS_VERSION_ARG, true),
-    jestConflictingArg(REACT_SCRIPTS_ARG, true),
     jestConflictingArg(CONFIG_ARG, true),
 ];
 
@@ -61,16 +55,10 @@ function removeJestConflictingCustomArgs() {
 }
 
 const verbose = findArg(VERBOSE_ARG);
-const workspace = findArg(WORKSPACE_ARG);
-const scriptsVersion = getArgWithValue(SCRIPTS_VERSION_ARG);
-const reactScripts = getArgWithValue(REACT_SCRIPTS_ARG);
 const config = getArgWithValue(CONFIG_ARG);
 
 module.exports = {
     verbose,
-    workspace,
-    scriptsVersion,
-    reactScripts,
     config,
     removeJestConflictingCustomArgs
 };

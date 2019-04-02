@@ -8,6 +8,8 @@ const { POSTCSS_MODES } = require("./features/style/postcss");
 const { ESLINT_MODES } = require("./features/eslint");
 
 const DEFAULT_CONFIG = {
+    workspace: false,
+    reactScriptsVersion: "react-scripts",
     style: {
         postcss: {
             mode: POSTCSS_MODES.extends
@@ -52,12 +54,10 @@ function loadCracoConfig(context) {
         throw new Error("craco: Config function didn't returned a config object.");
     }
 
-    let resultingConfig = deepMergeWithArray({}, DEFAULT_CONFIG, configAsObject);
+    let resultingCracoConfig = deepMergeWithArray({}, DEFAULT_CONFIG, configAsObject);
+    ensureConfigSanity(resultingCracoConfig);
 
-    ensureConfigSanity(resultingConfig);
-    resultingConfig = applyCracoConfigPlugins(resultingConfig, context);
-
-    return resultingConfig;
+    return applyCracoConfigPlugins(resultingCracoConfig, context);
 }
 
 module.exports = {

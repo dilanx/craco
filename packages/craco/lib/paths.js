@@ -1,42 +1,48 @@
 const path = require("path");
 const fs = require("fs");
 
-const args = require("./args");
+const { isString } = require("./utils");
 const { log } = require("./logger");
 
 const projectRoot = path.resolve(fs.realpathSync(process.cwd()));
 
-let scriptsVersion = "react-scripts";
-let nodeModulesPath = "node_modules";
-let reactScriptsPath = "";
-
-if (args.workspace.isProvided) {
-    if (args.reactScripts.isProvided) {
-        log(`${args.workspace.key} flag is ignored since ${args.reactScripts.key} value is provided`);
-    } else {
-        // We support the popular convention of setuping the mono repo with packages/*
-        nodeModulesPath = "../../node_modules";
-    }
-}
-
-if (args.scriptsVersion.isProvided) {
-    if (args.reactScripts.isProvided) {
-        log(`${args.scriptsVersion.key} value is ignored since ${args.reactScripts.key} value is provided`);
-    } else {
-        scriptsVersion = args.scriptsVersion.value;
-    }
-}
-
-if (args.reactScripts.isProvided) {
-    reactScriptsPath = path.resolve(projectRoot, args.reactScripts.value);
-} else {
-    reactScriptsPath = path.resolve(projectRoot, nodeModulesPath, scriptsVersion);
-}
-
 log("Project root path resolved to: ", projectRoot);
-log("react-scripts folder resolved to: ", reactScriptsPath);
+
+let _resolvedReactScriptsPath = null;
+
+function resolveReactScriptsPath(cracoConfig) {
+    if (!_resolvedReactScriptsPath) {
+        let nodeModulesPath = "node_modules";
+
+        if (cracoConfig.workspace) {
+            if (isString(cracoConfig.reactScriptsPath)) {
+                log(`workspace config is ignored since "reactScriptsPath" is provided`);
+            } else {
+                // We support the popular convention of setuping the mono repo with packages/*
+                nodeModulesPath = "../../node_modules";
+            }
+        }
+
+        if (isString(cracoConfig.reactScriptsVersion)) {
+            if (isString(cracoConfig.reactScriptsPath)) {
+                log(`"reactScriptsVersion" value is ignored since "reactScriptsPath" is provided`);
+            }
+        }
+
+        if (isString(cracoConfig.reactScriptsPath)) {
+            // TODO, add some logic for absolute path?
+            _resolvedReactScriptsPath = path.resolve(projectRoot, cracoConfig.reactScriptsPath);
+        } else {
+            _resolvedReactScriptsPath = path.resolve(projectRoot, nodeModulesPath, cracoConfig.reactScriptsVersion);
+        }
+
+        log("react-scripts folder resolved to: ", _resolvedReactScriptsPath);
+    }
+
+    return _resolvedReactScriptsPath;
+}
 
 module.exports = {
     projectRoot,
-    reactScriptsPath
+    resolveReactScriptsPath
 };

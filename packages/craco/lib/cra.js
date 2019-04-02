@@ -1,13 +1,17 @@
 const { log } = require("./logger");
-const { reactScriptsPath } = require("./paths");
+const { resolveReactScriptsPath } = require("./paths");
 
 /************  Common  *******************/
 
-function resolveConfigFilePath(fileName) {
+function resolveConfigFilePath(cracoConfig, fileName) {
+    const reactScriptsPath = resolveReactScriptsPath(cracoConfig);
+
     return require.resolve(`${reactScriptsPath}/config/${fileName}`);
 }
 
-function resolveScriptsFilePath(fileName) {
+function resolveScriptsFilePath(cracoConfig, fileName) {
+    const reactScriptsPath = resolveReactScriptsPath(cracoConfig);
+
     return require.resolve(`${reactScriptsPath}/scripts/${fileName}`);
 }
 
@@ -17,110 +21,120 @@ function overrideModule(modulePath, newModule) {
     log(`Overrided require cache for module: ${modulePath}`);
 }
 
-// Environment variables must be loaded before the CRA paths, otherwise they will not be applied.
-require(resolveConfigFilePath("env.js"));
-const craPaths = require(resolveConfigFilePath("paths.js"));
+/************  Paths  *******************/
+
+let _resolvedCraPaths = null;
+
+function getCraPaths(cracoConfig) {
+    if (!_resolvedCraPaths) {
+        // Environment variables must be loaded before the CRA paths, otherwise they will not be applied.
+        require(resolveConfigFilePath(cracoConfig, "env.js"));
+        _resolvedCraPaths = require(resolveConfigFilePath(cracoConfig, "paths.js"));
+    }
+
+    return _resolvedCraPaths;
+}
 
 /************  Webpack Dev Config  *******************/
 
-function getWebpackDevConfigPath() {
-    return resolveConfigFilePath("webpack.config");
+function getWebpackDevConfigPath(cracoConfig) {
+    return resolveConfigFilePath(cracoConfig, "webpack.config");
 }
 
-function loadWebpackDevConfig() {
-    const filepath = getWebpackDevConfigPath();
+function loadWebpackDevConfig(cracoConfig) {
+    const filepath = getWebpackDevConfigPath(cracoConfig);
 
     log("Found Webpack dev config at: ", filepath);
 
     return require(filepath)("development");
 }
 
-function overrideWebpackDevConfig(newConfig) {
-    const filepath = getWebpackDevConfigPath();
+function overrideWebpackDevConfig(cracoConfig, newConfig) {
+    const filepath = getWebpackDevConfigPath(cracoConfig);
 
     overrideModule(filepath, () => newConfig);
 }
 
 /************  Webpack Prod Config  *******************/
 
-function getWebpackProdConfigPath() {
-    return resolveConfigFilePath("webpack.config");
+function getWebpackProdConfigPath(cracoConfig) {
+    return resolveConfigFilePath(cracoConfig, "webpack.config");
 }
 
-function loadWebpackProdConfig() {
-    const filepath = getWebpackProdConfigPath();
+function loadWebpackProdConfig(cracoConfig) {
+    const filepath = getWebpackProdConfigPath(cracoConfig);
 
     log("Found Webpack prod config at: ", filepath);
 
     return require(filepath)("production");
 }
 
-function overrideWebpackProdConfig(newConfig) {
-    const filepath = getWebpackProdConfigPath();
+function overrideWebpackProdConfig(cracoConfig, newConfig) {
+    const filepath = getWebpackProdConfigPath(cracoConfig);
 
     overrideModule(filepath, () => newConfig);
 }
 
 /************  Dev Server  *******************/
 
-function getDevServerConfigPath() {
-    return resolveConfigFilePath("webpackDevServer.config.js");
+function getDevServerConfigPath(cracoConfig) {
+    return resolveConfigFilePath(cracoConfig, "webpackDevServer.config.js");
 }
 
-function loadDevServerConfigProvider() {
-    const filepath = getDevServerConfigPath();
+function loadDevServerConfigProvider(cracoConfig) {
+    const filepath = getDevServerConfigPath(cracoConfig);
 
     log("Found dev server config at: ", filepath);
 
     return require(filepath);
 }
 
-function overrideDevServerConfigProvider(configProvider) {
-    const filepath = getDevServerConfigPath();
+function overrideDevServerConfigProvider(cracoConfig, configProvider) {
+    const filepath = getDevServerConfigPath(cracoConfig);
 
     overrideModule(filepath, configProvider);
 }
 
 /************  Jest  *******************/
 
-function getCreateJestConfigPath() {
-    return resolveScriptsFilePath("utils/createJestConfig.js");
+function getCreateJestConfigPath(cracoConfig) {
+    return resolveScriptsFilePath(cracoConfig, "utils/createJestConfig.js");
 }
 
-function loadJestConfigProvider() {
-    const filepath = getCreateJestConfigPath();
+function loadJestConfigProvider(cracoConfig) {
+    const filepath = getCreateJestConfigPath(cracoConfig);
 
     log("Found jest config at: ", filepath);
 
     return require(filepath);
 }
 
-function overrideJestConfigProvider(configProvider) {
-    const filepath = getCreateJestConfigPath();
+function overrideJestConfigProvider(cracoConfig, configProvider) {
+    const filepath = getCreateJestConfigPath(cracoConfig);
 
     overrideModule(filepath, configProvider);
 }
 
 /************  Scripts  *******************/
 
-function start() {
-    const filepath = resolveScriptsFilePath("start.js");
+function start(cracoConfig) {
+    const filepath = resolveScriptsFilePath(cracoConfig, "start.js");
 
     log("Starting CRA at: ", filepath);
 
     require(filepath);
 }
 
-function build() {
-    const filepath = resolveScriptsFilePath("build.js");
+function build(cracoConfig) {
+    const filepath = resolveScriptsFilePath(cracoConfig, "build.js");
 
     log("Building CRA at: ", filepath);
 
     require(filepath);
 }
 
-function test() {
-    const filepath = resolveScriptsFilePath("test.js");
+function test(cracoConfig) {
+    const filepath = resolveScriptsFilePath(cracoConfig, "test.js");
 
     log("Testing CRA at: ", filepath);
 
@@ -138,7 +152,7 @@ module.exports = {
     overrideDevServerConfigProvider,
     loadJestConfigProvider,
     overrideJestConfigProvider,
-    craPaths,
+    getCraPaths,
     start,
     build,
     test

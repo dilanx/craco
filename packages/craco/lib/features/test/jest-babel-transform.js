@@ -1,7 +1,6 @@
 const babelJest = require("babel-jest");
 
 const { loadCracoConfig } = require("../../config");
-const { craPaths } = require("../../cra");
 const { isArray } = require("../../utils");
 
 const craBabelTransformer = {
@@ -11,11 +10,11 @@ const craBabelTransformer = {
 };
 
 const context = {
-    env: process.env.NODE_ENV,
-    paths: craPaths
+    env: process.env.NODE_ENV
 };
 
 const cracoConfig = loadCracoConfig(context);
+
 const { addPresets, addPlugins } = cracoConfig.jest.babel;
 
 if (cracoConfig.babel) {
