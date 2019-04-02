@@ -41,30 +41,30 @@ function giveTotalControl(webpackConfig, configureWebpack, context) {
 }
 
 function overrideWebpack(cracoConfig, webpackConfig, overrideConfig, context) {
-    // webpackConfig = overrideBabel(cracoConfig, webpackConfig, context);
-    // webpackConfig = overrideEsLint(cracoConfig, webpackConfig, context);
-    // webpackConfig = overrideStyle(cracoConfig, webpackConfig, context);
-    // webpackConfig = overrideTypeScript(cracoConfig, webpackConfig, context);
+    webpackConfig = overrideBabel(cracoConfig, webpackConfig, context);
+    webpackConfig = overrideEsLint(cracoConfig, webpackConfig, context);
+    webpackConfig = overrideStyle(cracoConfig, webpackConfig, context);
+    webpackConfig = overrideTypeScript(cracoConfig, webpackConfig, context);
 
-    // if (cracoConfig.webpack) {
-    //     const { alias, plugins, configure } = cracoConfig.webpack;
+    if (cracoConfig.webpack) {
+        const { alias, plugins, configure } = cracoConfig.webpack;
 
-    //     if (alias) {
-    //         addAlias(webpackConfig, alias);
-    //     }
+        if (alias) {
+            addAlias(webpackConfig, alias);
+        }
 
-    //     if (plugins) {
-    //         addPlugins(webpackConfig, plugins);
-    //     }
+        if (plugins) {
+            addPlugins(webpackConfig, plugins);
+        }
 
-    //     if (configure) {
-    //         webpackConfig = giveTotalControl(webpackConfig, configure, context);
-    //     }
-    // }
+        if (configure) {
+            webpackConfig = giveTotalControl(webpackConfig, configure, context);
+        }
+    }
 
-    // webpackConfig = applyWebpackConfigPlugins(cracoConfig, webpackConfig, context);
+    webpackConfig = applyWebpackConfigPlugins(cracoConfig, webpackConfig, context);
 
-    overrideConfig(webpackConfig);
+    overrideConfig(cracoConfig, webpackConfig);
 }
 
 module.exports = {
