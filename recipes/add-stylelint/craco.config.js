@@ -1,6 +1,5 @@
 const path = require("path");
 
-const { paths } = require("@craco/craco");
 const StyleLintPlugin = require("stylelint-webpack-plugin");
 
 module.exports = {
@@ -8,7 +7,7 @@ module.exports = {
         plugins: [
             new StyleLintPlugin(
                 configBasedir: __dirname,
-                context: path.resolve(__dirname, paths.appSrc),
+                context: path.resolve(__dirname, "src"),
                 files: ["**/*.css"]
             )
         ]

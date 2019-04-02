@@ -19,6 +19,6 @@ const craWebpackConfig = loadWebpackDevConfig(cracoConfig);
 context.paths = getCraPaths(cracoConfig);
 
 overrideWebpack(cracoConfig, craWebpackConfig, overrideWebpackDevConfig, context);
-overrideDevServer(cracoConfig, context);
+// overrideDevServer(cracoConfig, context);
 
 start(cracoConfig);
