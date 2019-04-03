@@ -1,5 +1,6 @@
 const path = require("path");
 
+const { config } = require("../../args");
 const { overrideJestConfigProvider, loadJestConfigProvider } = require("../../cra");
 const { isFunction, isArray, deepMergeWithArray } = require("../../utils");
 const { log } = require("../../logger");
@@ -25,6 +26,12 @@ function configureBabel(jestConfig, cracoConfig) {
             const { presets, plugins } = cracoConfig.babel;
 
             if (isArray(presets) || isArray(plugins)) {
+                if (config.isProvided) {
+                    throw new Error(
+                        "craco: Jest support for Babel is not supported with a custom location for the craco.config.js file."
+                    );
+                }
+
                 if (jestConfig.transform[BABEL_TRANSFORM_ENTRY_KEY]) {
                     overrideBabelTransform(jestConfig, BABEL_TRANSFORM_ENTRY_KEY);
                 } else if (jestConfig.transform[BABEL_TRANSFORM_ENTRY_KEY_BEFORE_2_1_0]) {

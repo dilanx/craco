@@ -40,9 +40,9 @@ function loadCracoConfig(context) {
     let configFilePath = "";
 
     if (args.config.isProvided) {
-        configFilePath = require.resolve(projectRoot, args.config.value);
+        configFilePath = require.resolve(`${projectRoot}/${args.config.value}`);
     } else {
-        configFilePath = require.resolve(projectRoot, "craco.config.js");
+        configFilePath = require.resolve(`${projectRoot}/craco.config.js`);
     }
 
     log("Found craco config file at: ", configFilePath);
