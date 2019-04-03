@@ -28,7 +28,7 @@ function configureBabel(jestConfig, cracoConfig) {
             if (isArray(presets) || isArray(plugins)) {
                 if (config.isProvided) {
                     throw new Error(
-                        "craco: Jest support for Babel is not supported with a custom location for the craco.config.js file."
+                        "craco: Jest + Babel doesn't support using a custom location for the craco.config.js file."
                     );
                 }
 
