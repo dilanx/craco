@@ -16,7 +16,7 @@ function resolveReactScriptsPath(cracoConfig) {
 
         if (cracoConfig.workspace) {
             if (isString(cracoConfig.reactScriptsPath)) {
-                log(`workspace config is ignored since "reactScriptsPath" is provided`);
+                log(`workspace config is ignored since reactScriptsPath is provided`);
             } else {
                 // We support the popular convention of setuping the mono repo with packages/*
                 nodeModulesPath = "../../node_modules";
@@ -25,7 +25,7 @@ function resolveReactScriptsPath(cracoConfig) {
 
         if (isString(cracoConfig.reactScriptsVersion)) {
             if (isString(cracoConfig.reactScriptsPath)) {
-                log(`"reactScriptsVersion" value is ignored since "reactScriptsPath" is provided`);
+                log(`reactScriptsVersion value is ignored since reactScriptsPath is provided`);
             }
         }
 
