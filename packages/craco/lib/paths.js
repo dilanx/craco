@@ -41,7 +41,6 @@ function resolveReactScriptsPath(cracoConfig) {
         }
 
         if (isString(cracoConfig.reactScriptsPath)) {
-            // TODO, add some logic for absolute path?
             _resolvedReactScriptsPath = path.resolve(projectRoot, cracoConfig.reactScriptsPath);
         } else {
             _resolvedReactScriptsPath = path.resolve(projectRoot, nodeModulesPath, cracoConfig.reactScriptsVersion);
