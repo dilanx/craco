@@ -111,6 +111,8 @@ To change the location of the configuration file:
 }
 ```
 
+The custom location can be relative or absolute path.
+
 _When you provide a custom location for the configuration file, `craco` doesn't offer support for Babel with Jest_
 
 To activate **verbose** logging:

@@ -1,5 +1,6 @@
 const path = require("path");
 const fs = require("fs");
+const args = require("./args");
 
 const { isString } = require("./utils");
 const { log } = require("./logger");
@@ -7,6 +8,16 @@ const { log } = require("./logger");
 const projectRoot = path.resolve(fs.realpathSync(process.cwd()));
 
 log("Project root path resolved to: ", projectRoot);
+
+let configFilePath = "";
+
+if (args.config.isProvided) {
+    configFilePath = path.resolve(projectRoot, args.config.value);
+} else {
+    configFilePath = path.resolve(projectRoot, "craco.config.js");
+}
+
+log("Config file path resolved to: ", configFilePath);
 
 let _resolvedReactScriptsPath = null;
 
@@ -44,5 +55,6 @@ function resolveReactScriptsPath(cracoConfig) {
 
 module.exports = {
     projectRoot,
-    resolveReactScriptsPath
+    resolveReactScriptsPath,
+    configFilePath
 };
