@@ -3,8 +3,7 @@
     "scripts": {
         "publish": "lerna publish --progress --force-publish",
         "publish:alpha": "lerna publish --npm-tag alpha --progress",
-        "bootstrap": "lerna bootstrap",
-        "test": "jest"
+        "bootstrap": "lerna bootstrap"
     },
     "license": "Apache-2.0",
     "husky": {
@@ -19,9 +18,5 @@
         "lerna": "3.4.3",
         "lint-staged": "8.0.4",
         "prettier": "1.15.2"
-    },
-    "dependencies": {
-        "lodash.mergewith": "4.6.1",
-        "webpack-merge": "4.1.4"
     }
 }
