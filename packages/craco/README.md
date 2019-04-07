@@ -135,9 +135,7 @@ When the property **mode** is available there are 2 possible values:
 const { when, whenDev, whenProd, whenTest, ESLINT_MODES, POSTCSS_MODES } = require("@craco/craco");
 
 module.exports = {
-    workspace: false /* (default value) */,
     reactScriptsVersion: "react-scripts" /* (default value) */,
-    reactScriptsPath: "" /* Absolute or relative path to the react-scripts folder. */,
     style: {
         modules: {
             localIdentName: ""

@@ -6,7 +6,6 @@ const { POSTCSS_MODES } = require("./features/style/postcss");
 const { ESLINT_MODES } = require("./features/eslint");
 
 const DEFAULT_CONFIG = {
-    workspace: false,
     reactScriptsVersion: "react-scripts",
     style: {
         postcss: {

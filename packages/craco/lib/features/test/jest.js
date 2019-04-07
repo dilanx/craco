@@ -5,18 +5,16 @@ const { overrideJestConfigProvider, loadJestConfigProvider } = require("../../cr
 const { isFunction, isArray, deepMergeWithArray } = require("../../utils");
 const { log } = require("../../logger");
 const { applyJestConfigPlugins } = require("../plugins");
-const { resolveReactScriptsPath } = require("../../paths");
+const { projectRoot } = require("../../paths");
 
 const BABEL_TRANSFORM_ENTRY_KEY_BEFORE_2_1_0 = "^.+\\.(js|jsx)$";
 const BABEL_TRANSFORM_ENTRY_KEY = "^.+\\.(js|jsx|ts|tsx)$";
 
 function overrideBabelTransform(jestConfig, transformKey) {
-    jestConfig.transform[transformKey] = require.resolve(path.resolve(__dirname, "jest-babel-transform.js"));
+    jestConfig.transform[transformKey] = require.resolve("./jest-babel-transform.js");
 
     log("Overrided Jest Babel transformer.");
 }
-
-// TODO: throw if a custom config file is provded and babel support for Jest is activated.
 
 function configureBabel(jestConfig, cracoConfig) {
     const { addPresets, addPlugins } = cracoConfig.jest.babel;
@@ -65,8 +63,8 @@ function giveTotalControl(jestConfig, configureJest, context) {
 
 function createConfigProviderProxy(cracoConfig, craJestConfigProvider, context) {
     const proxy = (resolve, rootDir) => {
-        const reactScriptsPath = resolveReactScriptsPath(cracoConfig);
-        const customResolve = relativePath => path.resolve(reactScriptsPath, relativePath);
+        const customResolve = relativePath =>
+            require.resolve(path.join(cracoConfig.reactScriptsVersion, relativePath), { paths: [projectRoot] });
 
         const jestContext = {
             ...context,

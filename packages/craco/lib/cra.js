@@ -1,18 +1,16 @@
+const path = require("path");
+
 const { log } = require("./logger");
-const { resolveReactScriptsPath } = require("./paths");
+const { projectRoot } = require("./paths");
 
 /************  Common  *******************/
 
 function resolveConfigFilePath(cracoConfig, fileName) {
-    const reactScriptsPath = resolveReactScriptsPath(cracoConfig);
-
-    return require.resolve(`${reactScriptsPath}/config/${fileName}`);
+    return require.resolve(path.join(cracoConfig.reactScriptsVersion, "config", fileName), { paths: [projectRoot] });
 }
 
 function resolveScriptsFilePath(cracoConfig, fileName) {
-    const reactScriptsPath = resolveReactScriptsPath(cracoConfig);
-
-    return require.resolve(`${reactScriptsPath}/scripts/${fileName}`);
+    return require.resolve(path.join(cracoConfig.reactScriptsVersion, "scripts", fileName), { paths: [projectRoot] });
 }
 
 function overrideModule(modulePath, newModule) {
@@ -38,7 +36,7 @@ function getCraPaths(cracoConfig) {
 /************  Webpack Dev Config  *******************/
 
 function getWebpackDevConfigPath(cracoConfig) {
-    return resolveConfigFilePath(cracoConfig, "webpack.config");
+    return resolveConfigFilePath(cracoConfig, "webpack.config.js");
 }
 
 function loadWebpackDevConfig(cracoConfig) {
@@ -58,7 +56,7 @@ function overrideWebpackDevConfig(cracoConfig, newConfig) {
 /************  Webpack Prod Config  *******************/
 
 function getWebpackProdConfigPath(cracoConfig) {
-    return resolveConfigFilePath(cracoConfig, "webpack.config");
+    return resolveConfigFilePath(cracoConfig, "webpack.config.js");
 }
 
 function loadWebpackProdConfig(cracoConfig) {
