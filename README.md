@@ -13,7 +13,7 @@ All you have to do is create your app using [create-react-app](https://github.co
 - Yarn Workspace
 - NPM
 - Lerna (with or without hoisting)
-- Custom react-scripts version
+- Custom `react-scripts` version
 
 ## Guide
 
