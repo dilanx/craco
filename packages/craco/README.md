@@ -6,20 +6,30 @@ Get all the benefits of create-react-app **and** customization without using 'ej
 
 All you have to do is create your app using [create-react-app](https://github.com/facebook/create-react-app/) and customize the configuration with a `craco.config.js` file.
 
-- [CLI Options](#cli-options) - Available CLI options.
+**Support**
+
+- Yarn
+- Yarn Workspace
+- NPM
+- Lerna (with or without hoisting)
+- Custom `react-scripts` version
+
+**Guide**
+
+- [Custom location for craco.config.js](#custom-location-for-craco.config.js) - Customize the location of your craco.config.js file.
 - [Configuration Overview](#configuration-overview) - Quickly see how you can configure your CRA installation with this plugin.
 - [Recipes](https://github.com/sharegate/craco/tree/master/recipes) – Short recipes for common use cases.
 - [Available Plugins](https://github.com/sharegate/craco#community-maintained-plugins) - Plugins maintained by the community.
 - [Develop a Plugin](#develop-a-plugin) - How to develop a plugin for `craco`.
 - [Changelog](https://github.com/sharegate/craco/tree/master/changelog) - List of major changes
 
-**Acknowledgements:**
+**Acknowledgements**
 
 We are grateful to [@timarney](https://github.com/timarney) the creator of [react-app-rewired](https://github.com/timarney/react-app-rewired) for his original idea.
 
 Also, please note that the configuration style of this plugin has been greatly influenced by the way [Vue CLI](https://cli.vuejs.org/guide/) does it.
 
-**Please Note:**
+**Please Note**
 
 By doing this you're breaking the ["guarantees"](https://github.com/facebookincubator/create-react-app/issues/99#issuecomment-234657710) that CRA provides. That is to say you now "own" the configs. **No support** will be provided. Proceed with caution.
 
@@ -65,7 +75,7 @@ or a **function**:
 ```javascript
 /* craco.config.js */
 
-module.exports = function({ env, paths }) {
+module.exports = function({ env }) {
     return {
         ...
     };
@@ -99,31 +109,37 @@ Or build your app:
 $ npm run build
 ```
 
-## CLI Options
+## Custom location for craco.config.js
 
-When you execute `craco start` or `craco build` a few options are available.
+Both ways support a **relative** or **absolute** path.
 
-To change the location of the configuration file:
+**package.json** _(Recommended)_
+
+You can change the location of the `craco.config.js` file by specifying a value for `cracoConfig` in your `package.json` file.
 
 ```javascript
-"scripts": {
-    "start": "craco start --config config/craco-config-with-custom-name.js"
+/* package.json */
+
+{
+    "cracoConfig": "config/craco-config-with-custom-name.js"
 }
 ```
 
-The custom location can be relative or absolute path.
+**CLI** _(For backward compatibility)_
 
-_When you provide a custom location for the configuration file, `craco` doesn't offer support for Babel with Jest_
-
-To activate **verbose** logging:
+You can also change the location of the `craco.config.js` file by specifying the `--config` CLI option.
 
 ```javascript
-"scripts": {
-    "start": "craco start --verbose"
+/* package.json */
+
+{
+    "scripts": {
+        "start": "craco start --config config/craco-config-with-custom-name.js"
+    }
 }
 ```
 
-_For more options view the [configuration overview](#configuration-overview) section._
+_The CLI option doesn't support Babel with Jest_
 
 ## Configuration Overview
 
@@ -645,6 +661,20 @@ Options:
 ```
 
 > Only `message` is required.
+
+## Verbose logging
+
+To activate **verbose** logging specify the CLI option `--verbose`
+
+```javascript
+/* package.json */
+
+{
+    "scripts": {
+        "start": "craco start --verbose"
+    }
+}
+```
 
 ## Acknowledgements
 
