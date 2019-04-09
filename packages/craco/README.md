@@ -245,7 +245,7 @@ module.exports = {
     webpack: {
         plugins: [
             new ConfigWebpackPlugin(),
-            ...whenDev(new CircularDependencyPlugin(), [])
+            ...whenDev(() => [new CircularDependencyPlugin()], [])
         ]
     }
 };
