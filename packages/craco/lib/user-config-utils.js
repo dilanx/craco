@@ -1,25 +1,25 @@
-function when(condition, fct) {
+function when(condition, fct, unmetValue) {
     if (condition) {
         return fct();
     }
 
-    return undefined;
+    return unmetValue;
 }
 
-function whenDev(fct) {
-    return when(process.env.NODE_ENV === "development", fct);
+function whenDev(fct, unmetValue) {
+    return when(process.env.NODE_ENV === "development", fct, unmetValue);
 }
 
-function whenProd(fct) {
-    return when(process.env.NODE_ENV === "production", fct);
+function whenProd(fct, unmetValue) {
+    return when(process.env.NODE_ENV === "production", fct, unmetValue);
 }
 
-function whenCI(fct) {
-    return when(process.env.NODE_ENV === "CI", fct);
+function whenCI(fct, unmetValue) {
+    return when(process.env.NODE_ENV === "CI", fct, unmetValue);
 }
 
-function whenTest(fct) {
-    return when(process.env.NODE_ENV === "test", fct);
+function whenTest(fct, unmetValue) {
+    return when(process.env.NODE_ENV === "test", fct, unmetValue);
 }
 
 module.exports = {
