@@ -1,6 +1,6 @@
 const merge = require("webpack-merge");
 
-const { isFunction, isArray } = require("../utils");
+const { isFunction, isArray, isString } = require("../utils");
 const { log } = require("../logger");
 const { overrideBabel } = require("./babel");
 const { overrideEsLint } = require("./eslint");
@@ -40,6 +40,14 @@ function giveTotalControl(webpackConfig, configureWebpack, context) {
     return webpackConfig;
 }
 
+function addDevtool(webpackConfig, webpackDevtool) {
+    if (webpackDevtool && !['', 'null', 'undefined'].includes(webpackDevtool) && isString(webpackDevtool)) {
+        webpackConfig.devtool = Object.assign(webpackConfig.devtool || {}, webpackDevtool);
+
+        log("Added webpack devtool.");
+    }
+}
+
 function overrideWebpack(cracoConfig, webpackConfig, overrideConfig, context) {
     webpackConfig = overrideBabel(cracoConfig, webpackConfig, context);
     webpackConfig = overrideEsLint(cracoConfig, webpackConfig, context);
@@ -47,7 +55,7 @@ function overrideWebpack(cracoConfig, webpackConfig, overrideConfig, context) {
     webpackConfig = overrideTypeScript(cracoConfig, webpackConfig, context);
 
     if (cracoConfig.webpack) {
-        const { alias, plugins, configure } = cracoConfig.webpack;
+        const { alias, plugins, configure, devtool } = cracoConfig.webpack;
 
         if (alias) {
             addAlias(webpackConfig, alias);
@@ -59,6 +67,10 @@ function overrideWebpack(cracoConfig, webpackConfig, overrideConfig, context) {
 
         if (configure) {
             webpackConfig = giveTotalControl(webpackConfig, configure, context);
+        }
+
+        if (devtool) {
+          addDevtool(webpackConfig, devtool);
         }
     }
 
