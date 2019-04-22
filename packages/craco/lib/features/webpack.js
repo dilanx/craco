@@ -1,12 +1,27 @@
 const merge = require("webpack-merge");
-
-const { isFunction, isArray } = require("../utils");
+const { isFunction, isArray, isString } = require("../utils");
 const { log } = require("../logger");
 const { overrideBabel } = require("./babel");
 const { overrideEsLint } = require("./eslint");
 const { overrideStyle } = require("./style/style");
 const { overrideTypeScript } = require("./typescript");
 const { applyWebpackConfigPlugins } = require("./plugins");
+
+const devToolModeList = [
+  'false',
+  'eval',
+  'cheap-eval-source-map',
+  'cheap-module-eval-source-map',
+  'eval-source-map',
+  'cheap-source-map',
+  'cheap-module-source-map',
+  'inline-cheap-source-map',
+  'inline-cheap-module-source-map',
+  'source-map',
+  'inline-source-map',
+  'hidden-source-map',
+  'nosources-source-map'
+];
 
 function addAlias(webpackConfig, webpackAlias) {
     // TODO: ensure is a plain object, if not, log an error.
@@ -20,6 +35,15 @@ function addPlugins(webpackConfig, webpackPlugins) {
         webpackConfig.plugins = webpackPlugins.concat(webpackConfig.plugins || []);
 
         log("Added webpack plugins.");
+    }
+}
+
+function addDevtool(webpackConfig, webpackDevtool) {
+
+    if (isString(webpackDevtool) && devToolModeList.includes(webpackDevtool)) {
+        webpackConfig.devtool = webpackDevtool;
+
+        log("Added webpack devtool.");
     }
 }
 
@@ -47,7 +71,7 @@ function overrideWebpack(cracoConfig, webpackConfig, overrideConfig, context) {
     webpackConfig = overrideTypeScript(cracoConfig, webpackConfig, context);
 
     if (cracoConfig.webpack) {
-        const { alias, plugins, configure } = cracoConfig.webpack;
+        const { alias, plugins, configure, devtool } = cracoConfig.webpack;
 
         if (alias) {
             addAlias(webpackConfig, alias);
@@ -59,6 +83,10 @@ function overrideWebpack(cracoConfig, webpackConfig, overrideConfig, context) {
 
         if (configure) {
             webpackConfig = giveTotalControl(webpackConfig, configure, context);
+        }
+
+        if (devtool) {
+          addDevtool(webpackConfig, devtool);
         }
     }
 
