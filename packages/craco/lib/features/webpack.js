@@ -1,10 +1,11 @@
 const merge = require("webpack-merge");
 
-const { isFunction, isArray, isString } = require("../utils");
+const { isFunction, isArray } = require("../utils");
 const { log } = require("../logger");
 const { overrideBabel } = require("./babel");
 const { overrideEsLint } = require("./eslint");
 const { overrideStyle } = require("./style/style");
+const { overrideTypeScript } = require("./typescript");
 const { applyWebpackConfigPlugins } = require("./plugins");
 
 function addAlias(webpackConfig, webpackAlias) {
@@ -39,21 +40,14 @@ function giveTotalControl(webpackConfig, configureWebpack, context) {
     return webpackConfig;
 }
 
-function addDevtool(webpackConfig, webpackDevtool) {
-    if (webpackDevtool && !['', 'null', 'undefined'].includes(webpackDevtool) && isString(webpackDevtool)) {
-        webpackConfig.devtool = Object.assign(webpackConfig.devtool || {}, webpackDevtool);
-
-        log("Added webpack devtool.");
-    }
-}
-
 function overrideWebpack(cracoConfig, webpackConfig, overrideConfig, context) {
     webpackConfig = overrideBabel(cracoConfig, webpackConfig, context);
     webpackConfig = overrideEsLint(cracoConfig, webpackConfig, context);
     webpackConfig = overrideStyle(cracoConfig, webpackConfig, context);
+    webpackConfig = overrideTypeScript(cracoConfig, webpackConfig, context);
 
     if (cracoConfig.webpack) {
-        const { alias, plugins, configure, devtool } = cracoConfig.webpack;
+        const { alias, plugins, configure } = cracoConfig.webpack;
 
         if (alias) {
             addAlias(webpackConfig, alias);
@@ -66,15 +60,11 @@ function overrideWebpack(cracoConfig, webpackConfig, overrideConfig, context) {
         if (configure) {
             webpackConfig = giveTotalControl(webpackConfig, configure, context);
         }
-
-        if (devtool) {
-          addDevtool(webpackConfig, devtool);
-        }
     }
 
     webpackConfig = applyWebpackConfigPlugins(cracoConfig, webpackConfig, context);
 
-    overrideConfig(webpackConfig);
+    overrideConfig(cracoConfig, webpackConfig);
 }
 
 module.exports = {
