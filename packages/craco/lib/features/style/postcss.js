@@ -1,6 +1,7 @@
 const { getLoaders, loaderByName } = require("../../loaders");
 const { log, logError } = require("../../logger");
 const { isArray, isFunction, deepMergeWithArray } = require("../../utils");
+const { projectRoot } = require("../../paths");
 
 const POSTCSS_MODES = {
     extends: "extends",
@@ -11,7 +12,8 @@ const CRA_PLUGINS = presetEnv => {
     // prettier-ignore
     return [
         require("postcss-flexbugs-fixes"),
-        require("postcss-preset-env")(presetEnv)
+        require("postcss-preset-env")(presetEnv),
+        require(require.resolve("postcss-normalize", { paths: [projectRoot] }))
     ];
 };
 

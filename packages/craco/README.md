@@ -112,9 +112,9 @@ $ npm run build
 
 ## Custom location for craco.config.js
 
-Both ways support a **relative** or **absolute** path.
+Both options support a **relative** or an **absolute** path.
 
-**package.json** _(Recommended)_
+**1- package.json** _(Recommended)_
 
 You can change the location of the `craco.config.js` file by specifying a value for `cracoConfig` in your `package.json` file.
 
@@ -126,9 +126,9 @@ You can change the location of the `craco.config.js` file by specifying a value 
 }
 ```
 
-**CLI** _(For backward compatibility)_
+**2- CLI** _(For backward compatibility)_
 
-You can also change the location of the `craco.config.js` file by specifying the `--config` CLI option.
+You can also change the location of the `craco.config.js` file by specifying the `--config` CLI option. _This option doesn't support Babel with Jest_
 
 ```javascript
 /* package.json */
@@ -139,8 +139,6 @@ You can also change the location of the `craco.config.js` file by specifying the
     }
 }
 ```
-
-_The CLI option doesn't support Babel with Jest_
 
 ## Configuration Overview
 
