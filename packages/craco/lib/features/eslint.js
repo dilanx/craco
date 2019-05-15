@@ -17,12 +17,6 @@ function disableEslint(webpackConfig) {
     }
 }
 
-function resetDefaultOptions(loader) {
-    loader.options.ignore = false;
-
-    log("Reseted ESLint default options.");
-}
-
 function extendsEslintConfig(loader, eslintConfig, context) {
     const { configure } = eslintConfig;
 
@@ -57,8 +51,6 @@ function extendsEslintConfig(loader, eslintConfig, context) {
 function useEslintConfigFile(loader) {
     if (loader.options) {
         loader.options.useEslintrc = true;
-        loader.options.ignore = true;
-
         delete loader.options.baseConfig;
     } else {
         loader.options = {
@@ -67,6 +59,18 @@ function useEslintConfigFile(loader) {
     }
 
     log("Overwrited ESLint config to use a config file.");
+}
+
+function enableEslintIgnoreFile(loader) {
+    if (loader.options) {
+        loader.options.ignore = true;
+    } else {
+        loader.options = {
+            ignore: true
+        };
+    }
+
+    log("Overwrited ESLint config to enable an ignore file.");
 }
 
 function applyLoaderOptions(loader, loaderOptions, context) {
@@ -102,7 +106,7 @@ function overrideEsLint(cracoConfig, webpackConfig, context) {
             return webpackConfig;
         }
 
-        resetDefaultOptions(match.loader);
+        enableEslintIgnoreFile(match.loader);
 
         if (mode === ESLINT_MODES.file) {
             useEslintConfigFile(match.loader);
