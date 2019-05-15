@@ -57,6 +57,8 @@ function extendsEslintConfig(loader, eslintConfig, context) {
 function useEslintConfigFile(loader) {
     if (loader.options) {
         loader.options.useEslintrc = true;
+        loader.options.ignore = true;
+
         delete loader.options.baseConfig;
     } else {
         loader.options = {
