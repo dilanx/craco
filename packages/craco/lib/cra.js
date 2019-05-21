@@ -3,9 +3,22 @@ const path = require("path");
 const { log } = require("./logger");
 const { projectRoot } = require("./paths");
 
+let envLoaded = false;
+
 /************  Common  *******************/
 
 function resolveConfigFilePath(cracoConfig, fileName) {
+    if (!envLoaded) {
+        // Environment variables must be loaded before the CRA paths, otherwise they will not be applied.
+        require(resolveConfigFilePathInner(cracoConfig, "env.js"));
+
+        envLoaded = true;
+    }
+
+    return resolveConfigFilePathInner(cracoConfig, fileName);
+}
+
+function resolveConfigFilePathInner(cracoConfig, fileName) {
     return require.resolve(path.join(cracoConfig.reactScriptsVersion, "config", fileName), { paths: [projectRoot] });
 }
 
@@ -25,8 +38,6 @@ let _resolvedCraPaths = null;
 
 function getCraPaths(cracoConfig) {
     if (!_resolvedCraPaths) {
-        // Environment variables must be loaded before the CRA paths, otherwise they will not be applied.
-        require(resolveConfigFilePath(cracoConfig, "env.js"));
         _resolvedCraPaths = require(resolveConfigFilePath(cracoConfig, "paths.js"));
     }
 
