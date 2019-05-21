@@ -1,6 +1,6 @@
 # craco [![Build Status](https://travis-ci.org/sharegate/craco.svg?branch=master)](https://travis-ci.org/sharegate/craco) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-green.svg)](https://github.com/sharegate/craco/pulls)
 
-**C**reate **R**eact **A**pp **C**onfiguration **O**verride is an easy and comprehensible configuration layer for create-react-app v2.
+**C**reate **R**eact **A**pp **C**onfiguration **O**verride is an easy and comprehensible configuration layer for create-react-app.
 
 Get all the benefits of create-react-app **and** customization without using 'eject' by adding a single `craco.config.js` file at the root of your application and customize your eslint, babel, postcss configurations and many more.
 
@@ -38,6 +38,7 @@ Major changes are available in the [changelog folder](https://github.com/sharega
 * [craco-base64-inline-loader](https://github.com/melMass/craco-base64-inline-loader) by [@melMass](https://github.com/melMass)
 * [craco-workbox](https://github.com/kevinsperrine/craco-workbox) by [@kevinsperrine](https://github.com/kevinsperrine)
 * [craco-use-babelrc](https://github.com/jackwilsdon/craco-use-babelrc) by [@jackwilsdon](https://github.com/jackwilsdon)
+* [craco-image-optimizer-plugin](https://github.com/GloomyGentleman/craco-image-optimizer-plugin) by [@gloomygentleman](https://github.com/GloomyGentleman)
 
 ## Acknowledgements
 
