@@ -7,6 +7,11 @@
         "bootstrap": "lerna bootstrap"
     },
     "license": "Apache-2.0",
+    "keywords": [
+        "react",
+        "create-react-app",
+        "cra"
+    ],
     "husky": {
         "hooks": {
             "pre-commit": "lint-staged"
