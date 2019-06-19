@@ -47,7 +47,11 @@ function getCraPaths(cracoConfig) {
 /************  Webpack Dev Config  *******************/
 
 function getWebpackDevConfigPath(cracoConfig) {
-    return resolveConfigFilePath(cracoConfig, "webpack.config.js");
+    try {
+        return resolveConfigFilePath(cracoConfig, "webpack.config.js");
+    } catch (e) {
+        return resolveConfigFilePath(cracoConfig, "webpack.config.dev.js");
+    }
 }
 
 function loadWebpackDevConfig(cracoConfig) {
@@ -67,7 +71,11 @@ function overrideWebpackDevConfig(cracoConfig, newConfig) {
 /************  Webpack Prod Config  *******************/
 
 function getWebpackProdConfigPath(cracoConfig) {
-    return resolveConfigFilePath(cracoConfig, "webpack.config.js");
+    try {
+        return resolveConfigFilePath(cracoConfig, "webpack.config.js");
+    } catch (e) {
+        return resolveConfigFilePath(cracoConfig, "webpack.config.prod.js");
+    }
 }
 
 function loadWebpackProdConfig(cracoConfig) {
