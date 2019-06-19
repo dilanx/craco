@@ -1,4 +1,5 @@
 {
+    "name": "craco",
     "private": true,
     "scripts": {
         "publish": "lerna publish --progress --force-publish",
@@ -6,6 +7,11 @@
         "bootstrap": "lerna bootstrap"
     },
     "license": "Apache-2.0",
+    "keywords": [
+        "react",
+        "create-react-app",
+        "cra"
+    ],
     "husky": {
         "hooks": {
             "pre-commit": "lint-staged"
