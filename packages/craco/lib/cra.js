@@ -48,48 +48,76 @@ function getCraPaths(cracoConfig) {
 
 function getWebpackDevConfigPath(cracoConfig) {
     try {
-        return resolveConfigFilePath(cracoConfig, "webpack.config.js");
+        return {
+            filepath: resolveConfigFilePath(cracoConfig, "webpack.config.js"),
+            isLegacy: false
+        };
     } catch (e) {
-        return resolveConfigFilePath(cracoConfig, "webpack.config.dev.js");
+        return {
+            filepath: resolveConfigFilePath(cracoConfig, "webpack.config.dev.js"),
+            isLegacy: true
+        };
     }
 }
 
 function loadWebpackDevConfig(cracoConfig) {
-    const filepath = getWebpackDevConfigPath(cracoConfig);
+    const result = getWebpackDevConfigPath(cracoConfig);
 
-    log("Found Webpack dev config at: ", filepath);
+    log("Found Webpack dev config at: ", result.filepath);
 
-    return require(filepath)("development");
+    if (result.isLegacy) {
+        return require(result.filepath);
+    }
+
+    return require(result.filepath)("development");
 }
 
 function overrideWebpackDevConfig(cracoConfig, newConfig) {
-    const filepath = getWebpackDevConfigPath(cracoConfig);
+    const result = getWebpackDevConfigPath(cracoConfig);
 
-    overrideModule(filepath, () => newConfig);
+    if (result.isLegacy) {
+        overrideModule(result.filepath, newConfig);
+    } else {
+        overrideModule(result.filepath, () => newConfig);
+    }
 }
 
 /************  Webpack Prod Config  *******************/
 
 function getWebpackProdConfigPath(cracoConfig) {
     try {
-        return resolveConfigFilePath(cracoConfig, "webpack.config.js");
+        return {
+            filepath: resolveConfigFilePath(cracoConfig, "webpack.config.js"),
+            isLegacy: false
+        };
     } catch (e) {
-        return resolveConfigFilePath(cracoConfig, "webpack.config.prod.js");
+        return {
+            filepath: resolveConfigFilePath(cracoConfig, "webpack.config.prod.js"),
+            isLegacy: true
+        };
     }
 }
 
 function loadWebpackProdConfig(cracoConfig) {
-    const filepath = getWebpackProdConfigPath(cracoConfig);
+    const result = getWebpackProdConfigPath(cracoConfig);
 
-    log("Found Webpack prod config at: ", filepath);
+    log("Found Webpack prod config at: ", result.filepath);
 
-    return require(filepath)("production");
+    if (result.isLegacy) {
+        return require(result.filepath);
+    }
+
+    return require(result.filepath)("production");
 }
 
 function overrideWebpackProdConfig(cracoConfig, newConfig) {
-    const filepath = getWebpackProdConfigPath(cracoConfig);
+    const result = getWebpackProdConfigPath(cracoConfig);
 
-    overrideModule(filepath, () => newConfig);
+    if (result.isLegacy) {
+        overrideModule(result.filepath, newConfig);
+    } else {
+        overrideModule(result.filepath, () => newConfig);
+    }
 }
 
 /************  Dev Server  *******************/
