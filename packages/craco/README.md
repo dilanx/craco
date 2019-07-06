@@ -254,6 +254,7 @@ module.exports = {
 There are 3 functions available to a plugin:
 - `overrideCracoConfig`: Let a plugin customize the config object before it's process by `craco`.
 - `overrideWebpackConfig`: Let a plugin customize the `webpack` config that will be used by CRA.
+- `overrideDevServerConfig`: Let a plugin customize the dev server config that will be used by CRA.
 - `overrideJestConfig`: Let a plugin customize the `Jest` config that will be used by CRA.
 
 **Important:**
@@ -365,6 +366,61 @@ module.exports = {
     ...
     plugins: [
         { plugin: logWebpackConfigPlugin, options: { preText: "Will log the webpack config:" } }
+    ]
+};
+```
+
+### overrideDevServerConfig
+
+The function `overrideDevServerConfig` let a plugin override the dev server config object **after** it's been customized by `craco`.
+
+*The function must return a valid config object, otherwise `craco` will throw an error.*
+
+The function will be called with a single object argument having the following structure:
+
+```javascript
+{
+    devServerConfig: "The dev server config object already customized by craco",
+    cracoConfig: "The configuration object read from the craco.config.js file provided by the consumer",
+    pluginOptions: "The plugin options provided by the consumer",
+    context: {
+        env: "The current NODE_ENV (development, production, etc..)",
+        paths: "An object that contains all the paths used by CRA",
+        allowedHost: "Provided by CRA"
+    }
+}
+```
+
+#### Example
+
+Plugin:
+
+```javascript
+/* craco-plugin-log-dev-server-config.js */
+
+module.exports = {
+    overrideDevServerConfig: ({ devServerConfig, cracoConfig, pluginOptions, context: { env, paths, allowedHost } }) => {
+        if (pluginOptions.preText) {
+            console.log(pluginOptions.preText);
+        }
+
+        console.log(JSON.stringify(devServerConfig, null, 4));
+
+        // Always return the config object.
+        return devServerConfig;
+    }
+};
+```
+
+Registration (in a `craco.config.js` file):
+
+```javascript
+const logDevServerConfigPlugin = require("./craco-plugin-log-dev-server-config");
+
+module.exports = {
+    ...
+    plugins: [
+        { plugin: logDevServerConfigPlugin, options: { preText: "Will log the dev server config:" } }
     ]
 };
 ```
