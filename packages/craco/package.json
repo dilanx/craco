@@ -43,6 +43,6 @@
         "lodash.mergewith": "^4.6.2",
         "webpack-merge": "^4.2.1"
     },
-    "version": "5.2.3",
+    "version": "5.2.4",
     "gitHead": "f349b315c61122ec4080ec5b767f00dbf776ba3b"
 }
