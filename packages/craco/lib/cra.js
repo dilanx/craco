@@ -23,6 +23,9 @@ function resolveConfigFilePathInner(cracoConfig, fileName) {
 }
 
 function resolveScriptsFilePath(cracoConfig, fileName) {
+    console.log(cracoConfig);
+    console.log(fileName);
+
     return require.resolve(path.join(cracoConfig.reactScriptsVersion, "scripts", fileName), { paths: [projectRoot] });
 }
 

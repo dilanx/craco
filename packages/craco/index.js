@@ -12,6 +12,7 @@ const { when, whenDev, whenProd, whenTest } = require("./lib/user-config-utils")
 const { throwUnexpectedConfigError, gitHubIssueUrl } = require("./lib/plugin-utils");
 const { ESLINT_MODES } = require("./lib/features/eslint");
 const { POSTCSS_MODES } = require("./lib/features/style/postcss");
+const { getJestConfig } = require("./lib/features/test/api");
 
 module.exports = {
     getLoader,
@@ -29,5 +30,6 @@ module.exports = {
     throwUnexpectedConfigError,
     gitHubIssueUrl,
     ESLINT_MODES,
-    POSTCSS_MODES
+    POSTCSS_MODES,
+    getJestConfig
 };

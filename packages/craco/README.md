@@ -251,7 +251,7 @@ module.exports = {
 
 ## Develop a plugin
 
-There are 3 functions available to a plugin:
+There are 4 functions available to a plugin:
 - `overrideCracoConfig`: Let a plugin customize the config object before it's process by `craco`.
 - `overrideWebpackConfig`: Let a plugin customize the `webpack` config that will be used by CRA.
 - `overrideDevServerConfig`: Let a plugin customize the dev server config that will be used by CRA.

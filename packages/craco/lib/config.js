@@ -33,6 +33,13 @@ function ensureConfigSanity(cracoConfig) {
     }
 }
 
+function processCracoConfig(potentialCracoConfig, context) {
+    let resultingCracoConfig = deepMergeWithArray({}, DEFAULT_CONFIG, potentialCracoConfig);
+    ensureConfigSanity(resultingCracoConfig);
+
+    return applyCracoConfigPlugins(resultingCracoConfig, context);
+}
+
 function loadCracoConfig(context) {
     log("Found craco config file at: ", configFilePath);
 
@@ -43,12 +50,10 @@ function loadCracoConfig(context) {
         throw new Error("craco: Config function didn't returned a config object.");
     }
 
-    let resultingCracoConfig = deepMergeWithArray({}, DEFAULT_CONFIG, configAsObject);
-    ensureConfigSanity(resultingCracoConfig);
-
-    return applyCracoConfigPlugins(resultingCracoConfig, context);
+    return processCracoConfig(configAsObject, context);
 }
 
 module.exports = {
-    loadCracoConfig
+    loadCracoConfig,
+    processCracoConfig
 };

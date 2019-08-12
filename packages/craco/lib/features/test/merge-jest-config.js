@@ -1,7 +1,6 @@
 const path = require("path");
 
 const { config } = require("../../args");
-const { overrideJestConfigProvider, loadJestConfigProvider } = require("../../cra");
 const { isFunction, isArray, deepMergeWithArray } = require("../../utils");
 const { log } = require("../../logger");
 const { applyJestConfigPlugins } = require("../plugins");
@@ -61,44 +60,31 @@ function giveTotalControl(jestConfig, configureJest, context) {
     return jestConfig;
 }
 
-function createConfigProviderProxy(cracoConfig, craJestConfigProvider, context) {
-    const proxy = (resolve, rootDir) => {
-        const customResolve = relativePath =>
-            require.resolve(path.join(cracoConfig.reactScriptsVersion, relativePath), { paths: [projectRoot] });
+function mergeJestConfig(cracoConfig, craJestConfigProvider, context) {
+    const customResolve = relativePath =>
+        require.resolve(path.join(cracoConfig.reactScriptsVersion, relativePath), { paths: [projectRoot] });
 
-        const jestContext = {
-            ...context,
-            resolve: customResolve,
-            rootDir
-        };
-
-        let jestConfig = craJestConfigProvider(customResolve, rootDir, false);
-
-        configureBabel(jestConfig, cracoConfig);
-
-        if (cracoConfig.jest.configure) {
-            jestConfig = giveTotalControl(jestConfig, cracoConfig.jest.configure, jestContext);
-        }
-
-        jestConfig = applyJestConfigPlugins(cracoConfig, jestConfig, jestContext);
-
-        log("Overrided Jest config.");
-
-        return jestConfig;
+    const jestContext = {
+        ...context,
+        resolve: customResolve,
+        rootDir: projectRoot
     };
 
-    return proxy;
-}
+    let jestConfig = craJestConfigProvider(customResolve, projectRoot, false);
 
-function overrideJest(cracoConfig, context) {
-    if (cracoConfig.jest) {
-        const craJestConfigProvider = loadJestConfigProvider(cracoConfig);
-        const proxy = createConfigProviderProxy(cracoConfig, craJestConfigProvider, context);
+    configureBabel(jestConfig, cracoConfig);
 
-        overrideJestConfigProvider(cracoConfig, proxy);
+    if (cracoConfig.jest.configure) {
+        jestConfig = giveTotalControl(jestConfig, cracoConfig.jest.configure, jestContext);
     }
+
+    jestConfig = applyJestConfigPlugins(cracoConfig, jestConfig, jestContext);
+
+    log("Merged Jest config.");
+
+    return jestConfig;
 }
 
 module.exports = {
-    overrideJest
+    mergeJestConfig
 };

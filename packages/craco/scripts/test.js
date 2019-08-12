@@ -2,7 +2,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || "test";
 
 const { log } = require("../lib/logger");
 const { getCraPaths, test } = require("../lib/cra");
-const { overrideJest } = require("../lib/features/test/jest");
+const { overrideJest } = require("../lib/features/test/override");
 const { loadCracoConfig } = require("../lib/config");
 const { removeJestConflictingCustomArgs } = require("../lib/args");
 
