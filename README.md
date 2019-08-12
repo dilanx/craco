@@ -20,6 +20,7 @@ All you have to do is create your app using [create-react-app](https://github.co
 - [Installation](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#installation) - How to install and setup `craco`.
 - [Custom location for craco.config.js](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#custom-location-for-cracoconfigjs) - Customize the location of your craco.config.js file.
 - [Configuration Overview](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#configuration-overview) - Quickly see how you can configure your CRA installation with this plugin.
+- [API](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#api) - Have a look at CRACO API for Jest and Webpack.
 - [Recipes](https://github.com/sharegate/craco/tree/master/recipes) – Short recipes for common use cases.
 - [Develop a Plugin](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#develop-a-plugin) - How to develop a plugin for `craco`.
 
