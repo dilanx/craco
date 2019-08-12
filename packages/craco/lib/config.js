@@ -2,8 +2,8 @@ const { configFilePath } = require("./paths");
 const { isFunction, isArray, deepMergeWithArray } = require("./utils");
 const { log } = require("./logger");
 const { applyCracoConfigPlugins } = require("./features/plugins");
-const { POSTCSS_MODES } = require("./features/style/postcss");
-const { ESLINT_MODES } = require("./features/eslint");
+const { POSTCSS_MODES } = require("./features/webpack/style/postcss");
+const { ESLINT_MODES } = require("./features/webpack/eslint");
 
 const DEFAULT_CONFIG = {
     reactScriptsVersion: "react-scripts",
@@ -33,8 +33,8 @@ function ensureConfigSanity(cracoConfig) {
     }
 }
 
-function processCracoConfig(potentialCracoConfig, context) {
-    let resultingCracoConfig = deepMergeWithArray({}, DEFAULT_CONFIG, potentialCracoConfig);
+function processCracoConfig(cracoConfig, context) {
+    let resultingCracoConfig = deepMergeWithArray({}, DEFAULT_CONFIG, cracoConfig);
     ensureConfigSanity(resultingCracoConfig);
 
     return applyCracoConfigPlugins(resultingCracoConfig, context);

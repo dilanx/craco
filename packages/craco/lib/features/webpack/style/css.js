@@ -1,6 +1,6 @@
-const { getLoaders, loaderByName } = require("../../loaders");
-const { log, logError } = require("../../logger");
-const { isFunction, deepMergeWithArray } = require("../../utils");
+const { getLoaders, loaderByName } = require("../../../loaders");
+const { log, logError } = require("../../../logger");
+const { isFunction, deepMergeWithArray } = require("../../../utils");
 
 function setModuleLocalIdentName(match, localIdentName) {
     if (match.loader.options) {

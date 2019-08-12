@@ -1,6 +1,6 @@
-const { getLoaders, loaderByName } = require("../../loaders");
-const { log, logError } = require("../../logger");
-const { isString, isFunction, deepMergeWithArray } = require("../../utils");
+const { getLoaders, loaderByName } = require("../../../loaders");
+const { log, logError } = require("../../../logger");
+const { isString, isFunction, deepMergeWithArray } = require("../../../utils");
 
 function setLoaderProperty(match, key, valueProviders) {
     if (isString(match.loader)) {

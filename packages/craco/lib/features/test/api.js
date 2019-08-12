@@ -3,8 +3,8 @@ const { mergeJestConfig } = require("./merge-jest-config");
 const { loadJestConfigProvider } = require("../../cra");
 const { processCracoConfig } = require("../../config");
 
-function getJestConfig(userCracoConfig, userContext = {}) {
-    if (!userCracoConfig) {
+function createJestConfig(callerCracoConfig, callerContext = {}) {
+    if (!callerCracoConfig) {
         throw new Error("craco: 'cracoConfig' is required.");
     }
 
@@ -14,21 +14,17 @@ function getJestConfig(userCracoConfig, userContext = {}) {
 
     const context = {
         env: process.env.NODE_ENV,
-        ...userContext
+        ...callerContext
     };
 
-    const cracoConfig = processCracoConfig(userCracoConfig, context);
-    const craJestConfigProvider = loadJestConfigProvider(cracoConfig);
-
-    if (!craJestConfigProvider) {
-        throw new Error("craco: Cannot find Jest config factory.");
-    }
-
+    const cracoConfig = processCracoConfig(callerCracoConfig, context);
     context.paths = getCraPaths(cracoConfig);
+
+    const craJestConfigProvider = loadJestConfigProvider(cracoConfig);
 
     return mergeJestConfig(cracoConfig, craJestConfigProvider, context);
 }
 
 module.exports = {
-    getJestConfig
+    createJestConfig
 };

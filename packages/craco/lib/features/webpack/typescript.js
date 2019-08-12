@@ -1,4 +1,4 @@
-const { log } = require("../logger");
+const { log } = require("../../logger");
 
 function disableTypeChecking(webpackConfig) {
     webpackConfig.plugins = webpackConfig.plugins.filter(

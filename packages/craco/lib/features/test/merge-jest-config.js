@@ -64,23 +64,25 @@ function mergeJestConfig(cracoConfig, craJestConfigProvider, context) {
     const customResolve = relativePath =>
         require.resolve(path.join(cracoConfig.reactScriptsVersion, relativePath), { paths: [projectRoot] });
 
-    const jestContext = {
-        ...context,
-        resolve: customResolve,
-        rootDir: projectRoot
-    };
-
     let jestConfig = craJestConfigProvider(customResolve, projectRoot, false);
 
-    configureBabel(jestConfig, cracoConfig);
+    if (cracoConfig.jest) {
+        configureBabel(jestConfig, cracoConfig);
 
-    if (cracoConfig.jest.configure) {
-        jestConfig = giveTotalControl(jestConfig, cracoConfig.jest.configure, jestContext);
+        const jestContext = {
+            ...context,
+            resolve: customResolve,
+            rootDir: projectRoot
+        };
+
+        if (cracoConfig.jest.configure) {
+            jestConfig = giveTotalControl(jestConfig, cracoConfig.jest.configure, jestContext);
+        }
+
+        jestConfig = applyJestConfigPlugins(cracoConfig, jestConfig, jestContext);
+
+        log("Merged Jest config.");
     }
-
-    jestConfig = applyJestConfigPlugins(cracoConfig, jestConfig, jestContext);
-
-    log("Merged Jest config.");
 
     return jestConfig;
 }

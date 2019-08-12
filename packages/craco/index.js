@@ -10,9 +10,10 @@ const {
 } = require("./lib/loaders");
 const { when, whenDev, whenProd, whenTest } = require("./lib/user-config-utils");
 const { throwUnexpectedConfigError, gitHubIssueUrl } = require("./lib/plugin-utils");
-const { ESLINT_MODES } = require("./lib/features/eslint");
-const { POSTCSS_MODES } = require("./lib/features/style/postcss");
-const { getJestConfig } = require("./lib/features/test/api");
+const { ESLINT_MODES } = require("./lib/features/webpack/eslint");
+const { POSTCSS_MODES } = require("./lib/features/webpack/style/postcss");
+const { createJestConfig } = require("./lib/features/test/api");
+const { createWebpackDevConfig, createWebpackProdConfig } = require("./lib/features/webpack/api");
 
 module.exports = {
     getLoader,
@@ -31,5 +32,7 @@ module.exports = {
     gitHubIssueUrl,
     ESLINT_MODES,
     POSTCSS_MODES,
-    getJestConfig
+    createJestConfig,
+    createWebpackDevConfig,
+    createWebpackProdConfig
 };

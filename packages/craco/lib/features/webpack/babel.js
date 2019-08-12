@@ -1,6 +1,6 @@
-const { getLoaders, loaderByName } = require("../loaders");
-const { log, logError } = require("../logger");
-const { isFunction, isArray, deepMergeWithArray } = require("../utils");
+const { getLoaders, loaderByName } = require("../../loaders");
+const { log, logError } = require("../../logger");
+const { isFunction, isArray, deepMergeWithArray } = require("../../utils");
 
 // TODO: CRA use a cacheIdentifier, should we update it with the new plugins?
 

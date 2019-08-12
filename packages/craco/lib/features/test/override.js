@@ -7,10 +7,6 @@ function overrideJest(cracoConfig, context) {
     if (cracoConfig.jest) {
         const craJestConfigProvider = loadJestConfigProvider(cracoConfig);
 
-        if (!craJestConfigProvider) {
-            throw new Error("craco: Cannot find Jest config factory.");
-        }
-
         const proxy = () => {
             return mergeJestConfig(cracoConfig, craJestConfigProvider, context);
         };

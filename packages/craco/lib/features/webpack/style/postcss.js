@@ -1,7 +1,7 @@
-const { getLoaders, loaderByName } = require("../../loaders");
-const { log, logError } = require("../../logger");
-const { isArray, isFunction, deepMergeWithArray } = require("../../utils");
-const { projectRoot } = require("../../paths");
+const { getLoaders, loaderByName } = require("../../../loaders");
+const { log, logError } = require("../../../logger");
+const { isArray, isFunction, deepMergeWithArray } = require("../../../utils");
+const { projectRoot } = require("../../../paths");
 
 const POSTCSS_MODES = {
     extends: "extends",
