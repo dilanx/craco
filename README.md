@@ -41,6 +41,8 @@ Major changes are available in the [changelog folder](https://github.com/sharega
 * [craco-use-babelrc](https://github.com/jackwilsdon/craco-use-babelrc) by [@jackwilsdon](https://github.com/jackwilsdon)
 * [craco-image-optimizer-plugin](https://github.com/GloomyGentleman/craco-image-optimizer-plugin) by [@gloomygentleman](https://github.com/GloomyGentleman)
 * [craco-interpolate-html-plugin](https://github.com/GloomyGentleman/craco-interpolate-html-plugin) by [@gloomygentleman](https://github.com/GloomyGentleman)
+* [craco-cesium](https://www.npmjs.com/package/craco-cesium) by [rot1024](https://github.com/rot1024)
+* [craco-sass-resources-loader](https://github.com/tilap/craco-sass-resources-loader) by [tilap](https://github.com/tilap)
 
 ## Acknowledgements
 
