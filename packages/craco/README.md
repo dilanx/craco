@@ -258,7 +258,7 @@ That's what CRACO APIs are for. The current API support Jest and Webpack and con
 
 ### createJestConfig
 
-The function accept a `cracoConfig` object and a `context` object and return the generated Jest config object.
+Accept a `cracoConfig` object and a `context` object and return the generated Jest config object.
 
 `createJestConfig(cracoConfig, context = {})`
 
@@ -277,7 +277,7 @@ module.exports = jestConfig;
 
 ### createWebpackDevConfig & createWebpackProdConfig
 
-The function accept a `cracoConfig` object and a `context` object and return the generated Webpack config object.
+Accept a `cracoConfig` object and a `context` object and return the generated Webpack config object.
 
 `createWebpackDevConfig(cracoConfig, context = {})`
 `createWebpackProdConfig(cracoConfig, context = {})`
