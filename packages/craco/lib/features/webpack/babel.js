@@ -7,7 +7,11 @@ const { isFunction, isArray, deepMergeWithArray } = require("../../utils");
 function addPresets(loader, babelPresets) {
     if (isArray(babelPresets)) {
         if (loader.options) {
-            loader.options.presets = babelPresets.concat(loader.options.presets || []);
+            if (loader.options.presets) {
+                loader.options.presets = loader.options.presets.concat(babelPresets);
+            } else {
+                loader.options.presets = babelPresets;
+            }
         } else {
             loader.options = {
                 presets: babelPresets
@@ -21,7 +25,11 @@ function addPresets(loader, babelPresets) {
 function addPlugins(loader, babelPlugins) {
     if (isArray(babelPlugins)) {
         if (loader.options) {
-            loader.options.plugins = babelPlugins.concat(loader.options.plugins || []);
+            if (loader.options.plugins) {
+                loader.options.plugins = loader.options.plugins.concat(babelPlugins);
+            } else {
+                loader.options.plugins = babelPlugins;
+            }
         } else {
             loader.options = {
                 plugins: babelPlugins
