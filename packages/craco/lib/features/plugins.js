@@ -14,6 +14,8 @@ function overrideCracoConfig({ plugin, options }, cracoConfig, context) {
         if (!resultingConfig) {
             throw new Error("craco: Plugin returned an undefined craco config.");
         }
+
+        return resultingConfig;
     }
 
     log("Overrided craco config with plugin.");
@@ -47,6 +49,8 @@ function overrideWebpack({ plugin, options }, cracoConfig, webpackConfig, contex
         if (!resultingConfig) {
             throw new Error("craco: Plugin returned an undefined webpack config.");
         }
+
+        return resultingConfig;
     }
 
     log("Overrided webpack config with plugin.");
@@ -115,6 +119,8 @@ function overrideJest({ plugin, options }, cracoConfig, jestConfig, context) {
         if (!resultingConfig) {
             throw new Error("craco: Plugin returned an undefined Jest config.");
         }
+
+        return resultingConfig;
     }
 
     log("Overrided Jest config with plugin.");
