@@ -22,7 +22,7 @@ if (cracoConfig.babel) {
         const { presets } = cracoConfig.babel;
 
         if (isArray(presets)) {
-            craBabelTransformer.presets = presets.concat(craBabelTransformer.presets);
+            craBabelTransformer.presets = craBabelTransformer.presets.concat(presets);
         }
     }
 
