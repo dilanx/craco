@@ -298,7 +298,6 @@ module.exports = webpackConfig;
 ### Popular integrations
 
 - [vscode-jest](https://github.com/sharegate/craco/tree/master/recipes/use-a-jest-config-file)
-- [Storybook](https://github.com/sharegate/craco/tree/master/recipes/integrate-with-storybook)
 
 ## Develop a plugin
 
