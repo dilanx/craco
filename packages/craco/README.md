@@ -148,7 +148,7 @@ When the property **mode** is available there are 2 possible values:
 - `file`: the CRA settings will be reseted and you will provide an official configuration file for the plugin ([postcss](https://github.com/michael-ciniawsky/postcss-load-config#postcssrc), [eslint](https://eslint.org/docs/user-guide/configuring#configuration-file-formats)) that will supersede any settings.
 
 ```javascript
-const { when, whenDev, whenProd, whenCI, whenTest, ESLINT_MODES, POSTCSS_MODES } = require("@craco/craco");
+const { when, whenDev, whenProd, whenTest, ESLINT_MODES, POSTCSS_MODES } = require("@craco/craco");
 
 module.exports = {
     reactScriptsVersion: "react-scripts" /* (default value) */,
@@ -223,22 +223,22 @@ module.exports = {
 };
 ```
 
-### when, whenDev, whenProd, whenCI, whenTest
+### when, whenDev, whenProd, whenTest
 
-Usage for all those functions is the same, `whenDev, whenProd, whenCI, whenTest` are shortcuts for `when`.
+Usage for all those functions is the same, `whenDev, whenProd, whenTest` are shortcuts for `when`.
 
 `when(condition, fct, [unmetValue])`
 
 Usage:
 
 ```javascript
-const { whenDev, whenCI } = require("@craco/craco");
+const { when, whenDev } = require("@craco/craco");
 
 module.exports = {
     eslint: {
         mode: ESLINT_MODES.file,
         configure: {
-            formatter: whenCI(require("eslint-formatter-vso"))
+            formatter: when(process.env.NODE_ENV === "CI", require("eslint-formatter-vso"))
         }
     },
     webpack: {

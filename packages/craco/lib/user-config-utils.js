@@ -14,10 +14,6 @@ function whenProd(fct, unmetValue) {
     return when(process.env.NODE_ENV === "production", fct, unmetValue);
 }
 
-function whenCI(fct, unmetValue) {
-    return when(process.env.NODE_ENV === "CI", fct, unmetValue);
-}
-
 function whenTest(fct, unmetValue) {
     return when(process.env.NODE_ENV === "test", fct, unmetValue);
 }
@@ -26,6 +22,5 @@ module.exports = {
     when,
     whenDev,
     whenProd,
-    whenCI,
     whenTest
 };
