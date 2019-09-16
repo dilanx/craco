@@ -39,9 +39,9 @@
         "react-scripts": "3.*"
     },
     "dependencies": {
-        "cross-spawn": "^6.0.5",
+        "cross-spawn": "^7.0.0",
         "lodash.mergewith": "^4.6.2",
-        "webpack-merge": "^4.2.1"
+        "webpack-merge": "^4.2.2"
     },
     "version": "5.5.0",
     "gitHead": "f349b315c61122ec4080ec5b767f00dbf776ba3b"
