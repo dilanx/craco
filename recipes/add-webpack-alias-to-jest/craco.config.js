@@ -1,3 +1,5 @@
+// You can also use craco-alias plugin: https://github.com/risenforces/craco-alias 
+
 const path = require("path");
 
 module.exports = {

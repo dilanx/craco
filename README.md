@@ -44,6 +44,7 @@ Major changes are available in the [changelog folder](https://github.com/sharega
 * [craco-cesium](https://www.npmjs.com/package/craco-cesium) by [rot1024](https://github.com/rot1024)
 * [craco-sass-resources-loader](https://github.com/tilap/craco-sass-resources-loader) by [tilap](https://github.com/tilap)
 * [craco-linaria](https://github.com/jedmao/craco-linaria) by [jedmao](https://github.com/jedmao)
+* [craco-alias](https://github.com/risenforces/craco-alias) by [@risenforces](https://github.com/risenforces)
 
 ## Acknowledgements
 
