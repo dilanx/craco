@@ -1,10 +1,22 @@
-const args = process.argv;
+const { isNil } = require("lodash");
 
 const VERBOSE_ARG = "--verbose";
 const CONFIG_ARG = "--config";
 
-function findArg(key) {
-    const index = args.indexOf(key);
+function createNullableArg(value) {
+    return {
+        isProvided: !isNil(value),
+        value
+    };
+}
+
+const processedArgs = {
+    verbose: false,
+    config: createNullableArg()
+};
+
+function findCliArg(key) {
+    const index = process.argv.indexOf(key);
 
     return {
         key,
@@ -13,7 +25,7 @@ function findArg(key) {
     };
 }
 
-function getArgWithValue(key) {
+function getCliArgWithValue(key) {
     const result = (isProvided = false, value, index) => ({
         key,
         isProvided,
@@ -21,13 +33,13 @@ function getArgWithValue(key) {
         index
     });
 
-    const arg = findArg(key);
+    const arg = findCliArg(key);
 
     if (arg.isProvided) {
         const valueIndex = arg.index + 1;
 
-        if (args[valueIndex]) {
-            return result(true, args[valueIndex], arg.index);
+        if (process.argv[valueIndex]) {
+            return result(true, process.argv[valueIndex], arg.index);
         }
     }
 
@@ -44,9 +56,9 @@ const jestConflictingArgs = [
     jestConflictingArg(CONFIG_ARG, true),
 ];
 
-function removeJestConflictingCustomArgs() {
+function removeJestConflictingCustomCliArgs() {
     jestConflictingArgs.forEach(x => {
-        const arg = findArg(x.key);
+        const arg = findCliArg(x.key);
 
         if (arg.isProvided) {
             process.argv.splice(arg.index, x.hasValue ? 2 : 1);
@@ -54,11 +66,38 @@ function removeJestConflictingCustomArgs() {
     });
 }
 
-const verbose = findArg(VERBOSE_ARG);
-const config = getArgWithValue(CONFIG_ARG);
+function findArgsFromCli() {
+    const verbose = findCliArg(VERBOSE_ARG);
+    const config = getCliArgWithValue(CONFIG_ARG);
+
+    removeJestConflictingCustomCliArgs();
+
+    const values = {
+        verbose: verbose.isProvided ? true : undefined,
+        config: config.isProvided ? config.value : undefined
+    };
+
+    setArgs(values);
+}
+
+function setArgs(values) {
+    if (!isNil(values)) {
+        if (!isNil(values.verbose)) {
+            processedArgs.verbose = values.verbose;
+        }
+
+        if (!isNil(values.config)) {
+            processedArgs.config = values.config;
+        }
+    }
+}
+
+function getArgs() {
+    return processedArgs;
+}
 
 module.exports = {
-    verbose,
-    config,
-    removeJestConflictingCustomArgs
+    getArgs,
+    setArgs,
+    findArgsFromCli
 };

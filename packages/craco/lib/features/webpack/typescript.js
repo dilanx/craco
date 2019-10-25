@@ -5,8 +5,6 @@ function disableTypeChecking(webpackConfig) {
         plugin => plugin.constructor.name !== "ForkTsCheckerWebpackPlugin"
     );
 
-    log("Disabled TypeScript type checking.");
-
     return webpackConfig;
 }
 

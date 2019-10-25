@@ -1,7 +1,6 @@
 const path = require("path");
 const fs = require("fs");
-const args = require("./args");
-
+const { getArgs } = require("./args");
 const { log } = require("./logger");
 const { isString } = require("./utils");
 
@@ -11,6 +10,8 @@ const packageJsonPath = path.join(projectRoot, "package.json");
 log("Project root path resolved to: ", projectRoot);
 
 let configFilePath = "";
+
+const args = getArgs();
 
 if (args.config.isProvided) {
     configFilePath = path.resolve(projectRoot, args.config.value);

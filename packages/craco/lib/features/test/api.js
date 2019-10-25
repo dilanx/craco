@@ -1,9 +1,10 @@
 const { getCraPaths } = require("../../cra");
 const { mergeJestConfig } = require("./merge-jest-config");
 const { loadJestConfigProvider } = require("../../cra");
+const { setArgs } = require("../../args");
 const { processCracoConfig } = require("../../config");
 
-function createJestConfig(callerCracoConfig, callerContext = {}) {
+function createJestConfig(callerCracoConfig, callerContext = {}, options = {}) {
     if (!callerCracoConfig) {
         throw new Error("craco: 'cracoConfig' is required.");
     }
@@ -11,6 +12,8 @@ function createJestConfig(callerCracoConfig, callerContext = {}) {
     if (!process.env.NODE_ENV) {
         process.env.NODE_ENV = "development";
     }
+
+    setArgs(options);
 
     const context = {
         env: process.env.NODE_ENV,

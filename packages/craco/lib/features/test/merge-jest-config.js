@@ -1,6 +1,6 @@
 const path = require("path");
 
-const { config } = require("../../args");
+const { getArgs } = require("../../args");
 const { isFunction, isArray, deepMergeWithArray } = require("../../utils");
 const { log } = require("../../logger");
 const { applyJestConfigPlugins } = require("../plugins");
@@ -23,6 +23,8 @@ function configureBabel(jestConfig, cracoConfig) {
             const { presets, plugins } = cracoConfig.babel;
 
             if (isArray(presets) || isArray(plugins)) {
+                const { config } = getArgs();
+
                 if (config.isProvided) {
                     throw new Error(
                         "craco: Jest + Babel doesn't support --config. Provide a custom location for the craco.config.js file from your package.json file by specifing a value for 'cracoConfig'."

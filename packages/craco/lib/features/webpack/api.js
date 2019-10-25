@@ -1,16 +1,17 @@
 const { mergeWebpackConfig } = require("./merge-webpack-config");
+const { setArgs } = require("../../args");
 const { processCracoConfig } = require("../../config");
 const { loadWebpackProdConfig, loadWebpackDevConfig, getCraPaths } = require("../../cra");
 
-function createWebpackDevConfig(callerCracoConfig, callerContext = {}) {
-    return createWebpackConfig(callerCracoConfig, callerContext, loadWebpackDevConfig, "development");
+function createWebpackDevConfig(callerCracoConfig, callerContext, options) {
+    return createWebpackConfig(callerCracoConfig, callerContext, loadWebpackDevConfig, "development", options);
 }
 
-function createWebpackProdConfig(callerCracoConfig, callerContext = {}) {
-    return createWebpackConfig(callerCracoConfig, callerContext, loadWebpackProdConfig, "production");
+function createWebpackProdConfig(callerCracoConfig, callerContext, options) {
+    return createWebpackConfig(callerCracoConfig, callerContext, loadWebpackProdConfig, "production", options);
 }
 
-function createWebpackConfig(callerCracoConfig, callerContext = {}, loadWebpackConfig, env) {
+function createWebpackConfig(callerCracoConfig, callerContext = {}, loadWebpackConfig, env, options = {}) {
     if (!callerCracoConfig) {
         throw new Error("craco: 'cracoConfig' is required.");
     }
@@ -18,6 +19,8 @@ function createWebpackConfig(callerCracoConfig, callerContext = {}, loadWebpackC
     if (!process.env.NODE_ENV) {
         process.env.NODE_ENV = env;
     }
+
+    setArgs(options);
 
     const context = {
         env: process.env.NODE_ENV,
