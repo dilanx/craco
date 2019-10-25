@@ -7,7 +7,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/sharegate/craco.git"
+        "url": "https://github.com/gsoft-inc/craco.git"
     },
     "keywords": [
         "react",
@@ -17,9 +17,9 @@
     "author": "Groupe Sharegate inc.",
     "license": "Apache-2.0",
     "bugs": {
-        "url": "https://github.com/sharegate/craco/issues"
+        "url": "https://github.com/gsoft-inc/craco/issues"
     },
-    "homepage": "https://github.com/sharegate/craco",
+    "homepage": "https://github.com/gsoft-inc/craco",
     "engines": {
         "node": ">=6"
     },
