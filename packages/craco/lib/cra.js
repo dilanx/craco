@@ -26,6 +26,10 @@ function resolveScriptsFilePath(cracoConfig, fileName) {
     return require.resolve(path.join(cracoConfig.reactScriptsVersion, "scripts", fileName), { paths: [projectRoot] });
 }
 
+function resolveReactDevUtilsPath(fileName) {
+    return require.resolve(path.join("react-dev-utils", fileName), { paths: [projectRoot] });
+}
+
 function overrideModule(modulePath, newModule) {
     require.cache[modulePath].exports = newModule;
 
@@ -126,6 +130,10 @@ function getDevServerConfigPath(cracoConfig) {
     return resolveConfigFilePath(cracoConfig, "webpackDevServer.config.js");
 }
 
+function getDevServerUtilsPath() {
+    return resolveReactDevUtilsPath("WebpackDevServerUtils.js");
+}
+
 function loadDevServerConfigProvider(cracoConfig) {
     const filepath = getDevServerConfigPath(cracoConfig);
 
@@ -138,6 +146,20 @@ function overrideDevServerConfigProvider(cracoConfig, configProvider) {
     const filepath = getDevServerConfigPath(cracoConfig);
 
     overrideModule(filepath, configProvider);
+}
+
+function loadDevServerUtils() {
+    const filepath = getDevServerUtilsPath();
+
+    log("Found dev server utils at: ", filepath);
+
+    return require(filepath);
+}
+
+function overrideDevServerUtils(newUtils) {
+    const filepath = getDevServerUtilsPath();
+
+    overrideModule(filepath, newUtils);
 }
 
 /************  Jest  *******************/
@@ -195,6 +217,8 @@ module.exports = {
     overrideWebpackProdConfig,
     loadDevServerConfigProvider,
     overrideDevServerConfigProvider,
+    loadDevServerUtils,
+    overrideDevServerUtils,
     loadJestConfigProvider,
     overrideJestConfigProvider,
     getCraPaths,
