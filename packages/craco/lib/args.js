@@ -87,7 +87,7 @@ function setArgs(values) {
         }
 
         if (!isNil(values.config)) {
-            processedArgs.config = values.config;
+            processedArgs.config = createNullableArg(values.config);
         }
     }
 }

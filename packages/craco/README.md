@@ -17,7 +17,7 @@ All you have to do is create your app using [create-react-app](https://github.co
 
 **Guide**
 
-- [Custom location for craco.config.js](#custom-location-for-craco.config.js) - Customize the location of your craco.config.js file.
+- [Custom location for craco.config.js](#custom-location-for-cracoconfigjs) - Customize the location of your craco.config.js file.
 - [Configuration Overview](#configuration-overview) - Quickly see how you can configure your CRA installation with this plugin.
 - [API](#api) - Have a look at CRACO APIs for Jest and Webpack.
 - [Recipes](https://github.com/sharegate/craco/tree/master/recipes) – Short recipes for common use cases.

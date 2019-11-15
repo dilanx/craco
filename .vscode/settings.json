@@ -11,8 +11,6 @@
     // Required to allow auto format on save with Prettier + ESLint + Vetur.
     "eslint.autoFixOnSave": true,
     "eslint.alwaysShowStatus": true,
-    "prettier.eslintIntegration": true,
-    "prettier.stylelintIntegration": true,
     "sort-imports.suppress-warnings": true,
     "search.exclude": {
         "**/node_modules*": true
