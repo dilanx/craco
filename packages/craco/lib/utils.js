@@ -12,6 +12,10 @@ function isString(value) {
     return typeof value === "string";
 }
 
+function isBoolean(value) {
+    return typeof value === "boolean";
+}
+
 function deepMergeWithArray(...rest) {
     return mergeWith(...rest, (x, y) => {
         if (isArray(x)) {
@@ -24,5 +28,6 @@ module.exports = {
     isFunction,
     isArray,
     isString,
+    isBoolean,
     deepMergeWithArray
 };
