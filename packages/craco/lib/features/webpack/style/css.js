@@ -6,24 +6,12 @@ function setModuleLocalIdentName(match, localIdentName) {
     // The css-loader version of create-react-app has changed from 2.1.1 to 3.2.0
     // https://github.com/facebook/create-react-app/commit/f79f30
     if (isBoolean(match.loader.options.modules)) {
-        if (match.loader.options) {
-            delete match.loader.options.getLocalIdent;
-            match.loader.options.localIdentName = localIdentName;
-        } else {
-            match.loader.options = {
-                localIdentName: localIdentName
-            };
-        }
+        delete match.loader.options.getLocalIdent;
+        match.loader.options.localIdentName = localIdentName;
     } else {
         // This setting applies to create-react-app@3.3.0
-        if (match.loader.options) {
-            delete match.loader.options.modules.getLocalIdent;
-            match.loader.options.modules.localIdentName = localIdentName;
-        } else {
-            match.loader.options.modules = {
-                localIdentName: localIdentName
-            };
-        }
+        delete match.loader.options.modules.getLocalIdent;
+        match.loader.options.modules.localIdentName = localIdentName;
     }
 
     log("Overrided CSS modules local ident name.");
