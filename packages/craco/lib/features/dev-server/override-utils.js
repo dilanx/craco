@@ -1,5 +1,5 @@
-const { loadDevServerUtils, overrideDevServerUtils } = require("../cra");
-const { log } = require("../logger");
+const { loadDevServerUtils, overrideDevServerUtils } = require("../../cra");
+const { log } = require("../../logger");
 
 function overrideWebpackCompilerToDisableTypeScriptTypeChecking(craDevServersUtils) {
     if (craDevServersUtils.createCompiler) {

@@ -84,6 +84,8 @@ function overrideWebpackDevConfig(cracoConfig, newConfig) {
     } else {
         overrideModule(result.filepath, () => newConfig);
     }
+
+    log("Overrided Webpack dev config.");
 }
 
 /************  Webpack Prod Config  *******************/
@@ -122,6 +124,8 @@ function overrideWebpackProdConfig(cracoConfig, newConfig) {
     } else {
         overrideModule(result.filepath, () => newConfig);
     }
+
+    log("Overrided Webpack prod config.");
 }
 
 /************  Dev Server  *******************/
@@ -146,6 +150,8 @@ function overrideDevServerConfigProvider(cracoConfig, configProvider) {
     const filepath = getDevServerConfigPath(cracoConfig);
 
     overrideModule(filepath, configProvider);
+
+    log("Overrided dev server config provider.");
 }
 
 function loadDevServerUtils() {
@@ -160,6 +166,8 @@ function overrideDevServerUtils(newUtils) {
     const filepath = getDevServerUtilsPath();
 
     overrideModule(filepath, newUtils);
+
+    log("Overrided dev server utils.");
 }
 
 /************  Jest  *******************/
@@ -180,6 +188,8 @@ function overrideJestConfigProvider(cracoConfig, configProvider) {
     const filepath = getCreateJestConfigPath(cracoConfig);
 
     overrideModule(filepath, configProvider);
+
+    log("Overrided Jest config provider.");
 }
 
 /************  Scripts  *******************/
