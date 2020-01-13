@@ -14,6 +14,7 @@ const { ESLINT_MODES } = require("./lib/features/webpack/eslint");
 const { POSTCSS_MODES } = require("./lib/features/webpack/style/postcss");
 const { createJestConfig } = require("./lib/features/test/api");
 const { createWebpackDevConfig, createWebpackProdConfig } = require("./lib/features/webpack/api");
+const { createDevServerConfigProviderProxy } = require("./lib/features/dev-server/api");
 
 module.exports = {
     getLoader,
@@ -34,5 +35,6 @@ module.exports = {
     POSTCSS_MODES,
     createJestConfig,
     createWebpackDevConfig,
-    createWebpackProdConfig
+    createWebpackProdConfig,
+    createDevServerConfigProviderProxy
 };

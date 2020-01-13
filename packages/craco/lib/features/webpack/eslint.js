@@ -58,7 +58,7 @@ function useEslintConfigFile(loader) {
         };
     }
 
-    log("Overwrited ESLint config to use a config file.");
+    log("Overrided ESLint config to use a config file.");
 }
 
 function enableEslintIgnoreFile(loader) {
@@ -70,7 +70,7 @@ function enableEslintIgnoreFile(loader) {
         };
     }
 
-    log("Overwrited ESLint config to enable an ignore file.");
+    log("Overrided ESLint config to enable an ignore file.");
 }
 
 function applyLoaderOptions(loader, loaderOptions, context) {
