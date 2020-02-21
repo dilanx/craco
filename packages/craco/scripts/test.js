@@ -7,7 +7,7 @@ findArgsFromCli();
 
 const { log } = require("../lib/logger");
 const { getCraPaths, test } = require("../lib/cra");
-const { overrideJest } = require("../lib/features/test/override");
+const { overrideJest } = require("../lib/features/test-env/override");
 const { loadCracoConfig } = require("../lib/config");
 
 log("Override started with arguments: ", process.argv);
