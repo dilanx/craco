@@ -1,4 +1,4 @@
-const { isNil } = require("lodash");
+const isNil = require("lodash/isNil");
 
 const VERBOSE_ARG = "--verbose";
 const CONFIG_ARG = "--config";

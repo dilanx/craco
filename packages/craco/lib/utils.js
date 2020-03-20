@@ -1,4 +1,4 @@
-const mergeWith = require("lodash.mergewith");
+const mergeWith = require("lodash/mergeWith");
 
 function isFunction(value) {
     return typeof value === "function";
