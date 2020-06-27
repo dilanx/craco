@@ -345,7 +345,7 @@ module.exports = {
             console.log(pluginOptions.preText);
         }
 
-        console.log(JSON.stringify(craconfig, null, 4));
+        console.log(JSON.stringify(cracoConfig, null, 4));
 
         // Always return the config object.
         return cracoConfig;
