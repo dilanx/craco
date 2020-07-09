@@ -5,6 +5,7 @@ const { isFunction, isArray, deepMergeWithArray } = require("../../utils");
 const { log } = require("../../logger");
 const { applyJestConfigPlugins } = require("../plugins");
 const { projectRoot } = require("../../paths");
+const { overrideJestAppSrcPath } = require("./jest-cra-paths-override");
 
 const BABEL_TRANSFORM_ENTRY_KEY_BEFORE_2_1_0 = "^.+\\.(js|jsx)$";
 const BABEL_TRANSFORM_ENTRY_KEY = "^.+\\.(js|jsx|ts|tsx)$";
@@ -67,6 +68,8 @@ function mergeJestConfig(cracoConfig, craJestConfigProvider, context) {
         require.resolve(path.join(cracoConfig.reactScriptsVersion, relativePath), { paths: [projectRoot] });
 
     let jestConfig = craJestConfigProvider(customResolve, projectRoot, false);
+
+    jestConfig = overrideJestAppSrcPath(cracoConfig, jestConfig, context);
 
     if (cracoConfig.jest) {
         configureBabel(jestConfig, cracoConfig);

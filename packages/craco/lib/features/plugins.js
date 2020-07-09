@@ -35,6 +35,40 @@ function applyCracoConfigPlugins(cracoConfig, context) {
     return cracoConfig;
 }
 
+/************  Paths Config  *******************/
+
+function overrideCraPaths({ plugin, options }, cracoConfig, pathsConfig, context) {
+    if(isFunction(plugin.overrideCraPathsConfig)) {
+        const resultingConfig = plugin.overrideCraPathsConfig({
+            cracoConfig: cracoConfig,
+            pathsConfig: pathsConfig,
+            pluginOptions: options,
+            context: context
+        });
+
+        if (!resultingConfig) {
+            throw new Error("craco: Plugin returned an undefined paths config.");
+        }
+
+        return resultingConfig;
+    }
+    log("Overrided paths config with plugin.");
+
+    return pathsConfig;
+}
+
+function applyCraPathsConfigPlugins(cracoConfig, pathsConfig, context) {
+    if (isArray(cracoConfig.plugins)) {
+        cracoConfig.plugins.forEach(x => {
+            pathsConfig = overrideCraPaths(x, cracoConfig, pathsConfig, context);
+        });
+    }
+
+    log("Applied paths config plugins.");
+
+    return pathsConfig;
+}
+
 /************  Webpack Config  *******************/
 
 function overrideWebpack({ plugin, options }, cracoConfig, webpackConfig, context) {
@@ -142,6 +176,7 @@ function applyJestConfigPlugins(cracoConfig, jestConfig, context) {
 
 module.exports = {
     applyCracoConfigPlugins,
+    applyCraPathsConfigPlugins,
     applyWebpackConfigPlugins,
     applyDevServerConfigPlugins,
     applyJestConfigPlugins

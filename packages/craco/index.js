@@ -15,6 +15,7 @@ const { POSTCSS_MODES } = require("./lib/features/webpack/style/postcss");
 const { createJestConfig } = require("./lib/features/test/api");
 const { createWebpackDevConfig, createWebpackProdConfig } = require("./lib/features/webpack/api");
 const { createDevServerConfigProviderProxy } = require("./lib/features/dev-server/api");
+const { createCraPathsConfig } = require("./lib/features/cra-paths/api");
 
 module.exports = {
     getLoader,
@@ -36,5 +37,6 @@ module.exports = {
     createJestConfig,
     createWebpackDevConfig,
     createWebpackProdConfig,
-    createDevServerConfigProviderProxy
+    createDevServerConfigProviderProxy,
+    createCraPathsConfig
 };

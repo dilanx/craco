@@ -149,9 +149,14 @@ When the property **mode** is available there are 2 possible values:
 
 ```javascript
 const { when, whenDev, whenProd, whenTest, ESLINT_MODES, POSTCSS_MODES } = require("@craco/craco");
+const path = require("path");
 
 module.exports = {
     reactScriptsVersion: "react-scripts" /* (default value) */,
+    paths: { /* Any cra paths configuration options: https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/config/paths.js#L60 */
+        appBuild: path.resolve(__dirname, 'dist'),
+        appSrc: path.resolve(__dirname, 'app'),
+    },
     style: {
         modules: {
             localIdentName: ""
@@ -527,6 +532,57 @@ module.exports = {
     ...
     plugins: [
         { plugin: logJestConfigPlugin, options: { preText: "Will log the Jest config:" } }
+    ]
+};
+```
+
+### overrideCraPathsConfig
+
+The function `overrideCraPathsConfig` let a plugin override the `paths` config object **after** it's been customized by `craco`.
+
+*The function must return a valid config object, otherwise `craco` will throw an error.*
+
+The function will be called with a single object argument having the following structure:
+
+```javascript
+{
+    pathsConfig: "The CRA Paths config object already customized by craco",
+    cracoConfig: "The configuration object read from the craco.config.js file provided by the consumer",
+    pluginOptions: "The plugin options provided by the consumer",
+    context: {
+        env: "The current NODE_ENV (development, production, etc..)",
+        paths: "An object that contains all the paths used by CRA",
+        resolve: "Provided by CRA",
+        rootDir: "Provided by CRA"
+    }
+}
+```
+
+#### Example
+
+Plugin:
+
+```javascript
+/* craco-plugin-cra-paths-config.js */
+module.exports = {
+    overrideCraPathsConfig: ({ pathsConfig, cracoConfig, pluginOptions, context: { env, paths, resolve, rootDir } }) => {
+
+        // Always return the config object.
+        return Object.assign(pathsConfig, pluginOptions);
+    }
+};
+```
+
+Registration (in a `craco.config.js` file):
+
+```javascript
+const path = require("path")
+const craPathsConfigPlugin = require("./craco-plugin-cra-paths-config");
+
+module.exports = {
+    ...
+    plugins: [
+        { plugin: craPathsConfigPlugin, options: { appSrc: path.resolve(__dirname, 'app') } }
     ]
 };
 ```

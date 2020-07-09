@@ -38,14 +38,47 @@ function overrideModule(modulePath, newModule) {
 
 /************  Paths  *******************/
 
+const srcExp = /\/([a-zA-Z_\-]+)\/?$/;
+
 let _resolvedCraPaths = null;
+let _originAppSrcName = 'src';
+
+function getCraPathsFilePath(cracoConfig) {
+    return resolveConfigFilePath(cracoConfig, "paths.js");
+}
 
 function getCraPaths(cracoConfig) {
     if (!_resolvedCraPaths) {
-        _resolvedCraPaths = require(resolveConfigFilePath(cracoConfig, "paths.js"));
+        _resolvedCraPaths = require(getCraPathsFilePath(cracoConfig));
+        let { appSrc = '' } =_resolvedCraPaths;
+        _originAppSrcName = appSrc.match(srcExp)[1];
     }
 
     return _resolvedCraPaths;
+}
+
+function overrideCraPathsConfig(cracoConfig, newConfig) {
+    const filepath = getCraPathsFilePath(cracoConfig);
+
+    overrideModule(filepath, newConfig);
+
+    _resolvedCraPaths = newConfig;
+
+    log("Overrided CRA Paths.");
+}
+
+function getAppSrcName(cracoConfig) {
+    let { appSrc = '' } = cracoConfig.paths;
+    if(!appSrc) {
+        const craPathsConfig = getCraPaths(cracoConfig);
+        appSrc = craPathsConfig.appSrc;
+    }
+    return appSrc.match(srcExp)[1];
+}
+
+function getOriginAppSrcName(cracoConfig) {
+    getCraPaths(cracoConfig);
+    return _originAppSrcName;
 }
 
 /************  Webpack Dev Config  *******************/
@@ -232,6 +265,9 @@ module.exports = {
     loadJestConfigProvider,
     overrideJestConfigProvider,
     getCraPaths,
+    overrideCraPathsConfig,
+    getAppSrcName,
+    getOriginAppSrcName,
     start,
     build,
     test
