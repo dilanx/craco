@@ -1,4 +1,3 @@
-const { mergeWebpackConfig } = require("./merge-webpack-config");
 const { setArgs } = require("../../args");
 const { processCracoConfig } = require("../../config");
 const { getCraPaths } = require("../../cra");

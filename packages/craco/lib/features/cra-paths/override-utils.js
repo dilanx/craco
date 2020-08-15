@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { projectRoot } = require("@craco/craco/lib/paths");
+const { projectRoot } = require('../../paths');
 
 let _moduleFileExtensions = [];
 const resolveApp = relativePath => path.resolve(projectRoot, relativePath);
