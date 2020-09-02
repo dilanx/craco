@@ -40,11 +40,11 @@ function processCracoConfig(cracoConfig, context) {
     return applyCracoConfigPlugins(resultingCracoConfig, context);
 }
 
-function loadCracoConfig(context) {
+async function loadCracoConfig(context) {
     log("Found craco config file at: ", configFilePath);
 
     const config = require(configFilePath);
-    const configAsObject = isFunction(config) ? config(context) : config;
+    const configAsObject = await (isFunction(config) ? config(context) : config);
 
     if (!configAsObject) {
         throw new Error("craco: Config function didn't returned a config object.");

@@ -17,8 +17,9 @@ const context = {
     env: process.env.NODE_ENV
 };
 
-const cracoConfig = loadCracoConfig(context);
-context.paths = getCraPaths(cracoConfig);
+loadCracoConfig(context).then(cracoConfig => {
+    context.paths = getCraPaths(cracoConfig);
 
-overrideWebpackProd(cracoConfig, context);
-build(cracoConfig);
+    overrideWebpackProd(cracoConfig, context);
+    build(cracoConfig);
+});
