@@ -8,7 +8,7 @@ findArgsFromCli();
 const { log } = require("../lib/logger");
 const { getCraPaths, test } = require("../lib/cra");
 const { overrideJest } = require("../lib/features/test/override");
-const { loadCracoConfig } = require("../lib/config");
+const { loadCracoConfigAsync } = require("../lib/config");
 
 log("Override started with arguments: ", process.argv);
 log("For environment: ", process.env.NODE_ENV);
@@ -17,7 +17,7 @@ const context = {
     env: process.env.NODE_ENV
 };
 
-loadCracoConfig(context).then(cracoConfig => {
+loadCracoConfigAsync(context).then(cracoConfig => {
     context.paths = getCraPaths(cracoConfig);
 
     overrideJest(cracoConfig, context);
