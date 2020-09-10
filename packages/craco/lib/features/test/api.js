@@ -1,3 +1,4 @@
+const { isFunction } = require("../../utils");
 const { getCraPaths } = require("../../cra");
 const { mergeJestConfig } = require("./merge-jest-config");
 const { loadJestConfigProvider } = require("../../cra");
@@ -7,6 +8,9 @@ const { processCracoConfig } = require("../../config");
 function createJestConfig(callerCracoConfig, callerContext = {}, options = {}) {
     if (!callerCracoConfig) {
         throw new Error("craco: 'cracoConfig' is required.");
+    }
+    if (isFunction(callerCracoConfig)) {
+        throw new Error("craco: 'cracoConfig' should be an object.");
     }
 
     if (!process.env.NODE_ENV) {
