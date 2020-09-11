@@ -5,12 +5,13 @@ const { isFunction, isArray, deepMergeWithArray } = require("../../utils");
 const { log } = require("../../logger");
 const { applyJestConfigPlugins } = require("../plugins");
 const { projectRoot } = require("../../paths");
+const { createJestBabelTransform } = require("./create-jest-babel-transform");
 
 const BABEL_TRANSFORM_ENTRY_KEY_BEFORE_2_1_0 = "^.+\\.(js|jsx)$";
 const BABEL_TRANSFORM_ENTRY_KEY = "^.+\\.(js|jsx|ts|tsx)$";
 
-function overrideBabelTransform(jestConfig, transformKey) {
-    jestConfig.transform[transformKey] = require.resolve("./jest-babel-transform.js");
+function overrideBabelTransform(jestConfig, cracoConfig, transformKey) {
+    jestConfig.transform[transformKey] = createJestBabelTransform(cracoConfig);
 
     log("Overrided Jest Babel transformer.");
 }
@@ -23,18 +24,10 @@ function configureBabel(jestConfig, cracoConfig) {
             const { presets, plugins } = cracoConfig.babel;
 
             if (isArray(presets) || isArray(plugins)) {
-                const { config } = getArgs();
-
-                if (config.isProvided) {
-                    throw new Error(
-                        "craco: Jest + Babel doesn't support --config. Provide a custom location for the craco.config.js file from your package.json file by specifing a value for 'cracoConfig'."
-                    );
-                }
-
                 if (jestConfig.transform[BABEL_TRANSFORM_ENTRY_KEY]) {
-                    overrideBabelTransform(jestConfig, BABEL_TRANSFORM_ENTRY_KEY);
+                    overrideBabelTransform(jestConfig, cracoConfig, BABEL_TRANSFORM_ENTRY_KEY);
                 } else if (jestConfig.transform[BABEL_TRANSFORM_ENTRY_KEY_BEFORE_2_1_0]) {
-                    overrideBabelTransform(jestConfig, BABEL_TRANSFORM_ENTRY_KEY_BEFORE_2_1_0);
+                    overrideBabelTransform(jestConfig, cracoConfig, BABEL_TRANSFORM_ENTRY_KEY_BEFORE_2_1_0);
                 } else {
                     throw new Error(
                         `craco: Cannot find Jest transform entry for Babel ${BABEL_TRANSFORM_ENTRY_KEY} or ${BABEL_TRANSFORM_ENTRY_KEY_BEFORE_2_1_0}.`
