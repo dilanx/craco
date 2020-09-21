@@ -84,6 +84,20 @@ module.exports = function({ env }) {
 }
 ```
 
+or a **promise** or **async function**:
+
+```javascript
+/* craco.config.js */
+
+module.exports = async function({ env }) {
+    await ...
+
+    return {
+        ...
+    };
+}
+```
+
 Update the existing calls to `react-scripts` in the `scripts` section of your `package.json` file to use the `craco` CLI:
 
 ```diff

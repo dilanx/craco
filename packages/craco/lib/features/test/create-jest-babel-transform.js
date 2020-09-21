@@ -1,8 +1,8 @@
+const babelJest = require("babel-jest");
+
 const { isArray } = require("../../utils");
 
 function createJestBabelTransform(cracoConfig) {
-    const babelJest = require("babel-jest");
-
     const craBabelTransformer = {
         presets: ["babel-preset-react-app"],
         babelrc: false,

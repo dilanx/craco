@@ -64,7 +64,7 @@ function loadCracoConfig(context) {
     return processCracoConfig(configAsObject, context);
 }
 
-// Async configs are supported by the "build", "start", and "test" scripts, but not for APIs like createJestConfig.
+// The "build", "start", and "test" scripts use this to wait for any promises to resolve before they run.
 async function loadCracoConfigAsync(context) {
     const configAsObject = await getConfigAsObject(context);
 
