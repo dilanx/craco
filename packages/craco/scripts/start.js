@@ -7,7 +7,7 @@ findArgsFromCli();
 
 const { log } = require("../lib/logger");
 const { getCraPaths, start } = require("../lib/cra");
-const { loadCracoConfig } = require("../lib/config");
+const { loadCracoConfigAsync } = require("../lib/config");
 const { overrideWebpackDev } = require("../lib/features/webpack/override");
 const { overrideDevServer } = require("../lib/features/dev-server/override");
 
@@ -18,10 +18,11 @@ const context = {
     env: process.env.NODE_ENV
 };
 
-const cracoConfig = loadCracoConfig(context);
-context.paths = getCraPaths(cracoConfig);
+loadCracoConfigAsync(context).then(cracoConfig => {
+    context.paths = getCraPaths(cracoConfig);
 
-overrideWebpackDev(cracoConfig, context);
-overrideDevServer(cracoConfig, context);
+    overrideWebpackDev(cracoConfig, context);
+    overrideDevServer(cracoConfig, context);
 
-start(cracoConfig);
+    start(cracoConfig);
+});

@@ -1,38 +1,17 @@
-const babelJest = require("babel-jest");
+const { createJestBabelTransform } = require("./create-jest-babel-transform");
 
-const { loadCracoConfig } = require("../../config");
-const { isArray } = require("../../utils");
+let jestBabelTransform;
 
-const craBabelTransformer = {
-    presets: ["babel-preset-react-app"],
-    babelrc: false,
-    configFile: false
-};
-
-const context = {
-    env: process.env.NODE_ENV
-};
-
-const cracoConfig = loadCracoConfig(context);
-
-const { addPresets, addPlugins } = cracoConfig.jest.babel;
-
-if (cracoConfig.babel) {
-    if (addPresets) {
-        const { presets } = cracoConfig.babel;
-
-        if (isArray(presets)) {
-            craBabelTransformer.presets = craBabelTransformer.presets.concat(presets);
+// cracoConfig is only available inside the transform, but the transform needs to include whatever options cracoConfig
+// specifies. So, the first time this transform is run, it generates a new transform -- using cracoConfig -- and
+// uses that to process files.
+module.exports = {
+    ...createJestBabelTransform(),
+    process(src, filename, config, transformOptions) {
+        if (!jestBabelTransform) {
+            jestBabelTransform = createJestBabelTransform(config.globals._cracoConfig);
         }
+
+        return jestBabelTransform.process(src, filename, config, transformOptions);
     }
-
-    if (addPlugins) {
-        const { plugins } = cracoConfig.babel;
-
-        if (isArray(plugins)) {
-            craBabelTransformer.plugins = plugins;
-        }
-    }
-}
-
-module.exports = babelJest.createTransformer(craBabelTransformer);
+};
