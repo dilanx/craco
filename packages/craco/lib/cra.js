@@ -38,7 +38,10 @@ function overrideModule(modulePath, newModule) {
 
 /************  Paths  *******************/
 
-const srcExp = /\/([a-zA-Z_\-]+)\/?$/;
+let srcExp = /\/([a-zA-Z_\-]+)\/?$/;
+if(process.platform === 'win32') {
+    srcExp = /\\([a-zA-Z_\-]+)\\?$/;
+}
 
 let _resolvedCraPaths = null;
 let _originAppSrcName = 'src';
