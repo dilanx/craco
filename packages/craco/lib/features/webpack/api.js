@@ -1,3 +1,4 @@
+const { isFunction } = require("../../utils");
 const { mergeWebpackConfig } = require("./merge-webpack-config");
 const { setArgs } = require("../../args");
 const { processCracoConfig } = require("../../config");
@@ -14,6 +15,9 @@ function createWebpackProdConfig(callerCracoConfig, callerContext, options) {
 function createWebpackConfig(callerCracoConfig, callerContext = {}, loadWebpackConfig, env, options = {}) {
     if (!callerCracoConfig) {
         throw new Error("craco: 'cracoConfig' is required.");
+    }
+    if (isFunction(callerCracoConfig)) {
+        throw new Error("craco: 'cracoConfig' should be an object.");
     }
 
     if (!process.env.NODE_ENV) {

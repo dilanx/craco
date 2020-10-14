@@ -84,6 +84,20 @@ module.exports = function({ env }) {
 }
 ```
 
+or a **promise** or **async function**:
+
+```javascript
+/* craco.config.js */
+
+module.exports = async function({ env }) {
+    await ...
+
+    return {
+        ...
+    };
+}
+```
+
 Update the existing calls to `react-scripts` in the `scripts` section of your `package.json` file to use the `craco` CLI:
 
 ```diff
@@ -265,6 +279,8 @@ That's what CRACO APIs are for. The current API support Jest and Webpack configs
 
 Accept a `cracoConfig`, a `context` object and `options`. The generated Jest config object is returned.
 
+**Warning:** `createJestConfig` does NOT accept `cracoConfig` as a function. If your `craco.config.js` exposes a config function, you have to call it yourself before passing it to `createJestConfig`.
+
 `createJestConfig(cracoConfig, context = {}, options = { verbose: false, config: null })`
 
 Usage:
@@ -283,6 +299,8 @@ module.exports = jestConfig;
 ### createWebpackDevConfig & createWebpackProdConfig
 
 Accept a `cracoConfig`, a `context` object and `options`. The generated Webpack config object is returned.
+
+**Warning:** Similar to `createJestConfig`, these functions do NOT accept `cracoConfig` as a function. If your `craco.config.js` exposes a config function, you have to call it yourself before passing it further.
 
 `createWebpackDevConfig(cracoConfig, context = {}, options = { verbose: false, config: null })`
 `createWebpackProdConfig(cracoConfig, context = {}, options = { verbose: false, config: null })`

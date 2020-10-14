@@ -40,14 +40,36 @@ function processCracoConfig(cracoConfig, context) {
     return applyCracoConfigPlugins(resultingCracoConfig, context);
 }
 
-function loadCracoConfig(context) {
+function getConfigAsObject(context) {
     log("Found craco config file at: ", configFilePath);
 
     const config = require(configFilePath);
     const configAsObject = isFunction(config) ? config(context) : config;
 
     if (!configAsObject) {
-        throw new Error("craco: Config function didn't returned a config object.");
+        throw new Error("craco: Config function didn't return a config object.");
+    }
+    return configAsObject;
+}
+
+function loadCracoConfig(context) {
+    const configAsObject = getConfigAsObject(context);
+
+    if (configAsObject instanceof Promise) {
+        throw new Error(
+            "craco: Config function returned a promise. Use `loadCracoConfigAsync` instead of `loadCracoConfig`."
+        );
+    }
+
+    return processCracoConfig(configAsObject, context);
+}
+
+// The "build", "start", and "test" scripts use this to wait for any promises to resolve before they run.
+async function loadCracoConfigAsync(context) {
+    const configAsObject = await getConfigAsObject(context);
+
+    if (!configAsObject) {
+        throw new Error("craco: Async config didn't return a config object.");
     }
 
     return processCracoConfig(configAsObject, context);
@@ -55,5 +77,6 @@ function loadCracoConfig(context) {
 
 module.exports = {
     loadCracoConfig,
+    loadCracoConfigAsync,
     processCracoConfig
 };

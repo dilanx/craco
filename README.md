@@ -53,6 +53,8 @@ Major changes are available in the [changelog folder](https://github.com/sharega
 * [craco-alias](https://github.com/risenforces/craco-alias) by [@risenforces](https://github.com/risenforces)
 * [craco-favicons](https://github.com/rickysullivan/craco-favicons) by [@rickysullivan](https://github.com/rickysullivan)
 * [craco-styled-jsx](https://github.com/cr4zyc4t/craco-styled-jsx) by [@cr4zyc4t](https://github.com/cr4zyc4t)
+* [craco-purescript-loader](https://github.com/andys8/craco-purescript-loader) by [@andys8](https://github.com/andys8)
+* [craco-fast-refresh](https://github.com/vimcaw/craco-fast-refresh) by [@vimcaw](https://github.com/vimcaw)
 
 ## Acknowledgements
 
