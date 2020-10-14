@@ -1,3 +1,4 @@
+const { isFunction } = require("../../utils");
 const { setArgs } = require("../../args");
 const { createConfigProviderProxy } = require("./create-config-provider-proxy");
 const { processCracoConfig } = require("../../config");
@@ -6,6 +7,9 @@ const { getCraPaths } = require("../../cra");
 function createDevServerConfigProviderProxy(callerCracoConfig, callerContext, options) {
     if (!callerCracoConfig) {
         throw new Error("craco: 'cracoConfig' is required.");
+    }
+    if (isFunction(callerCracoConfig)) {
+        throw new Error("craco: 'cracoConfig' should be an object.");
     }
 
     if (!process.env.NODE_ENV) {
