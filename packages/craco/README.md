@@ -18,7 +18,14 @@ All you have to do is create your app using [create-react-app](https://github.co
 **Guide**
 
 - [Custom location for craco.config.js](#custom-location-for-cracoconfigjs) - Customize the location of your craco.config.js file.
-- [Configuration Overview](#configuration-overview) - Quickly see how you can configure your CRA installation with this plugin.
+- Configuring CRACO
+  - [CRACO Configuration Overview](#craco-configuration-overview)
+  - [Notes on CRA Configurations and Problem Solving](#notes-on-cra-configurations-and-problem-solving)
+  - [A Final Note on Ejecting CRA](#a-final-note-on-ejecting-cra)
+  - [The CRACO Configuration File](#the-craco-configuration-file)
+    - [Direct Versus Functional Config Definitions](#direct-versus-functional-config-definitions)
+    - [The Mode Property](#the-mode-property)
+    - [The CRACO Configuration File Template](#the-craco-configuration-file-template)
 - [API](#api) - Have a look at CRACO APIs for Jest and Webpack.
 - [Recipes](https://github.com/sharegate/craco/tree/master/recipes) – Short recipes for common use cases.
 - [Available Plugins](https://github.com/sharegate/craco#community-maintained-plugins) - Plugins maintained by the community.
@@ -155,11 +162,85 @@ You can also change the location of the `craco.config.js` file by specifying the
 }
 ```
 
-## Configuration Overview
+## CRACO Configuration Overview 
 
-When the property **mode** is available there are 2 possible values:
+Create React App (CRA) is intended to allow people to get started with writing React apps quickly. It does this by
+packaging several key components with a solid default configuration. 
+
+However, many people find the default CRA is not quite the right fit. And yet, configuring all of the components CRA
+offers is overwhelming. 
+
+CRACO allows you to enjoy the recognizable project structure of CRA while changing detailed configuration settings of 
+each component. 
+
+>_Read on for more useful introduction to CRACO, or jump directly to [the CRACO configuration file template](#the-craco-configuration-file-template)_
+
+### Notes on CRA Configurations and Problem Solving  
+Keep in mind that there are _some_ configuration settings available to CRA without CRACO. 
+
+Getting exactly what you want may involve a combination of changes to both your CRACO configuration and by using some 
+of the more limited _but still important_ settings available in CRA. 
+
+Before jumping into customizing your CRACO configuration, step back and think about each part of the problem you're 
+trying to solve. Be sure to review these resources on the CRA configuration, as it may save you time:
+
+ - [Important Environment Variables that Configure CRA](https://create-react-app.dev/docs/advanced-configuration)
+ - [Learn about using `postbuild` commands in `package.json`](https://stackoverflow.com/a/51818028/4028977)
+ - [Proxying API or other Requests](https://create-react-app.dev/docs/proxying-api-requests-in-development/), or "how to integrate CRA's dev server with a second backend": [problem statement](https://github.com/facebook/create-react-app/issues/147)
+ - [Search open and closed CRACO issues, for gotchas, hints and examples](https://github.com/gsoft-inc/craco/issues?q=is%3Aissue+sort%3Aupdated-desc)
+
+### A Final Note on Ejecting CRA
+Avoiding ejecting is a major goal for many CRACO users. However, if you're still learning toolchains and modern 
+frontend workflows, it may be helpful to create a sample ejected CRA project to see how the default CRA app configures 
+each of the components. 
+
+While CRACO's sample configuration file inherits directly from these default settings, seeing the default CRA config in
+the ejected CRA file structure may give you useful perspective. 
+
+You may even want to try testing a change in the ejected app to better understand how it would be done with the CRACO 
+configuration file. Okay! On with the CRACO Config!
+
+### The CRACO Configuration File
+
+CRACO is configured with the `craco.config.js` file. This file is divided into sections representing the major parts of 
+what makes up the default create react app. 
+
+The sample file below is a starter template you can use to begin configuring your CRA-based project. Each section contains 
+a primary configuration area, `loaderOptions` or `configure`. These config areas are where you will make most of your 
+detailed changes.
+
+### Direct Versus Functional Config Definitions
+You, (or perhaps your IDE) may have noticed that the sections have duplicate keys, i.e. loaderOptions is listed twice.
+
+The reason for this is to allow you to choose between direct or functionally defined configuration choices. There are a 
+few reasons for this:
+
+1. Sometimes it may be faster to test a minor change using keys. 
+1. Other times a functional definition is necessary to get the right configuration.
+1. While not common, a setting may **only** work if you use one or the other! See, [devServer port example](https://github.com/gsoft-inc/craco/issues/172#issuecomment-651505730)
+
+#### A simple example of equivalent direct and functionally defined configuration settings:
+##### Direct configuration
+```
+ devServer: {
+    writeToDisk: true,
+  },
+```
+
+##### Functionally defined configuration
+```
+devServer: (devServerConfig, { env, paths, proxy, allowedHost }) => {
+    devServerConfig.writeToDisk = true; 
+    return devServerConfig;
+  },
+```
+
+### The Mode Property  
+Some components have a property **mode**. When this is available there are 2 possible values:
 - `extends`: the provided configuration will extends the CRA settings (**default mode**)
-- `file`: the CRA settings will be reseted and you will provide an official configuration file for the plugin ([postcss](https://github.com/michael-ciniawsky/postcss-load-config#postcssrc), [eslint](https://eslint.org/docs/user-guide/configuring#configuration-file-formats)) that will supersede any settings.
+- `file`: the CRA settings will be reset and you will provide an official configuration file for the plugin ([postcss](https://github.com/michael-ciniawsky/postcss-load-config#postcssrc), [eslint](https://eslint.org/docs/user-guide/configuring#configuration-file-formats)) that will supersede any settings.
+
+## The CRACO Configuration File Template
 
 ```javascript
 const { when, whenDev, whenProd, whenTest, ESLINT_MODES, POSTCSS_MODES } = require("@craco/craco");
