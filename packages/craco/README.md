@@ -157,9 +157,23 @@ You can also change the location of the `craco.config.js` file by specifying the
 
 ## Configuration Overview
 
+CRACO is configured with the `craco.config.js` file. The file is divided into sections representing the major parts of 
+what makes up the default create react app settings. 
+
+For example, create react app uses webpack 
+
+using a is configured with Here is a starter template to begin configuration of your CRA-based project. Each section contains 
+`loaderOptions` or `configure` which allow you make detailed changes to how your CRA is run.
+
 When the property **mode** is available there are 2 possible values:
 - `extends`: the provided configuration will extends the CRA settings (**default mode**)
-- `file`: the CRA settings will be reseted and you will provide an official configuration file for the plugin ([postcss](https://github.com/michael-ciniawsky/postcss-load-config#postcssrc), [eslint](https://eslint.org/docs/user-guide/configuring#configuration-file-formats)) that will supersede any settings.
+- `file`: the CRA settings will be reset and you will provide an official configuration file for the plugin ([postcss](https://github.com/michael-ciniawsky/postcss-load-config#postcssrc), [eslint](https://eslint.org/docs/user-guide/configuring#configuration-file-formats)) that will supersede any settings.
+
+
+ 
+
+You only want 
+
 
 ```javascript
 const { when, whenDev, whenProd, whenTest, ESLINT_MODES, POSTCSS_MODES } = require("@craco/craco");
