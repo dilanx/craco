@@ -17,7 +17,6 @@ All you have to do is create your app using [create-react-app](https://github.co
 
 **Guide**
 
-- [Custom location for craco.config.js](#custom-location-for-cracoconfigjs) - Customize the location of your craco.config.js file.
 - Configuring CRACO
   - [CRACO Configuration Overview](#craco-configuration-overview)
   - [Notes on CRA Configurations and Problem Solving](#notes-on-cra-configurations-and-problem-solving)
@@ -25,6 +24,7 @@ All you have to do is create your app using [create-react-app](https://github.co
   - [The CRACO Configuration File](#the-craco-configuration-file)
     - [Direct Versus Functional Config Definitions](#direct-versus-functional-config-definitions)
     - [The Mode Property](#the-mode-property)
+    - [Setting a custom location for `craco.config.js`](#setting-a-custom-location-for-cracoconfigjs)
     - [The CRACO Configuration File Template](#the-craco-configuration-file-template)
 - [API](#api) - Have a look at CRACO APIs for Jest and Webpack.
 - [Recipes](https://github.com/sharegate/craco/tree/master/recipes) – Short recipes for common use cases.
@@ -68,6 +68,8 @@ my-app
 ├── craco.config.js
 └── package.json
 ```
+
+Choose one of the following ways to export your configuration, or use [the sample `craco.config.js`](#the-craco-configuration-file-template)
 
 Export your configuration as an **object literal**:
 
@@ -132,36 +134,6 @@ Or build your app:
 $ npm run build
 ```
 
-## Custom location for craco.config.js
-
-Both options support a **relative** or an **absolute** path.
-
-**1- package.json** _(Recommended)_
-
-You can change the location of the `craco.config.js` file by specifying a value for `cracoConfig` in your `package.json` file.
-
-```javascript
-/* package.json */
-
-{
-    "cracoConfig": "config/craco-config-with-custom-name.js"
-}
-```
-
-**2- CLI** _(For backward compatibility)_
-
-You can also change the location of the `craco.config.js` file by specifying the `--config` CLI option. _This option doesn't support Babel with Jest_
-
-```javascript
-/* package.json */
-
-{
-    "scripts": {
-        "start": "craco start --config config/craco-config-with-custom-name.js"
-    }
-}
-```
-
 ## CRACO Configuration Overview 
 
 Create React App (CRA) is intended to allow people to get started with writing React apps quickly. It does this by
@@ -209,10 +181,10 @@ The sample file below is a starter template you can use to begin configuring you
 a primary configuration area, `loaderOptions` or `configure`. These config areas are where you will make most of your 
 detailed changes.
 
-### Direct Versus Functional Config Definitions
+### Direct (object literal) Versus Functional Config Definitions
 You, (or perhaps your IDE) may have noticed that the sections have duplicate keys, i.e. loaderOptions is listed twice.
 
-The reason for this is to allow you to choose between direct or functionally defined configuration choices. There are a 
+The reason for this is to allow you to choose between object literal or functionally defined configuration choices. There are a 
 few reasons for this:
 
 1. Sometimes it may be faster to test a minor change using keys. 
@@ -220,7 +192,7 @@ few reasons for this:
 1. While not common, a setting may **only** work if you use one or the other! See, [devServer port example](https://github.com/gsoft-inc/craco/issues/172#issuecomment-651505730)
 
 #### A simple example of equivalent direct and functionally defined configuration settings:
-##### Direct configuration
+##### Direct configuration (object literal)
 ```
  devServer: {
     writeToDisk: true,
@@ -239,6 +211,36 @@ devServer: (devServerConfig, { env, paths, proxy, allowedHost }) => {
 Some components have a property **mode**. When this is available there are 2 possible values:
 - `extends`: the provided configuration will extends the CRA settings (**default mode**)
 - `file`: the CRA settings will be reset and you will provide an official configuration file for the plugin ([postcss](https://github.com/michael-ciniawsky/postcss-load-config#postcssrc), [eslint](https://eslint.org/docs/user-guide/configuring#configuration-file-formats)) that will supersede any settings.
+
+### Setting a custom location for craco.config.js
+
+Both options support a **relative** or an **absolute** path.
+
+**1- package.json** _(Recommended)_
+
+You can change the location of the `craco.config.js` file by specifying a value for `cracoConfig` in your `package.json` file.
+
+```javascript
+/* package.json */
+
+{
+    "cracoConfig": "config/craco-config-with-custom-name.js"
+}
+```
+
+**2- CLI** _(For backward compatibility)_
+
+You can also change the location of the `craco.config.js` file by specifying the `--config` CLI option. _This option doesn't support Babel with Jest_
+
+```javascript
+/* package.json */
+
+{
+    "scripts": {
+        "start": "craco start --config config/craco-config-with-custom-name.js"
+    }
+}
+```
 
 ## The CRACO Configuration File Template
 
