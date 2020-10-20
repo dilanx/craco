@@ -20,11 +20,11 @@ All you have to do is create your app using [create-react-app](https://github.co
 - **Configuring CRACO**
   - [CRACO Configuration Overview](#craco-configuration-overview)
   - [Notes on CRA Configurations and Problem Solving](#notes-on-cra-configurations-and-problem-solving)
-  - [A Final Note on Ejecting CRA](#a-final-note-on-ejecting-cra)
+  - [A Note on Ejecting CRA](#a-note-on-ejecting-cra)
   - [The CRACO Configuration File](#the-craco-configuration-file)
     - [Direct Versus Functional Config Definitions](#direct-object-literal-versus-functional-config-definitions)
     - [The Mode Property](#the-mode-property)
-    - [Setting a custom location for `craco.config.js`](#setting-a-custom-location-for-cracoconfigjs)
+    - [Setting a Custom Location for `craco.config.js`](#setting-a-custom-location-for-cracoconfigjs)
     - [The CRACO Configuration File Template](#the-craco-configuration-file-template)
 - [API](#api) - Have a look at CRACO APIs for Jest and Webpack.
 - [Recipes](https://github.com/sharegate/craco/tree/master/recipes) – Short recipes for common use cases.
@@ -159,7 +159,7 @@ trying to solve. Be sure to review these resources on the CRA configuration, as 
  - [Proxying API or other Requests](https://create-react-app.dev/docs/proxying-api-requests-in-development/), or "how to integrate CRA's dev server with a second backend": [problem statement](https://github.com/facebook/create-react-app/issues/147)
  - [Search open and closed CRACO issues, for gotchas, hints and examples](https://github.com/gsoft-inc/craco/issues?q=is%3Aissue+sort%3Aupdated-desc)
 
-## A Final Note on Ejecting CRA
+## A Note on Ejecting CRA
 Avoiding ejecting is a major goal for many CRACO users. However, if you're still learning toolchains and modern 
 frontend workflows, it may be helpful to create a sample ejected CRA project to see how the default CRA app configures 
 each of the components. 
