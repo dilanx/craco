@@ -6,7 +6,7 @@ Get all the benefits of create-react-app **and** customization without using 'ej
 
 All you have to do is create your app using [create-react-app](https://github.com/facebook/create-react-app/) and customize the configuration with a `craco.config.js` file.
 
-**Support**
+## Support
 
 - CRA 3.*
 - Yarn
@@ -15,17 +15,17 @@ All you have to do is create your app using [create-react-app](https://github.co
 - Lerna (with or without hoisting)
 - Custom `react-scripts` version
 
-**Guide**
+# Documentation Index
 
-- **Configuring CRACO**
-  - [CRACO Configuration Overview](#craco-configuration-overview)
-  - [Notes on CRA Configurations and Problem Solving](#notes-on-cra-configurations-and-problem-solving)
-  - [A Note on Ejecting CRA](#a-note-on-ejecting-cra)
-  - [The CRACO Configuration File](#the-craco-configuration-file)
-    - [Direct Versus Functional Config Definitions](#direct-object-literal-versus-functional-config-definitions)
-    - [The Mode Property](#the-mode-property)
-    - [Setting a Custom Location for `craco.config.js`](#setting-a-custom-location-for-cracoconfigjs)
-    - [The CRACO Configuration File Template](#the-craco-configuration-file-template)
+**Configuring CRACO**
+- [CRACO Configuration Overview](#craco-configuration-overview)
+- [Notes on CRA Configurations and Problem Solving](#notes-on-cra-configurations-and-problem-solving)
+- [A Note on Ejecting CRA](#a-note-on-ejecting-cra)
+- [The CRACO Configuration File](#the-craco-configuration-file)
+  - [Direct Versus Functional Config Definitions](#direct-object-literal-versus-functional-config-definitions)
+  - [The Mode Property](#the-mode-property)
+  - [Setting a Custom Location for `craco.config.js`](#setting-a-custom-location-for-cracoconfigjs)
+  - [The CRACO Configuration File Template](#the-craco-configuration-file-template)
 - [API](#api) - Have a look at CRACO APIs for Jest and Webpack.
 - [Recipes](https://github.com/sharegate/craco/tree/master/recipes) – Short recipes for common use cases.
 - [Available Plugins](https://github.com/sharegate/craco#community-maintained-plugins) - Plugins maintained by the community.
@@ -33,13 +33,11 @@ All you have to do is create your app using [create-react-app](https://github.co
 - [Changelog](https://github.com/sharegate/craco/tree/master/changelog) - List of major changes
 
 **Acknowledgements**
-
 We are grateful to [@timarney](https://github.com/timarney) the creator of [react-app-rewired](https://github.com/timarney/react-app-rewired) for his original idea.
 
-Also, please note that the configuration style of this plugin has been greatly influenced by the way [Vue CLI](https://cli.vuejs.org/guide/) does it.
+The configuration style of this plugin has been greatly influenced by [Vue CLI](https://cli.vuejs.org/guide/).
 
 **Please Note**
-
 By doing this you're breaking the ["guarantees"](https://github.com/facebookincubator/create-react-app/issues/99#issuecomment-234657710) that CRA provides. That is to say you now "own" the configs. **No support** will be provided. Proceed with caution.
 
 ## You updated CRACO and everything fell apart
