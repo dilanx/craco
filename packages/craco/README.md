@@ -15,9 +15,8 @@ All you have to do is create your app using [create-react-app](https://github.co
 - Lerna (with or without hoisting)
 - Custom `react-scripts` version
 
-# Documentation Index
+## Documentation Index
 
-**Configuring CRACO**
 - [CRACO Configuration Overview](#craco-configuration-overview)
 - [Notes on CRA Configurations and Problem Solving](#notes-on-cra-configurations-and-problem-solving)
 - [A Note on Ejecting CRA](#a-note-on-ejecting-cra)
@@ -32,12 +31,12 @@ All you have to do is create your app using [create-react-app](https://github.co
 - [Develop a Plugin](#develop-a-plugin) - How to develop a plugin for `craco`.
 - [Changelog](https://github.com/sharegate/craco/tree/master/changelog) - List of major changes
 
-**Acknowledgements**
+### Acknowledgements
 We are grateful to [@timarney](https://github.com/timarney) the creator of [react-app-rewired](https://github.com/timarney/react-app-rewired) for his original idea.
 
 The configuration style of this plugin has been greatly influenced by [Vue CLI](https://cli.vuejs.org/guide/).
 
-**Please Note**
+### Please Note
 By doing this you're breaking the ["guarantees"](https://github.com/facebookincubator/create-react-app/issues/99#issuecomment-234657710) that CRA provides. That is to say you now "own" the configs. **No support** will be provided. Proceed with caution.
 
 ## You updated CRACO and everything fell apart
