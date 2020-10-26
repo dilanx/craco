@@ -135,10 +135,7 @@ $ npm run build
 CRACO is configured with the `craco.config.js` file. This file is divided into sections representing the major 
 parts of what makes up the default create react app. 
 
-The sample file below is meant to show possibilities for configuring your CRA-based project. Each section 
-contains a primary configuration area, `loaderOptions` or `configure`. These config areas are where you will make most 
-of your detailed changes.
-
+For more details about this sample file, see [Direct Versus Functional Config Definitions](#direct-object-literal-versus-functional-config-definitions)
 ## Sample CRACO Configuration File 
 
 ```javascript
@@ -322,7 +319,12 @@ You may even want to try testing a change in the ejected app to better understan
 config-based project. 
 
 ### Direct (object literal) Versus Functional Config Definitions
-You, (or perhaps your IDE) may have noticed that the sections have duplicate keys, i.e. loaderOptions is listed twice.
+The [sample CRACO config file]((#sample-craco-configuration-file)) is meant to show possibilities for configuring your CRA-based project. Each section 
+contains a primary configuration area, `loaderOptions` or `configure`. These config areas are where you will make most 
+of your detailed changes.
+
+You, (or perhaps your IDE) may have noticed that the sections have duplicate keys, i.e. loaderOptions is listed twice
+in the sample config file.
 
 The reason for this is to allow you to choose between object literal or functionally defined configuration choices. 
 There are a few reasons for this:
