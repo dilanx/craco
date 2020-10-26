@@ -16,6 +16,7 @@ All you have to do is create your app using [create-react-app](https://github.co
 - Custom `react-scripts` version
 
 ## Documentation
+- [Preface](#preface)
 - [Installation](#installation)
 - [CRACO Configuration](#craco-configuration)
   - [Sample CRACO Configuration File](#sample-craco-configuration-file)
@@ -32,6 +33,7 @@ All you have to do is create your app using [create-react-app](https://github.co
   - [Developing a Plugin](#develop-a-plugin) - How to develop a plugin for `craco`.
 - [Changelog](https://github.com/sharegate/craco/tree/master/changelog) - List of major changes
 
+## Preface
 ### Acknowledgements
 We are grateful to [@timarney](https://github.com/timarney) the creator of [react-app-rewired](https://github.com/timarney/react-app-rewired) for his original idea.
 
@@ -40,7 +42,7 @@ The configuration style of this plugin has been greatly influenced by [Vue CLI](
 ### Fair Warning
 By doing this you're breaking the ["guarantees"](https://github.com/facebookincubator/create-react-app/issues/99#issuecomment-234657710) that CRA provides. That is to say you now "own" the configs. **No support** will be provided. Proceed with caution.
 
-### Problems after updating CRACO
+### Problems after updating CRACO?
 Before logging an issue, please consult the [changelog](https://github.com/sharegate/craco/tree/master/changelog).
 If you can't find a solution to your problem in the changelog, log an issue and someone should help you quickly!
 
@@ -918,11 +920,6 @@ To activate **verbose** logging specify the CLI option `--verbose`
     }
 }
 ```
-
-## Acknowledgements
-
-[@timarney](https://github.com/timarney) for having created 
-[react-app-rewired](https://github.com/timarney/react-app-rewired).
 
 ## License
 
