@@ -9,7 +9,9 @@
     "javascript.validate.enable": true,
     "json.format.enable": false,
     // Required to allow auto format on save with Prettier + ESLint + Vetur.
-    "eslint.autoFixOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
     "eslint.alwaysShowStatus": true,
     "sort-imports.suppress-warnings": true,
     "search.exclude": {
