@@ -24,23 +24,23 @@ All you have to do is create your app using [create-react-app](https://github.co
 - [Preface](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#preface)
 - [Installation](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#installation)
 - [CRACO Configuration](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#craco-configuration)
-  - [Sample CRACO Configuration File](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#sample-craco-configuration-file)
   - [The Mode Property](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#the-mode-property)
+  - [Sample CRACO Configuration File](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#sample-craco-configuration-file)
   - [Setting a Custom Location for `craco.config.js`](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#setting-a-custom-location-for-cracoconfigjs)
+  - [`when` Shortcuts](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#when-shortcuts)
 - [Extra Help for React and Webpack Toolchain Beginners](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#extra-help-for-react-and-webpack-toolchain-beginners)
-  - [Ejecting CRA to Learn](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#ejecting-cra-to-learn)
   - [Notes on CRA Configurations and Problem Solving](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#notes-on-cra-configurations-and-problem-solving)
+  - [Ejecting CRA to Learn](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#ejecting-cra-to-learn)
   - [Direct Versus Functional Config Definitions](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#direct-object-literal-versus-functional-config-definitions)
-- [API](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#api) - Have a look at CRACO APIs for Jest and Webpack.
-- [Recipes and Plugins](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#recipes-and-plugins)
-  - [Recipes](https://github.com/sharegate/craco/tree/master/recipes) – Short recipes for common use cases.
-  - [Available Plugins](https://github.com/sharegate/craco#community-maintained-plugins) - Plugins maintained by the community.
-  - [Developing a Plugin](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#develop-a-plugin) - How to develop a plugin for `craco`.
-- [Changelog](https://github.com/sharegate/craco/tree/master/changelog) - List of major changes
-
-## Changelog
-
-Major changes are available in the [changelog folder](https://github.com/sharegate/craco/tree/master/changelog).
+- [CRACO API](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#craco-api) - Access CRACO-generated configurations for Jest and Webpack
+  - [Jest Config Generation](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#jest-config-generation)
+  - [Webpack DevServer and Production Config Generation](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#webpack-devserver-and-production-config-generation)
+- [Recipes](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#recipes)
+- [Plugins](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#plugins)
+  - [Available Plugins](#community-maintained-plugins)
+  - [Developing a New Plugin](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#developing-a-new-plugin) - How to develop a plugin for CRACO.
+    - [Plugin Functions](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#plugin-functions)
+    - [Utility Functions for Development](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#utility-functions-for-development)
 
 ## Community Maintained Plugins
 
@@ -71,4 +71,4 @@ Major changes are available in the [changelog folder](https://github.com/sharega
 
 ## License
 
-Copyright © 2019, GSoft inc. This code is licensed under the Apache License, Version 2.0. You may obtain a copy of this license at https://github.com/gsoft-inc/gsoft-license/blob/master/LICENSE.
+Copyright © 2020, GSoft inc. This code is licensed under the Apache License, Version 2.0. You may obtain a copy of this license at https://github.com/gsoft-inc/gsoft-license/blob/master/LICENSE.
