@@ -17,13 +17,13 @@ All you have to do is create your app using [create-react-app](https://github.co
 
 ## Documentation
 
-- [Installation](#installation)
+- [Installation](#installation) - How to install and setup CRACO.
 - [Configuration](#configuration) - How to customize your CRA installation with CRACO.
   - [Configuration File](#configuration-file)
   - [Configuration Helpers](#configuration-helpers)
   - [Exporting your Configuration](#exporting-your-configuration)
   - [Setting a Custom Location for `craco.config.js`](#setting-a-custom-location-for-cracoconfigjs)
-- [CRA toolchain for Beginners](#extra-help-for-react-and-webpack-toolchain-beginners)
+- [CRA toolchain for Beginners](#cra-toolchain-for-beginners)
   - [Notes on CRA Configurations and Problem Solving](#notes-on-cra-configurations-and-problem-solving)
   - [Ejecting CRA to Learn](#ejecting-cra-to-learn)
   - [Direct Versus Functional Config Definitions](#direct-object-literal-versus-functional-config-definitions)
@@ -34,7 +34,6 @@ All you have to do is create your app using [create-react-app](https://github.co
 - [Available Plugins](https://github.com/sharegate/craco#community-maintained-plugins) - Plugins maintained by the community.
 - [Develop a Plugin](#develop-a-plugin) - How to develop a plugin for CRACO.
 - [Debugging](#debugging)
-  - [Verbose Logging](#verbose-logging)
 - [License](#license)
 
 ## Preface

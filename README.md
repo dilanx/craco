@@ -23,14 +23,23 @@ All you have to do is create your app using [create-react-app](https://github.co
 
 ## Documentation
 
-- [Installation](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#installation)
-- [Configuration](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#configuration)
-- [CRA Toolchain for Beginners](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#extra-help-for-react-and-webpack-toolchain-beginners)
-- [API](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#api) - Access CRACO-generated configurations for Jest and Webpack
-- [Recipes](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#recipes)
-- [Develop a Plugin](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#develop-a-plugin)
+- [Installation](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#installation) - How to install and setup CRACO.
+- [Configuration](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#configuration) - How to customize your CRA installation with CRACO.
+  - [Configuration File](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#configuration-file)
+  - [Configuration Helpers](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#configuration-helpers)
+  - [Exporting your Configuration](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#exporting-your-configuration)
+  - [Setting a Custom Location for `craco.config.js`](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#setting-a-custom-location-for-cracoconfigjs)
+- [CRA Toolchain for Beginners](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#cra-toolchain-for-beginners)
+  - [Notes on CRA Configurations and Problem Solving](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#notes-on-cra-configurations-and-problem-solving)
+  - [Ejecting CRA to Learn](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#ejecting-cra-to-learn)
+  - [Direct Versus Functional Config Definitions](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#direct-object-literal-versus-functional-config-definitions)
+- [API](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#api) - CRACO APIs for Jest and Webpack.
+  - [Jest API](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#jest-api)
+  - [Webpack API](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#webpack-api)
+- [Recipes](https://github.com/sharegate/craco/tree/master/recipes) – Short recipes for common use cases.
+- [Available Plugins](#community-maintained-plugins) - Plugins maintained by the community.
+- [Develop a Plugin](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#develop-a-plugin) - How to develop a plugin for CRACO.
 - [Debugging](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#debugging)
-- [License](#license)
 
 ## Community Maintained Plugins
 
