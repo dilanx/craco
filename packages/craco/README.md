@@ -1,4 +1,4 @@
-# craco [![Build Status](https://travis-ci.org/sharegate/craco.svg?branch=master)](https://travis-ci.org/sharegate/craco) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-green.svg)](https://github.com/sharegate/craco/pulls)
+# CRACO [![Build Status](https://travis-ci.org/sharegate/craco.svg?branch=master)](https://travis-ci.org/sharegate/craco) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-green.svg)](https://github.com/sharegate/craco/pulls)
 
 **C**reate **R**eact **A**pp **C**onfiguration **O**verride is an easy and comprehensible configuration layer for create-react-app.
 
@@ -7,6 +7,7 @@ Get all the benefits of create-react-app **and** customization without using 'ej
 All you have to do is create your app using [create-react-app](https://github.com/facebook/create-react-app/) and customize the configuration with a `craco.config.js` file.
 
 ## Support
+
 - Create React App (CRA) 3.*
 - Yarn
 - Yarn Workspace
@@ -15,43 +16,41 @@ All you have to do is create your app using [create-react-app](https://github.co
 - Custom `react-scripts` version
 
 ## Documentation
+
 - [Installation](#installation)
-- [Configuration](#configuration)
-  - [The Mode Property](#the-mode-property)
-  - [Sample CRACO Configuration File](#sample-craco-configuration-file)
+- [Configuration](#configuration) - How to customize your CRA installation with CRACO.
+  - [Configuration File](#configuration-file)
+  - [Configuration Helpers](#configuration-helpers)
+  - [Exporting your Configuration](#exporting-your-configuration)
   - [Setting a Custom Location for `craco.config.js`](#setting-a-custom-location-for-cracoconfigjs)
-  - [`when` Shortcuts](#when-shortcuts)
-- [Extra Help for React and Webpack Toolchain Beginners](#extra-help-for-react-and-webpack-toolchain-beginners)
+- [CRA toolchain for Beginners](#extra-help-for-react-and-webpack-toolchain-beginners)
   - [Notes on CRA Configurations and Problem Solving](#notes-on-cra-configurations-and-problem-solving)
   - [Ejecting CRA to Learn](#ejecting-cra-to-learn)
   - [Direct Versus Functional Config Definitions](#direct-object-literal-versus-functional-config-definitions)
-- [API](#api) - Access CRACO-generated configurations for Jest and Webpack
-  - [Jest Config Generation](#jest-config-generation)
-  - [Webpack DevServer and Production Config Generation](#webpack-devserver-and-production-config-generation)
-- [Recipes](#recipes)
-- [Plugins](#plugins)
-  - [Available Plugins](https://github.com/sharegate/craco#community-maintained-plugins) - Plugins maintained by the community
-  - [Developing a New Plugin](#developing-a-new-plugin) - How to develop a plugin for CRACO
-    - [Plugin Functions](#plugin-functions)
-    - [Utility Functions for Development](#utility-functions-for-development)
+- [API](#api) - CRACO APIs for Jest and Webpack.
+  - [Jest API](#jest-api)
+  - [Webpack API](#webpack-api)
+- [Recipes](https://github.com/sharegate/craco/tree/master/recipes) – Short recipes for common use cases.
+- [Available Plugins](https://github.com/sharegate/craco#community-maintained-plugins) - Plugins maintained by the community.
+- [Develop a Plugin](#develop-a-plugin) - How to develop a plugin for CRACO.
 - [Debugging](#debugging)
   - [Verbose Logging](#verbose-logging)
 - [License](#license)
 
 ## Preface
+
 ### Acknowledgements
+
 We are grateful to [@timarney](https://github.com/timarney) the creator of [react-app-rewired](https://github.com/timarney/react-app-rewired) for his original idea.
 
 The configuration style of this plugin has been greatly influenced by [Vue CLI](https://cli.vuejs.org/guide/).
 
 ### Fair Warning
+
 By doing this you're breaking the ["guarantees"](https://github.com/facebookincubator/create-react-app/issues/99#issuecomment-234657710) that CRA provides. That is to say you now "own" the configs. **No support** will be provided. Proceed with caution.
 
-### Problems after updating CRACO?
-If you can't find a solution to your problem in the changelog, log an issue and someone should help you quickly!
-
 ## Installation
-### Overview
+
 Install the plugin from **npm**:
 
 ```bash
@@ -62,51 +61,13 @@ $ yarn add @craco/craco
 $ npm install @craco/craco --save
 ```
 
-Create a `craco.config.js` file in the root directory:
+Create a `craco.config.js` file in the root directory and [configure CRACO](#configuration):
 
 ```
 my-app
 ├── node_modules
 ├── craco.config.js
 └── package.json
-```
-
-Choose one of the following ways to export your configuration, or use [the sample `craco.config.js`](#the-craco-configuration-file-template)
-
-Export your configuration as an **object literal**:
-
-```javascript
-/* craco.config.js */
-
-module.exports = {
-    ...
-}
-```
-
-or a **function**:
-
-```javascript
-/* craco.config.js */
-
-module.exports = function({ env }) {
-    return {
-        ...
-    };
-}
-```
-
-or a **promise** or **async function**:
-
-```javascript
-/* craco.config.js */
-
-module.exports = async function({ env }) {
-    await ...
-
-    return {
-        ...
-    };
-}
 ```
 
 Update the existing calls to `react-scripts` in the `scripts` section of your `package.json` file to use the `craco` CLI:
@@ -137,20 +98,17 @@ $ npm run build
 ```
 
 ## Configuration
-CRACO is configured with the `craco.config.js` file. This file is divided into sections representing the major 
-parts of what makes up the default create react app. 
 
-### The Mode Property  
-Some components have a property **mode**. When this is available there are 2 possible values:
+CRACO is configured with the `craco.config.js` file. This file is divided into sections representing the major parts of what makes up the default create react app. 
+
+### Configuration File 
+
+Below is a sample CRACO configuration file. Your final config file will be much shorter than this sample. See example CRACO configurations in [Recipes](https://github.com/sharegate/craco/tree/master/recipes).
+
+Some sections have a `mode` property. When this is available there are 2 possible values:
+
 - `extends`: the provided configuration will extends the CRA settings (**default mode**)
-- `file`: the CRA settings will be reset and you will provide an official configuration file for the plugin 
-([postcss](https://github.com/michael-ciniawsky/postcss-load-config#postcssrc), 
-[eslint](https://eslint.org/docs/user-guide/configuring#configuration-file-formats)) that will supersede any settings.
-
-### Sample CRACO Configuration File 
-Below is a sample CRACO configuration file. For more details about this sample file, see [Direct Versus Functional Config Definitions](#direct-object-literal-versus-functional-config-definitions)
-
-> Note: Your final config file may be much shorter than this sample. See example CRACO configurations in [Recipes](https://github.com/sharegate/craco/tree/master/recipes).
+- `file`: the CRA settings will be reset and you will provide an official configuration file for the plugin ([postcss](https://github.com/michael-ciniawsky/postcss-load-config#postcssrc), [eslint](https://eslint.org/docs/user-guide/configuring#configuration-file-formats)) that will supersede any settings.
 
 ```javascript
 const { when, whenDev, whenProd, whenTest, ESLINT_MODES, POSTCSS_MODES } = require("@craco/craco");
@@ -228,7 +186,73 @@ module.exports = {
 };
 ```
 
-### Setting a custom location for craco.config.js
+### Configuration Helpers
+
+Usage for all "when" functions is the same, `whenDev, whenProd, whenTest` are shortcuts for `when`.
+
+`when(condition, fct, [unmetValue])`
+
+Usage:
+
+```javascript
+const { when, whenDev } = require("@craco/craco");
+
+module.exports = {
+    eslint: {
+        mode: ESLINT_MODES.file,
+        configure: {
+            formatter: when(process.env.NODE_ENV === "CI", require("eslint-formatter-vso"))
+        }
+    },
+    webpack: {
+        plugins: [
+            new ConfigWebpackPlugin(),
+            ...whenDev(() => [new CircularDependencyPlugin()], [])
+        ]
+    }
+};
+```
+
+### Exporting your Configuration
+
+You can export your configuration as an **object literal**:
+
+```javascript
+/* craco.config.js */
+
+module.exports = {
+    ...
+}
+```
+
+a **function**:
+
+```javascript
+/* craco.config.js */
+
+module.exports = function({ env }) {
+    return {
+        ...
+    };
+}
+```
+
+a **promise** or an **async function**:
+
+```javascript
+/* craco.config.js */
+
+module.exports = async function({ env }) {
+    await ...
+
+    return {
+        ...
+    };
+}
+```
+
+### Setting a Custom Location for craco.config.js
+
 Both options support a **relative** or an **absolute** path.
 
 **1- package.json** _(Recommended)_
@@ -259,34 +283,10 @@ doesn't support Babel with Jest_
 }
 ```
 
-### `when` Shortcuts
-Usage for all when functions is the same, `whenDev, whenProd, whenTest` are shortcuts for `when`.
+## CRA Toolchain for Beginners
 
-`when(condition, fct, [unmetValue])`
-
-Usage:
-
-```javascript
-const { when, whenDev } = require("@craco/craco");
-
-module.exports = {
-    eslint: {
-        mode: ESLINT_MODES.file,
-        configure: {
-            formatter: when(process.env.NODE_ENV === "CI", require("eslint-formatter-vso"))
-        }
-    },
-    webpack: {
-        plugins: [
-            new ConfigWebpackPlugin(),
-            ...whenDev(() => [new CircularDependencyPlugin()], [])
-        ]
-    }
-};
-```
-
-## Extra Help for React and Webpack Toolchain Beginners
 ### Introduction to CRACO
+
 Create React App ([CRA](https://github.com/facebook/create-react-app)) is intended to allow people to get started with 
 writing React apps quickly. It does this by packaging several key components with a solid default configuration. 
 
@@ -297,6 +297,7 @@ CRACO allows you to enjoy the recognizable project structure of CRA while changi
 each component. 
 
 ### Notes on CRA Configurations and Problem Solving  
+
 Keep in mind that there are _some_ configuration settings available to CRA without CRACO. 
 
 Getting exactly what you want may involve a combination of making changes your CRACO configuration file and by using 
@@ -313,6 +314,7 @@ trying to solve. Be sure to review these resources on the CRA configuration, as 
  - [Search CRACO issues, for gotchas, hints and examples](https://github.com/gsoft-inc/craco/issues?q=is%3Aissue+sort%3Aupdated-desc)
 
 ### Ejecting CRA to Learn
+
 Avoiding ejecting is a major goal for many CRACO users. However, if you're still learning toolchains and modern 
 frontend workflows, it may be helpful to create a sample ejected CRA project to see how the default CRA app configures 
 each of the components. 
@@ -324,6 +326,7 @@ You may even want to try testing a change in the ejected app to better understan
 config-based project. 
 
 ### Direct (object literal) Versus Functional Config Definitions
+
 The [sample CRACO config file]((#sample-craco-configuration-file)) is meant to show possibilities for configuring your CRA-based project. Each section 
 contains a primary configuration area, `loaderOptions` or `configure`. These config areas are where you will make most 
 of your detailed changes.
@@ -340,29 +343,31 @@ There are a few reasons for this:
 [devServer port example](https://github.com/gsoft-inc/craco/issues/172#issuecomment-651505730)
 
 #### A simple example of equivalent direct and functionally defined configuration settings:
+
 ##### Direct configuration (object literal)
-```
- devServer: {
-    writeToDisk: true,
-  },
+
+```javascript
+devServer: {
+    writeToDisk: true
+}
 ```
 
 ##### Functionally defined configuration
-```
+
+```javascript
 devServer: (devServerConfig, { env, paths, proxy, allowedHost }) => {
     devServerConfig.writeToDisk = true; 
     return devServerConfig;
-  },
+}
 ```
 
 ## API
-### Overview
-If you would like to integrate with other tools, you may want access to configurations generated by CRACO.  
 
-Currently, CRACO's API can generate configs for Jest and WebPack. 
+To integrate with other tools, it's usefull to have access to the configuration generated by CRACO.
 
-### Jest Config Generation
-You can create a Jest configuration with `createJestConfig`.
+That's what CRACO APIs are for. The current API support Jest and Webpack.
+
+### Jest API
 
 Accept a `cracoConfig`, a `context` object and `options`. The generated Jest config object is returned.
 
@@ -383,10 +388,13 @@ const jestConfig = createJestConfig(cracoConfig);
 
 module.exports = jestConfig;
 ```
-#### Example Integration: Jest config for Vscode
+
+#### Examples
+
 - [vscode-jest](https://github.com/sharegate/craco/tree/master/recipes/use-a-jest-config-file)
 
-### Webpack DevServer and Production Config Generation 
+### Webpack API
+
 You can create Webpack DevServer and Production configurations using `createWebpackDevConfig` and `createWebpackProdConfig`. 
 
 Accept a `cracoConfig`, a `context` object and `options`. The generated Webpack config object is returned.
@@ -395,6 +403,7 @@ Accept a `cracoConfig`, a `context` object and `options`. The generated Webpack 
 `craco.config.js` exposes a config function, you have to call it yourself before passing it further.
 
 `createWebpackDevConfig(cracoConfig, context = {}, options = { verbose: false, config: null })`
+
 `createWebpackProdConfig(cracoConfig, context = {}, options = { verbose: false, config: null })`
 
 Usage:
@@ -410,18 +419,12 @@ const webpackConfig = createWebpackDevConfig(cracoConfig);
 module.exports = webpackConfig;
 ```
 
-## Recipes
-[CRACO Recipes](https://github.com/sharegate/craco/tree/master/recipes) are a curated set of example craco config files 
-already built for common use cases 
+## Develop a Plugin
 
-## Plugins
-### Available Plugins
-See this list of [Available Plugins](https://github.com/sharegate/craco#community-maintained-plugins) maintained by the 
-community.
+### Hooks
 
-### Developing a New Plugin
-#### Plugin Functions
-There are four functions available to a plugin:
+There are four hooks available to a plugin:
+
 - `overrideCracoConfig`: Let a plugin customize the config object before it's process by `craco`.
 - `overrideWebpackConfig`: Let a plugin customize the `webpack` config that will be used by CRA.
 - `overrideDevServerConfig`: Let a plugin customize the dev server config that will be used by CRA.
@@ -431,7 +434,8 @@ There are four functions available to a plugin:
 
 Every function must return the updated config object.
 
-##### overrideCracoConfig
+#### overrideCracoConfig
+
 The function `overrideCracoConfig` let a plugin override the config object **before** it's process by `craco`.
 
 If a plugin define the function, it will be called with the config object read from the `craco.config.js` file provided 
@@ -452,7 +456,8 @@ The function will be called with a single object argument having the following s
 }
 ```
 
-###### Example
+##### Example
+
 Plugin:
 
 ```javascript
@@ -485,7 +490,8 @@ module.exports = {
 };
 ```
 
-##### overrideWebpackConfig
+#### overrideWebpackConfig
+
 The function `overrideWebpackConfig` let a plugin override the `webpack` config object **after** it's been customized 
 by `craco`.
 
@@ -505,7 +511,8 @@ The function will be called with a single object argument having the following s
 }
 ```
 
-###### Example
+##### Example
+
 Plugin:
 
 ```javascript
@@ -538,7 +545,8 @@ module.exports = {
 };
 ```
 
-##### overrideDevServerConfig
+#### overrideDevServerConfig
+
 The function `overrideDevServerConfig` let a plugin override the dev server config object **after** it's been customized
 by `craco`.
 
@@ -559,7 +567,8 @@ The function will be called with a single object argument having the following s
 }
 ```
 
-###### Example
+##### Example
+
 Plugin:
 
 ```javascript
@@ -592,7 +601,8 @@ module.exports = {
 };
 ```
 
-##### overrideJestConfig
+#### overrideJestConfig
+
 The function `overrideJestConfig` let a plugin override the `Jest` config object **after** it's been customized by 
 `craco`.
 
@@ -614,7 +624,8 @@ The function will be called with a single object argument having the following s
 }
 ```
 
-###### Example
+##### Example
+
 Plugin:
 
 ```javascript
@@ -647,7 +658,8 @@ module.exports = {
 };
 ```
 
-#### Utility Functions for Development
+### Utility Functions
+
 A few utility functions are provided by CRACO to help you develop a plugin:
  - `getLoader`
  - `getLoaders`
@@ -662,7 +674,8 @@ A few utility functions are provided by CRACO to help you develop a plugin:
 const { getLoader, getLoaders, removeLoader, loaderByName, throwUnexpectedConfigError } = require("@craco/craco");
 ```
 
-##### getLoader
+#### getLoader
+
 Retrieve the **first** loader that match the specified criteria from the webpack config.
 
 Returns:
@@ -690,7 +703,8 @@ if (isFound) {
 }
 ```
 
-##### getLoaders
+#### getLoaders
+
 Retrieve **all** the loaders that match the specified criteria from the webpack config.
 
 Returns:
@@ -722,7 +736,8 @@ if (hasFoundAny) {
 }
 ```
 
-##### removeLoaders
+#### removeLoaders
+
 Remove **all** the loaders that match the specified criteria from the webpack config.
 
 Returns:
@@ -742,7 +757,8 @@ const { removeLoaders, loaderByName } = require("@craco/craco");
 removeLoaders(webpackConfig, loaderByName("eslint-loader"));
 ```
 
-##### addBeforeLoader
+#### addBeforeLoader
+
 Add a new *loader* **before** the loader that match specified criteria to the webpack config.
 
 Returns:
@@ -765,7 +781,8 @@ const myNewWebpackLoader = {
 addBeforeLoader(webpackConfig, loaderByName("eslint-loader"), myNewWebpackLoader);
 ```
 
-##### addBeforeLoaders
+#### addBeforeLoaders
+
 Add a new *loader* **before** all the loaders that match specified criteria to the webpack config.
 
 Returns:
@@ -789,7 +806,8 @@ const myNewWebpackLoader = {
 addBeforeLoaders(webpackConfig, loaderByName("eslint-loader"), myNewWebpackLoader);
 ```
 
-##### addAfterLoader
+#### addAfterLoader
+
 Add a new *loader* **after** the loader that match specified criteria to the webpack config.
 
 Returns:
@@ -812,7 +830,8 @@ const myNewWebpackLoader = {
 addAfterLoader(webpackConfig, loaderByName("eslint-loader"), myNewWebpackLoader);
 ```
 
-##### addAfterLoaders
+#### addAfterLoaders
+
 Add a new *loader* **after** all the loaders that match specified criteria to the webpack config.
 
 Returns:
@@ -836,7 +855,8 @@ const myNewWebpackLoader = {
 addAfterLoaders(webpackConfig, loaderByName("eslint-loader"), myNewWebpackLoader);
 ```
 
-##### throwUnexpectedConfigError
+#### throwUnexpectedConfigError
+
 Throw an error if the webpack configuration changes and does not match your expectations. (For example, `getLoader` 
 cannot find a loader and `isFound` is `false`.) `create-react-app` might update the structure of their webpack config, 
 so it is very important to show a helpful error message when something breaks.
@@ -912,7 +932,9 @@ Options:
 > Only `message` is required.
 
 ## Debugging
+
 ### Verbose Logging
+
 To activate **verbose** logging specify the CLI option `--verbose`
 
 ```javascript
@@ -926,5 +948,6 @@ To activate **verbose** logging specify the CLI option `--verbose`
 ```
 
 ## License
+
 Copyright © 2020, Groupe Sharegate inc. This code is licensed under the Apache License, Version 2.0. You may obtain a 
 copy of this license at https://github.com/gsoft-inc/gsoft-license/blob/master/LICENSE.
