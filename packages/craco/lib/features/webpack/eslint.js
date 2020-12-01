@@ -91,7 +91,6 @@ function applyLoaderOptions(webpackEslintConfig, loaderOptions, context) {
 function overrideEsLint(cracoConfig, webpackConfig, context) {
     if (cracoConfig.eslint) {
         const { webpackEslintConfig, disableEsLint } = loadWebpackEslintConfig(cracoConfig, webpackConfig);
-        console.log("CONFIG: ", webpackEslintConfig.options);
 
         const { enable, mode, loaderOptions } = cracoConfig.eslint;
 
@@ -130,6 +129,8 @@ function loadWebpackEslintConfig(cracoConfig, webpackConfig) {
 
     let disableEsLint = null;
 
+    // The eslint-loader has been deleted from create-react-app in version 4.0. Now eslint is being delivered through eslint-webpack-plugin, not eslint-loader.
+    // https://github.com/facebook/create-react-app/commit/d07b7d025f5933710fcb01718617dbdf4bc54c33
     if (semver.gte(getReactScriptVersion(cracoConfig), "4.0.0")) {
         const matcher = pluginByName("ESLintWebpackPlugin");
         const { isFound, match } = getPlugin(webpackConfig, matcher);
