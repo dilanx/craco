@@ -90,7 +90,11 @@ function applyLoaderOptions(webpackEslintConfig, loaderOptions, context) {
 
 function overrideEsLint(cracoConfig, webpackConfig, context) {
     if (cracoConfig.eslint) {
-        const { webpackEslintConfig, disableEsLint } = loadWebpackEslintConfig(cracoConfig, webpackConfig);
+        const { isFound, webpackEslintConfig, disableEsLint } = loadWebpackEslintConfig(cracoConfig, webpackConfig);
+
+        if (!isFound) {
+            return webpackConfig;
+        }
 
         const { enable, mode, loaderOptions } = cracoConfig.eslint;
 
@@ -106,7 +110,7 @@ function overrideEsLint(cracoConfig, webpackConfig, context) {
             return webpackConfig;
         }
 
-        enableEslintIgnoreFile(webpackEslintConfig); // update
+        enableEslintIgnoreFile(webpackEslintConfig);
 
         if (mode === ESLINT_MODES.file) {
             useEslintConfigFile(webpackEslintConfig);
@@ -138,7 +142,7 @@ function loadWebpackEslintConfig(cracoConfig, webpackConfig) {
         if (!isFound) {
             logError("Cannot find ESLint plugin (ESLintWebpackPlugin).");
 
-            return webpackConfig;
+            return { isFound: false };
         }
 
         webpackEslintConfig = {
@@ -153,7 +157,7 @@ function loadWebpackEslintConfig(cracoConfig, webpackConfig) {
         if (!isFound) {
             logError("Cannot find ESLint loader (eslint-loader).");
 
-            return webpackConfig;
+            return { isFound: false };
         }
 
         webpackEslintConfig = {
@@ -164,6 +168,7 @@ function loadWebpackEslintConfig(cracoConfig, webpackConfig) {
     }
 
     return {
+        isFound: true,
         webpackEslintConfig,
         disableEsLint
     };
