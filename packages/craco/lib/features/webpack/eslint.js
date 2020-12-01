@@ -3,7 +3,7 @@ const { getLoader, removeLoaders, loaderByName } = require("../../loaders");
 const { log, logError } = require("../../logger");
 const { isFunction, deepMergeWithArray } = require("../../utils");
 const semver = require("semver");
-const { getPlugin, removePlugins, pluginByName } = require("../../plugins");
+const { getPlugin, removePlugins, pluginByName } = require("../../webpack-plugins");
 
 const ESLINT_MODES = {
     extends: "extends",
