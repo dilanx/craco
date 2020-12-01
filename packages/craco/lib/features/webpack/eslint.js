@@ -10,17 +10,6 @@ const ESLINT_MODES = {
     file: "file"
 };
 
-function disableEslint(webpackConfig) {
-    // todo remove this plugin for cra 4.0
-    const { hasRemovedAny } = removeLoaders(webpackConfig, loaderByName("eslint-loader"));
-
-    if (hasRemovedAny) {
-        log("Disabled ESLint.");
-    } else {
-        logError("Couldn't disabled ESLint.");
-    }
-}
-
 function extendsEslintConfig(webpackEslintConfig, eslintConfig, context) {
     const { configure } = eslintConfig;
 
@@ -101,12 +90,19 @@ function applyLoaderOptions(webpackEslintConfig, loaderOptions, context) {
 
 function overrideEsLint(cracoConfig, webpackConfig, context) {
     if (cracoConfig.eslint) {
+        const { webpackEslintConfig, disableEsLint } = loadWebpackEslintConfig(cracoConfig, webpackConfig);
         console.log("CONFIG: ", webpackEslintConfig.options);
 
         const { enable, mode, loaderOptions } = cracoConfig.eslint;
 
         if (enable === false) {
-            disableEslint(webpackConfig);
+            const { hasRemovedAny } = disableEsLint();
+
+            if (hasRemovedAny) {
+                log("Disabled ESLint.");
+            } else {
+                logError("Couldn't disabled ESLint.");
+            }
 
             return webpackConfig;
         }
@@ -127,14 +123,16 @@ function overrideEsLint(cracoConfig, webpackConfig, context) {
     return webpackConfig;
 }
 
-function TODO_FIND_NAME_STRATEGY(cracoConfig, webpackConfig) {
+function loadWebpackEslintConfig(cracoConfig, webpackConfig) {
     let webpackEslintConfig = {
-        options: null,
-        disable: null
+        options: null
     };
 
+    let disableEsLint = null;
+
     if (semver.gte(getReactScriptVersion(cracoConfig), "4.0.0")) {
-        const { isFound, match } = getPlugin(webpackConfig, pluginByName("ESLintWebpackPlugin"));
+        const matcher = pluginByName("ESLintWebpackPlugin");
+        const { isFound, match } = getPlugin(webpackConfig, matcher);
 
         if (!isFound) {
             logError("Cannot find ESLint plugin (ESLintWebpackPlugin).");
@@ -143,11 +141,13 @@ function TODO_FIND_NAME_STRATEGY(cracoConfig, webpackConfig) {
         }
 
         webpackEslintConfig = {
-            options: match.options,
-            disable: () => removePlugins(webpackConfig, pluginByName("ESLintWebpackPlugin"))
+            options: match.options
         };
+
+        disableEsLint = () => removePlugins(webpackConfig, matcher);
     } else {
-        const { isFound, match } = getLoader(webpackConfig, loaderByName("eslint-loader"));
+        const matcher = loaderByName("eslint-loader");
+        const { isFound, match } = getLoader(webpackConfig, matcher);
 
         if (!isFound) {
             logError("Cannot find ESLint loader (eslint-loader).");
@@ -156,26 +156,15 @@ function TODO_FIND_NAME_STRATEGY(cracoConfig, webpackConfig) {
         }
 
         webpackEslintConfig = {
-            options: match.loader.options,
-            disable: () => removeLoaders(webpackConfig, loaderByName("eslint-loader"))
-        };
-    }
-
-    function updateEsLint(config, deleteBaseConfig = false) {
-        webpackEslintConfig.options = {
-            ...webpackEslintConfig.options,
-            ...config
+            options: match.loader.options
         };
 
-        if (deleteBaseConfig) {
-            delete webpackEslintConfig.options.baseConfig;
-        }
+        disableEsLint = () => removeLoaders(webpackConfig, matcher);
     }
 
     return {
-        getEsLintOptions: () => webpackEslintConfig.options,
-        updateEsLint,
-        disableEsLint: () => webpackEslintConfig.disable()
+        webpackEslintConfig,
+        disableEsLint
     };
 }
 
