@@ -232,7 +232,6 @@ module.exports = {
     loadJestConfigProvider,
     overrideJestConfigProvider,
     getCraPaths,
-    getReactScriptVersion,
     start,
     build,
     test
