@@ -16,8 +16,8 @@ function getPlugin(webpackConfig, matcher) {
 function removePlugins(webpackConfig, matcher) {
     const prevCount = webpackConfig.plugins.length;
     webpackConfig.plugins = webpackConfig.plugins.filter(x => !matcher(x));
+    const removedPluginsCount = prevCount - webpackConfig.plugins.length;
 
-    const removedPluginsCount = webpackConfig.plugins.length - prevCount;
     return {
         hasRemovedAny: removedPluginsCount > 0,
         removedCount: removedPluginsCount
