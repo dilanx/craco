@@ -158,7 +158,8 @@ function loadWebpackEslintConfig(cracoConfig, webpackConfig) {
 }
 
 function loadWebpackEslintConfigViaPlugin(webpackConfig) {
-    const { isFound, match } = getPlugin(webpackConfig, pluginByName("ESLintWebpackPlugin"));
+    const matcher = pluginByName("ESLintWebpackPlugin");
+    const { isFound, match } = getPlugin(webpackConfig, matcher);
 
     if (isFound) {
         return { isFound: false };
@@ -169,12 +170,13 @@ function loadWebpackEslintConfigViaPlugin(webpackConfig) {
         webpackEslintConfig: {
             options: match.options
         },
-        disableEsLint: () => removePlugins(webpackConfig, pluginByName("ESLintWebpackPlugin"))
+        disableEsLint: () => removePlugins(webpackConfig, matcher)
     };
 }
 
 function loadWebpackEslintConfigViaLoader(webpackConfig) {
-    const { isFound, match } = getLoader(webpackConfig, loaderByName("eslint-loader"));
+    const matcher = loaderByName("eslint-loader");
+    const { isFound, match } = getLoader(webpackConfig, matcher);
 
     if (isFound) {
         return { isFound: false };
@@ -185,7 +187,7 @@ function loadWebpackEslintConfigViaLoader(webpackConfig) {
         webpackEslintConfig: {
             options: match.loader.options
         },
-        disableEsLint: () => removeLoaders(webpackConfig, pluginByName("eslint-loader"))
+        disableEsLint: () => removeLoaders(webpackConfig, matcher)
     };
 }
 
