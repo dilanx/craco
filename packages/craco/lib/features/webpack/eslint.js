@@ -1,6 +1,9 @@
+const { getReactScriptVersion } = require("../../cra");
 const { getLoader, removeLoaders, loaderByName } = require("../../loaders");
 const { log, logError } = require("../../logger");
 const { isFunction, deepMergeWithArray } = require("../../utils");
+const semver = require("semver");
+const { getPlugin, removePlugins, pluginByName } = require("../../plugins");
 
 const ESLINT_MODES = {
     extends: "extends",
@@ -8,6 +11,7 @@ const ESLINT_MODES = {
 };
 
 function disableEslint(webpackConfig) {
+    // todo remove this plugin for cra 4.0
     const { hasRemovedAny } = removeLoaders(webpackConfig, loaderByName("eslint-loader"));
 
     if (hasRemovedAny) {
@@ -97,36 +101,7 @@ function applyLoaderOptions(webpackEslintConfig, loaderOptions, context) {
 
 function overrideEsLint(cracoConfig, webpackConfig, context) {
     if (cracoConfig.eslint) {
-        // TODO: if version >4.0, eslint is delivered via a plugin instead of a loader
-        const isVersion4orNewer = cracoConfig.reactScriptsVersion; // TODO cette ligne là marche pas, mais y doit avoir quelque chose à faire avec ça.
-        let webpackEslintConfig = {
-            options: null
-        };
-
-        if (isVersion4orNewer) {
-            const eslintPlugin = webpackConfig.plugins.filter(
-                plugin => plugin.constructor.name === "ESLintWebpackPlugin"
-            );
-
-            if (eslintPlugin.length === 0) {
-                logError("Cannot find ESLint plugin (ESLintWebpackPlugin).");
-                return webpackConfig;
-            }
-
-            webpackEslintConfig.options = eslintPlugin[0].options;
-        } else {
-            const { isFound, match } = getLoader(webpackConfig, loaderByName("eslint-loader"));
-
-            if (!isFound) {
-                logError("Cannot find ESLint loader (eslint-loader).");
-
-                return webpackConfig;
-            }
-
-            webpackEslintConfig = {
-                options: match.loader.options
-            };
-        }
+        console.log("CONFIG: ", webpackEslintConfig.options);
 
         const { enable, mode, loaderOptions } = cracoConfig.eslint;
 
@@ -136,7 +111,7 @@ function overrideEsLint(cracoConfig, webpackConfig, context) {
             return webpackConfig;
         }
 
-        enableEslintIgnoreFile(webpackEslintConfig);
+        enableEslintIgnoreFile(webpackEslintConfig); // update
 
         if (mode === ESLINT_MODES.file) {
             useEslintConfigFile(webpackEslintConfig);
@@ -150,6 +125,58 @@ function overrideEsLint(cracoConfig, webpackConfig, context) {
     }
 
     return webpackConfig;
+}
+
+function TODO_FIND_NAME_STRATEGY(cracoConfig, webpackConfig) {
+    let webpackEslintConfig = {
+        options: null,
+        disable: null
+    };
+
+    if (semver.gte(getReactScriptVersion(cracoConfig), "4.0.0")) {
+        const { isFound, match } = getPlugin(webpackConfig, pluginByName("ESLintWebpackPlugin"));
+
+        if (!isFound) {
+            logError("Cannot find ESLint plugin (ESLintWebpackPlugin).");
+
+            return webpackConfig;
+        }
+
+        webpackEslintConfig = {
+            options: match.options,
+            disable: () => removePlugins(webpackConfig, pluginByName("ESLintWebpackPlugin"))
+        };
+    } else {
+        const { isFound, match } = getLoader(webpackConfig, loaderByName("eslint-loader"));
+
+        if (!isFound) {
+            logError("Cannot find ESLint loader (eslint-loader).");
+
+            return webpackConfig;
+        }
+
+        webpackEslintConfig = {
+            options: match.loader.options,
+            disable: () => removeLoaders(webpackConfig, loaderByName("eslint-loader"))
+        };
+    }
+
+    function updateEsLint(config, deleteBaseConfig = false) {
+        webpackEslintConfig.options = {
+            ...webpackEslintConfig.options,
+            ...config
+        };
+
+        if (deleteBaseConfig) {
+            delete webpackEslintConfig.options.baseConfig;
+        }
+    }
+
+    return {
+        getEsLintOptions: () => webpackEslintConfig.options,
+        updateEsLint,
+        disableEsLint: () => webpackEslintConfig.disable()
+    };
 }
 
 module.exports = {

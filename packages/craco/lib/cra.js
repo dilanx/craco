@@ -36,6 +36,15 @@ function overrideModule(modulePath, newModule) {
     log(`Overrided require cache for module: ${modulePath}`);
 }
 
+function getReactScriptVersion(cracoConfig) {
+    const reactScriptPackageJsonPath = require.resolve(path.join(cracoConfig.reactScriptsVersion, "package.json"), {
+        paths: [projectRoot]
+    });
+    const packageJson = require(reactScriptPackageJsonPath);
+
+    return packageJson.version;
+}
+
 /************  Paths  *******************/
 
 let _resolvedCraPaths = null;
@@ -232,6 +241,7 @@ module.exports = {
     loadJestConfigProvider,
     overrideJestConfigProvider,
     getCraPaths,
+    getReactScriptVersion,
     start,
     build,
     test
