@@ -36,17 +36,6 @@ function overrideModule(modulePath, newModule) {
     log(`Overrided require cache for module: ${modulePath}`);
 }
 
-function resolvePackageJson(cracoConfig) {
-    return require.resolve(path.join(cracoConfig.reactScriptsVersion, "package.json"), { paths: [projectRoot] });
-}
-
-function getReactScriptVersion(cracoConfig) {
-    const reactScriptPackageJsonPath = resolvePackageJson(cracoConfig);
-    const { version } = require(reactScriptPackageJsonPath);
-
-    return version;
-}
-
 /************  Paths  *******************/
 
 let _resolvedCraPaths = null;

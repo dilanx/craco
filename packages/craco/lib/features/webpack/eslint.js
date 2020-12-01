@@ -1,8 +1,6 @@
-const { getReactScriptVersion } = require("../../cra");
 const { getLoader, removeLoaders, loaderByName } = require("../../loaders");
 const { log, logError } = require("../../logger");
 const { isFunction, deepMergeWithArray } = require("../../utils");
-const semver = require("semver");
 const { getPlugin, removePlugins, pluginByName } = require("../../webpack-plugins");
 
 const ESLINT_MODES = {
@@ -127,50 +125,67 @@ function overrideEsLint(cracoConfig, webpackConfig, context) {
 }
 
 function loadWebpackEslintConfig(cracoConfig, webpackConfig) {
+    let disableEsLint = null;
     let webpackEslintConfig = {
         options: null
     };
 
-    let disableEsLint = null;
-
     // The eslint-loader has been deleted from create-react-app in version 4.0. Now eslint is being delivered through eslint-webpack-plugin, not eslint-loader.
     // https://github.com/facebook/create-react-app/commit/d07b7d025f5933710fcb01718617dbdf4bc54c33
-    if (semver.gte(getReactScriptVersion(cracoConfig), "4.0.0")) {
-        const matcher = pluginByName("ESLintWebpackPlugin");
-        const { isFound, match } = getPlugin(webpackConfig, matcher);
+    const esLintPlugin = loadWebpackEslintConfigViaPlugin(webpackConfig);
+    if (!esLintPlugin.isFound) {
+        const esLintLoader = loadWebpackEslintConfigViaLoader(webpackConfig);
 
-        if (!isFound) {
-            logError("Cannot find ESLint plugin (ESLintWebpackPlugin).");
+        if (!esLintLoader.isFound) {
+            logError(
+                "Cannot find ESLint plugin (ESLintWebpackPlugin) (react-scripts >= 4.0) nor ESLint loader (eslint-loader) (react-scripts < 4.0)."
+            );
 
             return { isFound: false };
         }
-
-        webpackEslintConfig = {
-            options: match.options
-        };
-
-        disableEsLint = () => removePlugins(webpackConfig, matcher);
+        webpackEslintConfig = esLintLoader.webpackEslintConfig;
+        disableEsLint = esLintLoader.disableEsLint;
     } else {
-        const matcher = loaderByName("eslint-loader");
-        const { isFound, match } = getLoader(webpackConfig, matcher);
-
-        if (!isFound) {
-            logError("Cannot find ESLint loader (eslint-loader).");
-
-            return { isFound: false };
-        }
-
-        webpackEslintConfig = {
-            options: match.loader.options
-        };
-
-        disableEsLint = () => removeLoaders(webpackConfig, matcher);
+        webpackEslintConfig = esLintPlugin.webpackEslintConfig;
+        disableEsLint = esLintPlugin.disableEsLint;
     }
 
     return {
         isFound: true,
         webpackEslintConfig,
         disableEsLint
+    };
+}
+
+function loadWebpackEslintConfigViaPlugin(webpackConfig) {
+    const { isFound, match } = getPlugin(webpackConfig, pluginByName("ESLintWebpackPlugin"));
+
+    if (isFound) {
+        return { isFound: false };
+    }
+
+    return {
+        isFound: true,
+        webpackEslintConfig: {
+            options: match.options
+        },
+        disableEsLint: () => removePlugins(webpackConfig, pluginByName("ESLintWebpackPlugin"))
+    };
+}
+
+function loadWebpackEslintConfigViaLoader(webpackConfig) {
+    const { isFound, match } = getLoader(webpackConfig, loaderByName("eslint-loader"));
+
+    if (isFound) {
+        return { isFound: false };
+    }
+
+    return {
+        isFound: true,
+        webpackEslintConfig: {
+            options: match.loader.options
+        },
+        disableEsLint: () => removeLoaders(webpackConfig, pluginByName("eslint-loader"))
     };
 }
 
