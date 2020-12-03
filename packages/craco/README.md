@@ -289,8 +289,7 @@ doesn't support Babel with Jest_
 Create React App ([CRA](https://github.com/facebook/create-react-app)) is intended to allow people to get started with 
 writing React apps quickly. It does this by packaging several key components with a solid default configuration. 
 
-After some initial experimentation, many people find the default CRA is not quite the right fit. Yet, selecting and a 
-configuring a toolchain featuring all of the components CRA already offers is overwhelming. 
+After some initial experimentation, many people find the default CRA is not quite the right fit. Yet, selecting and configuring a toolchain featuring all of the components CRA already offers is overwhelming. 
 
 CRACO allows you to enjoy the recognizable project structure of CRA while changing detailed configuration settings of 
 each component. 
