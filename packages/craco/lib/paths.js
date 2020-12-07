@@ -11,6 +11,8 @@ log("Project root path resolved to: ", projectRoot);
 
 let configFilePath = "";
 
+const configFilenames = ["craco.config.js", ".cracorc.js", ".cracorc"];
+
 const args = getArgs();
 
 if (args.config.isProvided) {
@@ -25,7 +27,14 @@ if (args.config.isProvided) {
 
         configFilePath = path.resolve(projectRoot, package.cracoConfig);
     } else {
-        configFilePath = path.resolve(projectRoot, "craco.config.js");
+        for (const filename of configFilenames) {
+            const filePath = path.join(projectRoot, filename);
+
+            if (fs.existsSync(filePath)) {
+                configFilePath = path.resolve(filePath);
+                break;
+            }
+        }
     }
 }
 

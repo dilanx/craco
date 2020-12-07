@@ -98,7 +98,13 @@ $ npm run build
 
 ## Configuration
 
-CRACO is configured with the `craco.config.js` file. This file is divided into sections representing the major parts of what makes up the default create react app. 
+CRACO is configured with a `craco.config.js`, `.cracorc.js` or `.cracorc` file. This file is divided into sections representing the major parts of what makes up the default create react app. 
+
+If there are multiple configuration files in the same directory, CRACO will only use one. The priority order is:
+
+1. `craco.config.js`
+2. `.cracorc.js`
+3. `.cracorc`
 
 ### Configuration File 
 
