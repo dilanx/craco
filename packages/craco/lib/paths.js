@@ -31,7 +31,7 @@ if (args.config.isProvided) {
             const filePath = path.join(projectRoot, filename);
 
             if (fs.existsSync(filePath)) {
-                configFilePath = path.resolve(filePath);
+                configFilePath = filePath;
                 break;
             }
         }
