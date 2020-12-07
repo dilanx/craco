@@ -8,7 +8,7 @@ All you have to do is create your app using [create-react-app](https://github.co
 
 ## Support
 
-- Create React App (CRA) 3.*
+- Create React App (CRA) 4.*
 - Yarn
 - Yarn Workspace
 - NPM
@@ -18,6 +18,7 @@ All you have to do is create your app using [create-react-app](https://github.co
 ## Documentation
 
 - [Installation](#installation) - How to install and setup CRACO.
+- [Migration Path from 5.8.0](#migration-path-from-5.8.0) - Changes to ESLint in react-scripts 4.0 
 - [Configuration](#configuration) - How to customize your CRA installation with CRACO.
   - [Configuration File](#configuration-file)
   - [Configuration Helpers](#configuration-helpers)
@@ -47,6 +48,39 @@ The configuration style of this plugin has been greatly influenced by [Vue CLI](
 ### Fair Warning
 
 By doing this you're breaking the ["guarantees"](https://github.com/facebookincubator/create-react-app/issues/99#issuecomment-234657710) that CRA provides. That is to say you now "own" the configs. **No support** will be provided. Proceed with caution.
+
+## Migration Path from 5.8.0
+
+Eslint-loader has been deleted from create-react-app in version 4.0. Now eslint is being delivered through eslint-webpack-plugin, not eslint-loader. 
+[View Changes](https://github.com/facebook/create-react-app/commit/d07b7d025f5933710fcb01718617dbdf4bc54c33).
+
+The property `loaderOptions` is now named `pluginOptions`
+
+CRACO 5.8
+```
+    eslint: {
+        enable: true /* (default value) */,
+        mode: "extends" /* (default value) */ || "file",
+        configure: { /* Any eslint configuration options: https://eslint.org/docs/user-guide/configuring */ },
+        configure: (eslintConfig, { env, paths }) => { return eslintConfig; },
+        --> loaderOptions: { /* Any eslint-loader configuration options: https://github.com/webpack-contrib/eslint-loader. */ },
+        --> loaderOptions: (eslintOptions, { env, paths }) => { return eslintOptions; }
+    },
+```
+
+CRACO 6.0
+```
+    eslint: {
+        enable: true /* (default value) */,
+        mode: "extends" /* (default value) */ || "file",
+        configure: { /* Any eslint configuration options: https://eslint.org/docs/user-guide/configuring */ },
+        configure: (eslintConfig, { env, paths }) => { return eslintConfig; },
+        --> pluginOptions: { /* Any eslint-loader configuration options: https://eslint.org/docs/developer-guide/nodejs-api#%E2%97%86-new-eslint-options. */ },
+        --> pluginOptions: (eslintOptions, { env, paths }) => { return eslintOptions; }
+    },
+```
+
+
 
 ## Installation
 
@@ -143,8 +177,8 @@ module.exports = {
         mode: "extends" /* (default value) */ || "file",
         configure: { /* Any eslint configuration options: https://eslint.org/docs/user-guide/configuring */ },
         configure: (eslintConfig, { env, paths }) => { return eslintConfig; },
-        loaderOptions: { /* Any eslint-loader configuration options: https://github.com/webpack-contrib/eslint-loader. */ },
-        loaderOptions: (eslintOptions, { env, paths }) => { return eslintOptions; }
+        pluginOptions: { /* Any eslint plugin configuration options: https://github.com/webpack-contrib/eslint-webpack-plugin#options. */ },
+        pluginOptions: (eslintOptions, { env, paths }) => { return eslintOptions; }
     },
     babel: {
         presets: [],
