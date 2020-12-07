@@ -124,32 +124,10 @@ function overrideEsLint(cracoConfig, webpackConfig, context) {
 }
 
 function loadWebpackEslintPlugin(cracoConfig, webpackConfig) {
-    let disableEsLint = null;
-    let webpackEslintConfig = {
-        options: null
-    };
-
-    const esLintPlugin = loadWebpackEslintPlugin(webpackConfig);
-    if (!esLintPlugin.isFound) {
-        logError("Cannot find ESLint plugin (ESLintWebpackPlugin).");
-    } else {
-        webpackEslintConfig = esLintPlugin.webpackEslintConfig;
-        disableEsLint = esLintPlugin.disableEsLint;
-    }
-
-    return {
-        isFound: true,
-        webpackEslintConfig,
-        disableEsLint
-    };
-}
-
-function loadWebpackEslintPlugin(webpackConfig) {
     const matcher = pluginByName("ESLintWebpackPlugin");
     const { isFound, match } = getPlugin(webpackConfig, matcher);
-
-    if (isFound) {
-        return { isFound: false };
+    if (!isFound) {
+        logError("Cannot find ESLint plugin (ESLintWebpackPlugin).");
     }
 
     return {
