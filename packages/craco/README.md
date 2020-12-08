@@ -8,7 +8,7 @@ All you have to do is create your app using [create-react-app](https://github.co
 
 ## Support
 
-- Create React App (CRA) 3.*
+- Create React App (CRA) 4.*
 - Yarn
 - Yarn Workspace
 - NPM
@@ -33,6 +33,7 @@ All you have to do is create your app using [create-react-app](https://github.co
 - [Recipes](https://github.com/sharegate/craco/tree/master/recipes) – Short recipes for common use cases.
 - [Available Plugins](https://github.com/sharegate/craco#community-maintained-plugins) - Plugins maintained by the community.
 - [Develop a Plugin](#develop-a-plugin) - How to develop a plugin for CRACO.
+- [Backward Compatibility](#backward-compatibility)
 - [Debugging](#debugging)
 - [License](#license)
 
@@ -149,8 +150,8 @@ module.exports = {
         mode: "extends" /* (default value) */ || "file",
         configure: { /* Any eslint configuration options: https://eslint.org/docs/user-guide/configuring */ },
         configure: (eslintConfig, { env, paths }) => { return eslintConfig; },
-        loaderOptions: { /* Any eslint-loader configuration options: https://github.com/webpack-contrib/eslint-loader. */ },
-        loaderOptions: (eslintOptions, { env, paths }) => { return eslintOptions; }
+        pluginOptions: { /* Any eslint plugin configuration options: https://github.com/webpack-contrib/eslint-webpack-plugin#options. */ },
+        pluginOptions: (eslintOptions, { env, paths }) => { return eslintOptions; }
     },
     babel: {
         presets: [],
@@ -934,6 +935,14 @@ Options:
 ```
 
 > Only `message` is required.
+
+## Backward Compatibility
+
+CRACO is not meant to be backward compatible with older versions of react-scripts. This package will only support the latest version. If your project uses an old react-scripts version, refer to the following table to select the appropriate CRACO version.
+
+| react-scripts Version |CRACO Version|
+| --------------------- | -----------:|
+| react-scripts < 4.0.0 |       5.8.0 |
 
 ## Debugging
 

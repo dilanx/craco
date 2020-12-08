@@ -1,6 +1,6 @@
-const { getLoader, removeLoaders, loaderByName } = require("../../loaders");
 const { log, logError } = require("../../logger");
 const { isFunction, deepMergeWithArray } = require("../../utils");
+const { getPlugin, removePlugins, pluginByName } = require("../../webpack-plugins");
 
 const ESLINT_MODES = {
     extends: "extends",
@@ -8,7 +8,7 @@ const ESLINT_MODES = {
 };
 
 function disableEslint(webpackConfig) {
-    const { hasRemovedAny } = removeLoaders(webpackConfig, loaderByName("eslint-loader"));
+    const { hasRemovedAny } = removePlugins(webpackConfig, pluginByName("ESLintWebpackPlugin"));
 
     if (hasRemovedAny) {
         log("Disabled ESLint.");
@@ -17,28 +17,28 @@ function disableEslint(webpackConfig) {
     }
 }
 
-function extendsEslintConfig(loader, eslintConfig, context) {
+function extendsEslintConfig(plugin, eslintConfig, context) {
     const { configure } = eslintConfig;
 
     if (configure) {
         if (isFunction(configure)) {
-            if (loader.options) {
-                loader.options.baseConfig = configure(loader.options.baseConfig || {}, context);
+            if (plugin.options) {
+                plugin.options.baseConfig = configure(plugin.options.baseConfig || {}, context);
             } else {
-                loader.options = {
+                plugin.options = {
                     baseConfig: configure({}, context)
                 };
             }
 
-            if (!loader.options.baseConfig) {
+            if (!plugin.options.baseConfig) {
                 throw new Error("craco: 'eslint.configure' function didn't return a config object.");
             }
         } else {
             // TODO: ensure is otherwise a plain object, if not, log an error.
-            if (loader.options) {
-                loader.options.baseConfig = deepMergeWithArray({}, loader.options.baseConfig || {}, configure);
+            if (plugin.options) {
+                plugin.options.baseConfig = deepMergeWithArray({}, plugin.options.baseConfig || {}, configure);
             } else {
-                loader.options = {
+                plugin.options = {
                     baseConfig: configure
                 };
             }
@@ -48,12 +48,12 @@ function extendsEslintConfig(loader, eslintConfig, context) {
     }
 }
 
-function useEslintConfigFile(loader) {
-    if (loader.options) {
-        loader.options.useEslintrc = true;
-        delete loader.options.baseConfig;
+function useEslintConfigFile(plugin) {
+    if (plugin.options) {
+        plugin.options.useEslintrc = true;
+        delete plugin.options.baseConfig;
     } else {
-        loader.options = {
+        plugin.options = {
             useEslintrc: true
         };
     }
@@ -61,11 +61,11 @@ function useEslintConfigFile(loader) {
     log("Overrided ESLint config to use a config file.");
 }
 
-function enableEslintIgnoreFile(loader) {
-    if (loader.options) {
-        loader.options.ignore = true;
+function enableEslintIgnoreFile(plugin) {
+    if (plugin.options) {
+        plugin.options.ignore = true;
     } else {
-        loader.options = {
+        plugin.options = {
             ignore: true
         };
     }
@@ -73,32 +73,30 @@ function enableEslintIgnoreFile(loader) {
     log("Overrided ESLint config to enable an ignore file.");
 }
 
-function applyLoaderOptions(loader, loaderOptions, context) {
-    if (isFunction(loaderOptions)) {
-        loader.options = loaderOptions(loader.options || {}, context);
+function applyPluginOptions(plugin, pluginOptions, context) {
+    if (isFunction(pluginOptions)) {
+        plugin.options = pluginOptions(plugin.options || {}, context);
 
-        if (!loader.options) {
-            throw new Error("craco: 'eslint.loaderOptions' function didn't return a loader config object.");
+        if (!plugin.options) {
+            throw new Error("craco: 'eslint.pluginOptions' function didn't return a config object.");
         }
     } else {
         // TODO: ensure is otherwise a plain object, if not, log an error.
-        loader.options = deepMergeWithArray(loader.options || {}, loaderOptions);
+        plugin.options = deepMergeWithArray(plugin.options || {}, pluginOptions);
     }
 
-    log("Applied ESLint loader options.");
+    log("Applied ESLint plugin options.");
 }
 
 function overrideEsLint(cracoConfig, webpackConfig, context) {
     if (cracoConfig.eslint) {
-        const { isFound, match } = getLoader(webpackConfig, loaderByName("eslint-loader"));
-
+        const { isFound, match } = getPlugin(webpackConfig, pluginByName("ESLintWebpackPlugin"));
         if (!isFound) {
-            logError("Cannot find ESLint loader (eslint-loader).");
-
+            logError("Cannot find ESLint plugin (ESLintWebpackPlugin).");
             return webpackConfig;
         }
 
-        const { enable, mode, loaderOptions } = cracoConfig.eslint;
+        const { enable, mode, pluginOptions } = cracoConfig.eslint;
 
         if (enable === false) {
             disableEslint(webpackConfig);
@@ -106,16 +104,16 @@ function overrideEsLint(cracoConfig, webpackConfig, context) {
             return webpackConfig;
         }
 
-        enableEslintIgnoreFile(match.loader);
+        enableEslintIgnoreFile(match);
 
         if (mode === ESLINT_MODES.file) {
-            useEslintConfigFile(match.loader);
+            useEslintConfigFile(match);
         } else {
-            extendsEslintConfig(match.loader, cracoConfig.eslint, context);
+            extendsEslintConfig(match, cracoConfig.eslint, context);
         }
 
-        if (loaderOptions) {
-            applyLoaderOptions(match.loader, loaderOptions);
+        if (pluginOptions) {
+            applyPluginOptions(match, pluginOptions);
         }
     }
 

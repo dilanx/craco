@@ -33,15 +33,16 @@
         "craco": "./bin/craco.js"
     },
     "peerDependencies": {
-        "react-scripts": "*"
+        "react-scripts": "^4.0.0"
     },
     "devDependencies": {
-        "react-scripts": "3.*"
+        "react-scripts": "4.*"
     },
     "dependencies": {
         "cross-spawn": "^7.0.0",
         "lodash": "^4.17.15",
-        "webpack-merge": "^4.2.2"
+        "webpack-merge": "^4.2.2",
+        "semver": "^7.3.2"
     },
     "version": "5.9.0",
     "gitHead": "9c9c5e5ee1f79a17af4809945573bfdbdcc912be"

@@ -10,6 +10,7 @@ const { getCraPaths, start } = require("../lib/cra");
 const { loadCracoConfigAsync } = require("../lib/config");
 const { overrideWebpackDev } = require("../lib/features/webpack/override");
 const { overrideDevServer } = require("../lib/features/dev-server/override");
+const { validateCraVersion } = require("../lib/validate-cra-version");
 
 log("Override started with arguments: ", process.argv);
 log("For environment: ", process.env.NODE_ENV);
@@ -19,6 +20,8 @@ const context = {
 };
 
 loadCracoConfigAsync(context).then(cracoConfig => {
+    validateCraVersion(cracoConfig);
+
     context.paths = getCraPaths(cracoConfig);
 
     overrideWebpackDev(cracoConfig, context);
