@@ -15,8 +15,6 @@ function getPlugin(webpackConfig, matcher) {
 
 function addPlugins(webpackConfig, webpackPlugins) {
     webpackConfig.plugins = webpackPlugins.concat(webpackConfig.plugins || []);
-
-    return webpackConfig;
 }
 
 function removePlugins(webpackConfig, matcher) {
