@@ -39,6 +39,7 @@ All you have to do is create your app using [create-react-app](https://github.co
 - [Recipes](https://github.com/sharegate/craco/tree/master/recipes) – Short recipes for common use cases.
 - [Available Plugins](#community-maintained-plugins) - Plugins maintained by the community.
 - [Develop a Plugin](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#develop-a-plugin) - How to develop a plugin for CRACO.
+- [Backward Compatibility](https://github.com/gsoft-inc/craco/blob/master/packages/craco/README.md#backward-compatibility)
 - [Debugging](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#debugging)
 
 ## Community Maintained Plugins
