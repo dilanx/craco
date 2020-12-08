@@ -7,6 +7,7 @@ const { overrideEsLint } = require("./eslint");
 const { overrideStyle } = require("./style/style");
 const { overrideTypeScript } = require("./typescript");
 const { applyWebpackConfigPlugins } = require("../plugins");
+const { addPlugins: addWebpackPlugins } = require("../../webpack-plugins");
 
 function addAlias(webpackConfig, webpackAlias) {
     // TODO: ensure is a plain object, if not, log an error.
@@ -17,9 +18,35 @@ function addAlias(webpackConfig, webpackAlias) {
 
 function addPlugins(webpackConfig, webpackPlugins) {
     if (isArray(webpackPlugins)) {
-        webpackConfig.plugins = webpackPlugins.concat(webpackConfig.plugins || []);
+        addWebpackPlugins(webpackConfig, webpackPlugins);
 
         log("Added webpack plugins.");
+    }
+}
+
+function removeWebpackPlugins(webpackConfig, removePlugins, context) {
+    if (!removePlugins) {
+        return;
+    }
+
+    if (isFunction(removePlugins)) {
+        webpackConfig.plugins = removePlugins(webpackConfig.plugins, context);
+
+        log("Removed webpack plugins.");
+    } else {
+        // TODO: ensure is otherwise a plain object, if not, log an error.
+        if (removePlugins.pluginNames && isArray(removePlugins.pluginNames)) {
+            for (const pluginName of removePlugins.pluginNames) {
+                removeWebpackPlugins(webpackConfig, pluginName);
+                log(`Removed webpack plugin ${pluginName}.`);
+            }
+
+            log("Removed webpack plugins.");
+        } else {
+            throw new Error(
+                `craco: 'webpack.removePlugins' needs to be a function or an object containing an array named pluginNames`
+            );
+        }
     }
 }
 
@@ -49,13 +76,14 @@ function mergeWebpackConfig(cracoConfig, webpackConfig, context) {
     resultingWebpackConfig = overrideTypeScript(cracoConfig, resultingWebpackConfig, context);
 
     if (cracoConfig.webpack) {
-        const { alias, plugins, configure } = cracoConfig.webpack;
+        const { alias, plugins, removePlugins, configure } = cracoConfig.webpack;
 
         if (alias) {
             addAlias(resultingWebpackConfig, alias);
         }
 
         if (plugins) {
+            removeWebpackPlugins(resultingWebpackConfig, removePlugins, context);
             addPlugins(resultingWebpackConfig, plugins);
         }
 

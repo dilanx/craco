@@ -13,6 +13,12 @@ function getPlugin(webpackConfig, matcher) {
     };
 }
 
+function addPlugins(webpackConfig, webpackPlugins) {
+    webpackConfig.plugins = webpackPlugins.concat(webpackConfig.plugins || []);
+
+    return webpackConfig;
+}
+
 function removePlugins(webpackConfig, matcher) {
     const prevCount = webpackConfig.plugins.length;
     webpackConfig.plugins = webpackConfig.plugins.filter(x => !matcher(x));
@@ -27,5 +33,6 @@ function removePlugins(webpackConfig, matcher) {
 module.exports = {
     getPlugin,
     pluginByName,
+    addPlugins,
     removePlugins
 };
