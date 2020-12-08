@@ -46,12 +46,6 @@ function getReactScriptVersion(cracoConfig) {
     const reactScriptPackageJsonPath = resolvePackageJson(cracoConfig);
     const { version } = require(reactScriptPackageJsonPath);
 
-    return version;
-}
-
-function getReactScriptVersionInformation(cracoConfig) {
-    const version = getReactScriptVersion(cracoConfig);
-
     return {
         version,
         isSupported: semver.gte(version, CRA_LATEST_SUPPORTED_MAJOR_VERSION)
@@ -255,7 +249,6 @@ module.exports = {
     overrideJestConfigProvider,
     getCraPaths,
     getReactScriptVersion,
-    getReactScriptVersionInformation,
     start,
     build,
     test

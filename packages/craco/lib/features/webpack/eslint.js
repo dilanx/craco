@@ -7,6 +7,16 @@ const ESLINT_MODES = {
     file: "file"
 };
 
+function disableEslint(webpackConfig) {
+    const { hasRemovedAny } = removePlugins(webpackConfig, pluginByName("ESLintWebpackPlugin"));
+
+    if (hasRemovedAny) {
+        log("Disabled ESLint.");
+    } else {
+        logError("Couldn't disabled ESLint.");
+    }
+}
+
 function extendsEslintConfig(webpackEslintConfig, eslintConfig, context) {
     const { configure } = eslintConfig;
 
@@ -87,22 +97,20 @@ function applyOptionsConfiguration(webpackEslintConfig, pluginOptions, context) 
 
 function overrideEsLint(cracoConfig, webpackConfig, context) {
     if (cracoConfig.eslint) {
-        const { isFound, webpackEslintConfig, disableEsLint } = loadWebpackEslintPlugin(cracoConfig, webpackConfig);
-
+        const { isFound, match } = getPlugin(webpackConfig, pluginByName("ESLintWebpackPlugin"));
         if (!isFound) {
+            logError("Cannot find ESLint plugin (ESLintWebpackPlugin).");
             return webpackConfig;
         }
+
+        const webpackEslintConfig = {
+            options: match.options
+        };
 
         const { enable, mode, pluginOptions } = cracoConfig.eslint;
 
         if (enable === false) {
-            const { hasRemovedAny } = disableEsLint();
-
-            if (hasRemovedAny) {
-                log("Disabled ESLint.");
-            } else {
-                logError("Couldn't disabled ESLint.");
-            }
+            disableEslint(webpackConfig);
 
             return webpackConfig;
         }
@@ -121,22 +129,6 @@ function overrideEsLint(cracoConfig, webpackConfig, context) {
     }
 
     return webpackConfig;
-}
-
-function loadWebpackEslintPlugin(cracoConfig, webpackConfig) {
-    const matcher = pluginByName("ESLintWebpackPlugin");
-    const { isFound, match } = getPlugin(webpackConfig, matcher);
-    if (!isFound) {
-        logError("Cannot find ESLint plugin (ESLintWebpackPlugin).");
-    }
-
-    return {
-        isFound: true,
-        webpackEslintConfig: {
-            options: match.options
-        },
-        disableEsLint: () => removePlugins(webpackConfig, matcher)
-    };
 }
 
 module.exports = {
