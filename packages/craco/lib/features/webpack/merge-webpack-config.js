@@ -7,7 +7,11 @@ const { overrideEsLint } = require("./eslint");
 const { overrideStyle } = require("./style/style");
 const { overrideTypeScript } = require("./typescript");
 const { applyWebpackConfigPlugins } = require("../plugins");
-const { addPlugins: addWebpackPlugins } = require("../../webpack-plugins");
+const {
+    addPlugins: addWebpackPlugins,
+    removePlugins: removeWebpackPlugins,
+    pluginByName
+} = require("../../webpack-plugins");
 
 function addAlias(webpackConfig, webpackAlias) {
     // TODO: ensure is a plain object, if not, log an error.
@@ -24,7 +28,7 @@ function addPlugins(webpackConfig, webpackPlugins) {
     }
 }
 
-function removeWebpackPlugins(webpackConfig, removePlugins, context) {
+function removePluginsFromWebpackConfig(webpackConfig, removePlugins, context) {
     if (!removePlugins) {
         return;
     }
@@ -37,7 +41,7 @@ function removeWebpackPlugins(webpackConfig, removePlugins, context) {
         // TODO: ensure is otherwise a plain object, if not, log an error.
         if (removePlugins.pluginNames && isArray(removePlugins.pluginNames)) {
             for (const pluginName of removePlugins.pluginNames) {
-                removeWebpackPlugins(webpackConfig, pluginName);
+                removeWebpackPlugins(webpackConfig, pluginByName(pluginName));
                 log(`Removed webpack plugin ${pluginName}.`);
             }
 
@@ -82,8 +86,11 @@ function mergeWebpackConfig(cracoConfig, webpackConfig, context) {
             addAlias(resultingWebpackConfig, alias);
         }
 
+        if (removePlugins) {
+            removePluginsFromWebpackConfig(resultingWebpackConfig, removePlugins, context);
+        }
+
         if (plugins) {
-            removeWebpackPlugins(resultingWebpackConfig, removePlugins, context);
             addPlugins(resultingWebpackConfig, plugins);
         }
 
