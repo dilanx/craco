@@ -80,7 +80,7 @@ function enableEslintIgnoreFile(webpackEslintConfig) {
     log("Overrided ESLint config to enable an ignore file.");
 }
 
-function applyOptionsConfiguration(webpackEslintConfig, pluginOptions, context) {
+function applyPluginOptions(webpackEslintConfig, pluginOptions, context) {
     if (isFunction(pluginOptions)) {
         webpackEslintConfig.options = pluginOptions(webpackEslintConfig.options || {}, context);
 
@@ -124,7 +124,7 @@ function overrideEsLint(cracoConfig, webpackConfig, context) {
         }
 
         if (pluginOptions) {
-            applyOptionsConfiguration(webpackEslintConfig, pluginOptions);
+            applyPluginOptions(webpackEslintConfig, pluginOptions);
         }
     }
 
