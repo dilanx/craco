@@ -920,7 +920,7 @@ Add new *plugins* to the webpack config.
 Usage:
 
 ```javascript
-const { addPlugins, loaderByName } = require("@craco/craco");
+const { addPlugins } = require("@craco/craco");
 
 const myNewWebpackPlugin = require.resolve("ESLintWebpackPlugin");
 
