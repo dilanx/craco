@@ -9,7 +9,7 @@ const { log } = require("../lib/logger");
 const { getCraPaths, test } = require("../lib/cra");
 const { overrideJest } = require("../lib/features/jest/override");
 const { loadCracoConfigAsync } = require("../lib/config");
-const { validateCRAVersion } = require("../lib/validate-cra-version");
+const { validateCraVersion } = require("../lib/validate-cra-version");
 
 log("Override started with arguments: ", process.argv);
 log("For environment: ", process.env.NODE_ENV);
@@ -19,7 +19,7 @@ const context = {
 };
 
 loadCracoConfigAsync(context).then(cracoConfig => {
-    validateCRAVersion(cracoConfig);
+    validateCraVersion(cracoConfig);
 
     context.paths = getCraPaths(cracoConfig);
 

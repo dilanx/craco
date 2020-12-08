@@ -1,6 +1,6 @@
 const { getReactScriptVersion } = require("../lib/cra");
 
-function validateCRAVersion(cracoConfig) {
+function validateCraVersion(cracoConfig) {
     const { isSupported, version } = getReactScriptVersion(cracoConfig);
     if (!isSupported) {
         throw new Error(
@@ -15,5 +15,5 @@ function validateCRAVersion(cracoConfig) {
 }
 
 module.exports = {
-    validateCRAVersion
+    validateCraVersion
 };
