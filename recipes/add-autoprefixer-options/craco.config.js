@@ -5,6 +5,7 @@ module.exports = {
                 autoprefixer: {
                     cascade: true
                 }
+            }
         }
     }
 };
