@@ -676,7 +676,7 @@ A few utility functions are provided by CRACO to help you develop a plugin:
  - `throwUnexpectedConfigError`
  
 ```javascript
-const { getLoader, getLoaders, removeLoader, loaderByName, throwUnexpectedConfigError } = require("@craco/craco");
+const { getLoader, getLoaders, removeLoaders, loaderByName, throwUnexpectedConfigError } = require("@craco/craco");
 ```
 
 #### getLoader
@@ -749,8 +749,8 @@ Returns:
 
 ```javascript
 {
-    hasRemovedAny:: true | false,
-    removedCount:: int
+    hasRemovedAny: true | false,
+    removedCount: int
 }
 ```
 
