@@ -25,32 +25,25 @@ function addPlugins(webpackConfig, webpackPlugins) {
         addWebpackPlugins(webpackConfig, webpackPlugins);
 
         log("Added webpack plugins.");
+    } else {
+        throw new Error(`craco: 'webpack.plugins.add' needs to be a an array of plugins`);
     }
 }
 
-function removePluginsFromWebpackConfig(webpackConfig, remove, context) {
+function removePluginsFromWebpackConfig(webpackConfig, remove) {
     if (!remove) {
         return;
     }
 
-    if (isFunction(remove)) {
-        webpackConfig.plugins = remove(webpackConfig.plugins, context);
+    if (isArray(remove)) {
+        for (const pluginName of remove) {
+            removeWebpackPlugins(webpackConfig, pluginByName(pluginName));
+            log(`Removed webpack plugin ${pluginName}.`);
+        }
 
         log("Removed webpack plugins.");
     } else {
-        // TODO: ensure is otherwise a plain object, if not, log an error.
-        if (isArray(remove)) {
-            for (const pluginName of remove) {
-                removeWebpackPlugins(webpackConfig, pluginByName(pluginName));
-                log(`Removed webpack plugin ${pluginName}.`);
-            }
-
-            log("Removed webpack plugins.");
-        } else {
-            throw new Error(
-                `craco: 'webpack.removePlugins' needs to be a function or an object containing an array named pluginNames`
-            );
-        }
+        throw new Error(`craco: 'webpack.plugins.remove' needs to be a an array of plugin names`);
     }
 }
 
@@ -97,7 +90,7 @@ function mergeWebpackConfig(cracoConfig, webpackConfig, context) {
                 }
 
                 if (remove) {
-                    removePluginsFromWebpackConfig(resultingWebpackConfig, remove, context);
+                    removePluginsFromWebpackConfig(resultingWebpackConfig, remove);
                 }
             }
         }
