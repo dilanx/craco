@@ -164,7 +164,10 @@ module.exports = {
     },
     webpack: {
         alias: {},
-        plugins: [],
+        plugins: {
+            add: [], 
+            remove: [],
+        },
         configure: { /* Any webpack configuration options: https://webpack.js.org/configuration */ },
         configure: (webpackConfig, { env, paths }) => { return webpackConfig; }
     },
@@ -673,10 +676,13 @@ A few utility functions are provided by CRACO to help you develop a plugin:
  - `addBeforeLoaders`
  - `addAfterLoader`
  - `addAfterLoaders`
+ - `getPlugin`
+ - `removePlugins`
+ - `addPlugins`
  - `throwUnexpectedConfigError`
  
 ```javascript
-const { getLoader, getLoaders, removeLoaders, loaderByName, throwUnexpectedConfigError } = require("@craco/craco");
+const { getLoader, getLoaders, removeLoaders, loaderByName, getPlugin, removePlugins, addPlugins, pluginByName, throwUnexpectedConfigError } = require("@craco/craco");
 ```
 
 #### getLoader
@@ -859,6 +865,67 @@ const myNewWebpackLoader = {
 
 addAfterLoaders(webpackConfig, loaderByName("eslint-loader"), myNewWebpackLoader);
 ```
+
+#### getPlugin
+
+Retrieve the **first** plugin that match the specified criteria from the webpack config.
+
+Returns:
+
+```javascript
+{
+    isFound: true | false,
+    match: {...} // the webpack plugin
+}
+```
+
+Usage:
+
+```javascript
+const { getPlugin, pluginByName } = require("@craco/craco");
+
+const { isFound, match } = getPlugin(webpackConfig, pluginByName("ESLintWebpackPlugin"));
+
+if (isFound) {
+    // do stuff...
+}
+```
+
+#### removePlugins
+
+Remove **all** the plugins that match the specified criteria from the webpack config.
+
+Returns:
+
+```javascript
+{
+    hasRemovedAny:: true | false,
+    removedCount:: int
+}
+```
+
+Usage:
+
+```javascript
+const { removePlugins, pluginByName } = require("@craco/craco");
+
+removePlugins(webpackConfig, pluginByName("ESLintWebpackPlugin"));
+```
+
+#### addPlugins
+
+Add new *plugins* to the webpack config.
+
+Usage:
+
+```javascript
+const { addPlugins } = require("@craco/craco");
+
+const myNewWebpackPlugin = require.resolve("ESLintWebpackPlugin");
+
+addPlugins(webpackConfig, [myNewWebpackPlugin]);
+```
+
 
 #### throwUnexpectedConfigError
 

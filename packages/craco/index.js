@@ -8,6 +8,7 @@ const {
     addAfterLoaders,
     loaderByName
 } = require("./lib/loaders");
+const { getPlugin, pluginByName, addPlugins, removePlugins } = require("./lib/webpack-plugins");
 const { when, whenDev, whenProd, whenTest } = require("./lib/user-config-utils");
 const { throwUnexpectedConfigError, gitHubIssueUrl } = require("./lib/plugin-utils");
 const { ESLINT_MODES } = require("./lib/features/webpack/eslint");
@@ -25,6 +26,10 @@ module.exports = {
     addAfterLoader,
     addAfterLoaders,
     loaderByName,
+    getPlugin,
+    pluginByName,
+    addPlugins,
+    removePlugins,
     when,
     whenDev,
     whenProd,
