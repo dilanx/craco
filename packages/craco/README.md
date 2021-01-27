@@ -164,11 +164,11 @@ module.exports = {
     },
     webpack: {
         alias: {},
-        plugins: [],
-        removePlugins: {
-		    pluginNames: [],
-        }
-        removePlugins: (plugins, { env, paths }) => { return plugins; };
+        plugins: {
+            add: [], 
+            remove: [],
+            remove: (plugins, { env, paths }) => { return plugins; }
+        },
         configure: { /* Any webpack configuration options: https://webpack.js.org/configuration */ },
         configure: (webpackConfig, { env, paths }) => { return webpackConfig; }
     },

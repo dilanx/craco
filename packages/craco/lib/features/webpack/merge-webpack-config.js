@@ -28,19 +28,19 @@ function addPlugins(webpackConfig, webpackPlugins) {
     }
 }
 
-function removePluginsFromWebpackConfig(webpackConfig, removePlugins, context) {
-    if (!removePlugins) {
+function removePluginsFromWebpackConfig(webpackConfig, remove, context) {
+    if (!remove) {
         return;
     }
 
-    if (isFunction(removePlugins)) {
-        webpackConfig.plugins = removePlugins(webpackConfig.plugins, context);
+    if (isFunction(remove)) {
+        webpackConfig.plugins = remove(webpackConfig.plugins, context);
 
         log("Removed webpack plugins.");
     } else {
         // TODO: ensure is otherwise a plain object, if not, log an error.
-        if (removePlugins.pluginNames && isArray(removePlugins.pluginNames)) {
-            for (const pluginName of removePlugins.pluginNames) {
+        if (isArray(remove)) {
+            for (const pluginName of remove) {
                 removeWebpackPlugins(webpackConfig, pluginByName(pluginName));
                 log(`Removed webpack plugin ${pluginName}.`);
             }
@@ -80,18 +80,26 @@ function mergeWebpackConfig(cracoConfig, webpackConfig, context) {
     resultingWebpackConfig = overrideTypeScript(cracoConfig, resultingWebpackConfig, context);
 
     if (cracoConfig.webpack) {
-        const { alias, plugins, removePlugins, configure } = cracoConfig.webpack;
+        const { alias, plugins, configure } = cracoConfig.webpack;
 
         if (alias) {
             addAlias(resultingWebpackConfig, alias);
         }
 
-        if (removePlugins) {
-            removePluginsFromWebpackConfig(resultingWebpackConfig, removePlugins, context);
-        }
-
         if (plugins) {
-            addPlugins(resultingWebpackConfig, plugins);
+            // we still support the old format of plugin: [] where the array is a list of the plugins to add
+            if (isArray(plugins)) {
+                addPlugins(resultingWebpackConfig, plugins);
+            } else {
+                const { add, remove } = plugins;
+                if (add) {
+                    addPlugins(resultingWebpackConfig, add);
+                }
+
+                if (remove) {
+                    removePluginsFromWebpackConfig(resultingWebpackConfig, remove, context);
+                }
+            }
         }
 
         if (configure) {
