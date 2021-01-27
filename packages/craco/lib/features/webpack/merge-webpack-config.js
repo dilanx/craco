@@ -37,8 +37,13 @@ function removePluginsFromWebpackConfig(webpackConfig, remove) {
 
     if (isArray(remove)) {
         for (const pluginName of remove) {
-            removeWebpackPlugins(webpackConfig, pluginByName(pluginName));
-            log(`Removed webpack plugin ${pluginName}.`);
+            const { hasRemovedAny } = removeWebpackPlugins(webpackConfig, pluginByName(pluginName));
+
+            if (hasRemovedAny) {
+                log(`Removed webpack plugin ${pluginName}.`);
+            } else {
+                log(`Did not remove webpack plugin ${pluginName}.`);
+            }
         }
 
         log("Removed webpack plugins.");
