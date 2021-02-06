@@ -10,7 +10,7 @@ const { applyWebpackConfigPlugins } = require("../plugins");
 const {
     addPlugins: addWebpackPlugins,
     removePlugins: removeWebpackPlugins,
-    pluginByName,
+    pluginByName
 } = require("../../webpack-plugins");
 
 function addAlias(webpackConfig, webpackAlias) {
