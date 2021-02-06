@@ -113,5 +113,5 @@ function mergeWebpackConfig(cracoConfig, webpackConfig, context) {
 }
 
 module.exports = {
-    mergeWebpackConfig,
+    mergeWebpackConfig
 };
