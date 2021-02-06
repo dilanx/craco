@@ -10,7 +10,7 @@ const { applyWebpackConfigPlugins } = require("../plugins");
 const {
     addPlugins: addWebpackPlugins,
     removePlugins: removeWebpackPlugins,
-    pluginByName
+    pluginByName,
 } = require("../../webpack-plugins");
 
 function addAlias(webpackConfig, webpackAlias) {
@@ -90,12 +90,14 @@ function mergeWebpackConfig(cracoConfig, webpackConfig, context) {
                 addPlugins(resultingWebpackConfig, plugins);
             } else {
                 const { add, remove } = plugins;
-                if (add) {
-                    addPlugins(resultingWebpackConfig, add);
-                }
 
                 if (remove) {
                     removePluginsFromWebpackConfig(resultingWebpackConfig, remove);
+                }
+
+                // Add after removing to preserve any plugins explicitely added via the Craco config
+                if (add) {
+                    addPlugins(resultingWebpackConfig, add);
                 }
             }
         }
@@ -111,5 +113,5 @@ function mergeWebpackConfig(cracoConfig, webpackConfig, context) {
 }
 
 module.exports = {
-    mergeWebpackConfig
+    mergeWebpackConfig,
 };
