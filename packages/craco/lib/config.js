@@ -41,6 +41,10 @@ function processCracoConfig(cracoConfig, context) {
 }
 
 function getConfigAsObject(context) {
+    if (configFilePath == undefined || configFilePath.length == 0) {
+        throw new Error("craco: Config file not found. check if file exists at root (craco.config.js, .cracorc.js, .cracorc)");
+    }
+    
     log("Found craco config file at: ", configFilePath);
 
     const config = require(configFilePath);
