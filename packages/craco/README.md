@@ -135,7 +135,8 @@ module.exports = {
         },
         postcss: {
             mode: "extends" /* (default value) */ || "file",
-            plugins: [],
+            plugins: [require('plugin-to-append')], // Additional plugins given in an array are appended to existing config.
+            plugins: (plugins) => [require('plugin-to-prepend')].concat(plugins), // Or you may use the function variant.
             env: {
                 autoprefixer: { /* Any autoprefixer options: https://github.com/postcss/autoprefixer#options */ },
                 stage: 3, /* Any valid stages: https://cssdb.org/#staging-process. */
