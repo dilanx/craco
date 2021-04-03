@@ -65,6 +65,7 @@ All you have to do is create your app using [create-react-app](https://github.co
 * [craco-styled-jsx](https://github.com/cr4zyc4t/craco-styled-jsx) by [@cr4zyc4t](https://github.com/cr4zyc4t)
 * [craco-purescript-loader](https://github.com/andys8/craco-purescript-loader) by [@andys8](https://github.com/andys8)
 * [craco-fast-refresh](https://github.com/vimcaw/craco-fast-refresh) by [@vimcaw](https://github.com/vimcaw)
+* [craco-parameter-decorator](https://github.com/org-redtea/craco-parameter-decorator) by [@Hokid](https://github.com/Hokid)
 
 ## Acknowledgements
 
