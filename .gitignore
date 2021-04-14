@@ -6,7 +6,7 @@ packages/debug
 
 # misc
 .DS_Store
-
+/.idea
 npm-debug.log*
 lerna-debug.log*
 *.tgz
