@@ -113,7 +113,7 @@ function overrideEsLint(cracoConfig, webpackConfig, context) {
         }
 
         if (pluginOptions) {
-            applyPluginOptions(match, pluginOptions);
+            applyPluginOptions(match, pluginOptions, context);
         }
     }
 
