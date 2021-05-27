@@ -2,7 +2,7 @@
  * To use this, ensure you have added `html-loader` as a dev dependency in your `package.json` first
  * Learn more: https://github.com/webpack-contrib/html-loader
  */
-const { loaderByName } = require('@craco/craco');
+const { loaderByName, addBeforeLoader } = require('@craco/craco');
 
 module.exports = {
     webpack: {
