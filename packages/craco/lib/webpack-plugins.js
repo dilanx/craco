@@ -14,7 +14,24 @@ function getPlugin(webpackConfig, matcher) {
 }
 
 function addPlugins(webpackConfig, webpackPlugins) {
-    webpackConfig.plugins = webpackPlugins.concat(webpackConfig.plugins || []);
+    const prependPlugins = [];
+    const appendPlugins = [];
+
+    for (const webpackPlugin of webpackPlugins) {
+        if (Array.isArray(webpackPlugin)) {
+            const [plugin, order] = webpackPlugin;
+            if (order === "append") {
+                appendPlugins.push(plugin);
+            } else {
+                // Existing behaviour is to prepend
+                prependPlugins.push(plugin);
+            }
+            continue;
+        }
+        prependPlugins.push(webpackPlugin);
+    }
+
+    webpackConfig.plugins = [...prependPlugins, ...webpackConfig.plugins, ...appendPlugins];
 }
 
 function removePlugins(webpackConfig, matcher) {
