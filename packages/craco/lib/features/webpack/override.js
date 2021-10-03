@@ -1,26 +1,34 @@
-const { mergeWebpackConfig } = require("./merge-webpack-config");
+const { mergeWebpackConfig } = require("./merge-webpack-config")
 const {
-    loadWebpackProdConfig,
-    overrideWebpackProdConfig,
-    loadWebpackDevConfig,
-    overrideWebpackDevConfig
-} = require("../../cra");
+  loadWebpackProdConfig,
+  overrideWebpackProdConfig,
+  loadWebpackDevConfig,
+  overrideWebpackDevConfig,
+} = require("../../cra")
 
 function overrideWebpackDev(cracoConfig, context) {
-    const craWebpackConfig = loadWebpackDevConfig(cracoConfig);
-    const resultingWebpackConfig = mergeWebpackConfig(cracoConfig, craWebpackConfig, context);
+  const craWebpackConfig = loadWebpackDevConfig(cracoConfig)
+  const resultingWebpackConfig = mergeWebpackConfig(
+    cracoConfig,
+    craWebpackConfig,
+    context
+  )
 
-    overrideWebpackDevConfig(cracoConfig, resultingWebpackConfig);
+  overrideWebpackDevConfig(cracoConfig, resultingWebpackConfig)
 }
 
 function overrideWebpackProd(cracoConfig, context) {
-    const craWebpackConfig = loadWebpackProdConfig(cracoConfig);
-    const resultingWebpackConfig = mergeWebpackConfig(cracoConfig, craWebpackConfig, context);
+  const craWebpackConfig = loadWebpackProdConfig(cracoConfig)
+  const resultingWebpackConfig = mergeWebpackConfig(
+    cracoConfig,
+    craWebpackConfig,
+    context
+  )
 
-    overrideWebpackProdConfig(cracoConfig, resultingWebpackConfig);
+  overrideWebpackProdConfig(cracoConfig, resultingWebpackConfig)
 }
 
 module.exports = {
-    overrideWebpackDev,
-    overrideWebpackProd
-};
+  overrideWebpackDev,
+  overrideWebpackProd,
+}

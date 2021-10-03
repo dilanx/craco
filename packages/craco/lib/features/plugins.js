@@ -1,148 +1,163 @@
-const { isArray, isFunction } = require("../utils");
-const { log } = require("../logger");
+const { isArray, isFunction } = require("../utils")
+const { log } = require("../logger")
 
 /************  Craco Config  *******************/
 
 function overrideCracoConfig({ plugin, options }, cracoConfig, context) {
-    if (isFunction(plugin.overrideCracoConfig)) {
-        const resultingConfig = plugin.overrideCracoConfig({
-            cracoConfig: cracoConfig,
-            pluginOptions: options,
-            context: context
-        });
+  if (isFunction(plugin.overrideCracoConfig)) {
+    const resultingConfig = plugin.overrideCracoConfig({
+      cracoConfig: cracoConfig,
+      pluginOptions: options,
+      context: context,
+    })
 
-        if (!resultingConfig) {
-            throw new Error("craco: Plugin returned an undefined craco config.");
-        }
-
-        return resultingConfig;
+    if (!resultingConfig) {
+      throw new Error("craco: Plugin returned an undefined craco config.")
     }
 
-    log("Overrided craco config with plugin.");
+    return resultingConfig
+  }
 
-    return cracoConfig;
+  log("Overrided craco config with plugin.")
+
+  return cracoConfig
 }
 
 function applyCracoConfigPlugins(cracoConfig, context) {
-    if (isArray(cracoConfig.plugins)) {
-        cracoConfig.plugins.forEach(x => {
-            cracoConfig = overrideCracoConfig(x, cracoConfig, context);
-        });
-    }
+  if (isArray(cracoConfig.plugins)) {
+    cracoConfig.plugins.forEach(x => {
+      cracoConfig = overrideCracoConfig(x, cracoConfig, context)
+    })
+  }
 
-    log("Applied craco config plugins.");
+  log("Applied craco config plugins.")
 
-    return cracoConfig;
+  return cracoConfig
 }
 
 /************  Webpack Config  *******************/
 
-function overrideWebpack({ plugin, options }, cracoConfig, webpackConfig, context) {
-    if (isFunction(plugin.overrideWebpackConfig)) {
-        const resultingConfig = plugin.overrideWebpackConfig({
-            cracoConfig: cracoConfig,
-            webpackConfig: webpackConfig,
-            pluginOptions: options,
-            context: context
-        });
+function overrideWebpack(
+  { plugin, options },
+  cracoConfig,
+  webpackConfig,
+  context
+) {
+  if (isFunction(plugin.overrideWebpackConfig)) {
+    const resultingConfig = plugin.overrideWebpackConfig({
+      cracoConfig: cracoConfig,
+      webpackConfig: webpackConfig,
+      pluginOptions: options,
+      context: context,
+    })
 
-        if (!resultingConfig) {
-            throw new Error("craco: Plugin returned an undefined webpack config.");
-        }
-
-        return resultingConfig;
+    if (!resultingConfig) {
+      throw new Error("craco: Plugin returned an undefined webpack config.")
     }
 
-    log("Overrided webpack config with plugin.");
+    return resultingConfig
+  }
 
-    return webpackConfig;
+  log("Overrided webpack config with plugin.")
+
+  return webpackConfig
 }
 
 function applyWebpackConfigPlugins(cracoConfig, webpackConfig, context) {
-    if (isArray(cracoConfig.plugins)) {
-        cracoConfig.plugins.forEach(x => {
-            webpackConfig = overrideWebpack(x, cracoConfig, webpackConfig, context);
-        });
-    }
+  if (isArray(cracoConfig.plugins)) {
+    cracoConfig.plugins.forEach(x => {
+      webpackConfig = overrideWebpack(x, cracoConfig, webpackConfig, context)
+    })
+  }
 
-    log("Applied webpack config plugins.");
+  log("Applied webpack config plugins.")
 
-    return webpackConfig;
+  return webpackConfig
 }
 
 /************  DevServer Config  *******************/
 
-function overrideDevServer({ plugin, options }, cracoConfig, devServerConfig, context) {
-    if (isFunction(plugin.overrideDevServerConfig)) {
-        const resultingConfig = plugin.overrideDevServerConfig({
-            cracoConfig: cracoConfig,
-            devServerConfig: devServerConfig,
-            pluginOptions: options,
-            context: context
-        });
+function overrideDevServer(
+  { plugin, options },
+  cracoConfig,
+  devServerConfig,
+  context
+) {
+  if (isFunction(plugin.overrideDevServerConfig)) {
+    const resultingConfig = plugin.overrideDevServerConfig({
+      cracoConfig: cracoConfig,
+      devServerConfig: devServerConfig,
+      pluginOptions: options,
+      context: context,
+    })
 
-        if (!resultingConfig) {
-            throw new Error("craco: Plugin returned an undefined devServer config.");
-        }
-
-        return resultingConfig;
+    if (!resultingConfig) {
+      throw new Error("craco: Plugin returned an undefined devServer config.")
     }
 
-    log("Overrided devServer config with plugin.");
+    return resultingConfig
+  }
 
-    return devServerConfig;
+  log("Overrided devServer config with plugin.")
+
+  return devServerConfig
 }
 
 function applyDevServerConfigPlugins(cracoConfig, devServerConfig, context) {
-    if (isArray(cracoConfig.plugins)) {
-        cracoConfig.plugins.forEach(x => {
-            devServerConfig = overrideDevServer(x, cracoConfig, devServerConfig, context);
-        });
-    }
+  if (isArray(cracoConfig.plugins)) {
+    cracoConfig.plugins.forEach(x => {
+      devServerConfig = overrideDevServer(
+        x,
+        cracoConfig,
+        devServerConfig,
+        context
+      )
+    })
+  }
 
-    log("Applied devServer config plugins.");
+  log("Applied devServer config plugins.")
 
-    return devServerConfig;
+  return devServerConfig
 }
 
 /************  Jest Config  *******************/
 
 function overrideJest({ plugin, options }, cracoConfig, jestConfig, context) {
-    if (isFunction(plugin.overrideJestConfig)) {
-        const resultingConfig = plugin.overrideJestConfig({
-            cracoConfig: cracoConfig,
-            jestConfig: jestConfig,
-            pluginOptions: options,
-            context: context
-        });
+  if (isFunction(plugin.overrideJestConfig)) {
+    const resultingConfig = plugin.overrideJestConfig({
+      cracoConfig: cracoConfig,
+      jestConfig: jestConfig,
+      pluginOptions: options,
+      context: context,
+    })
 
-        if (!resultingConfig) {
-            throw new Error("craco: Plugin returned an undefined Jest config.");
-        }
-
-        return resultingConfig;
+    if (!resultingConfig) {
+      throw new Error("craco: Plugin returned an undefined Jest config.")
     }
 
-    log("Overrided Jest config with plugin.");
+    return resultingConfig
+  }
 
-    return jestConfig;
+  log("Overrided Jest config with plugin.")
+
+  return jestConfig
 }
 
 function applyJestConfigPlugins(cracoConfig, jestConfig, context) {
-    if (isArray(cracoConfig.plugins)) {
-        cracoConfig.plugins.forEach(x => {
-            jestConfig = overrideJest(x, cracoConfig, jestConfig, context);
-        });
-    }
+  if (isArray(cracoConfig.plugins)) {
+    cracoConfig.plugins.forEach(x => {
+      jestConfig = overrideJest(x, cracoConfig, jestConfig, context)
+    })
+  }
 
-    log("Applied Jest config plugins.");
+  log("Applied Jest config plugins.")
 
-    return jestConfig;
+  return jestConfig
 }
 
 module.exports = {
-    applyCracoConfigPlugins,
-    applyWebpackConfigPlugins,
-    applyDevServerConfigPlugins,
-    applyJestConfigPlugins
-};
+  applyCracoConfigPlugins,
+  applyWebpackConfigPlugins,
+  applyDevServerConfigPlugins,
+  applyJestConfigPlugins,
+}

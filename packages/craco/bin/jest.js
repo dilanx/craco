@@ -9,15 +9,23 @@
  * For more information, see https://github.com/sharegate/craco/pull/41
  */
 
-const spawn = require("cross-spawn");
-const args = process.argv.slice(2);
+const spawn = require("cross-spawn")
+const args = process.argv.slice(2)
 
-const setupScriptFileIndex = args.findIndex(x => x === "--setupTestFrameworkScriptFile") + 1;
-const isIntelliJ = setupScriptFileIndex !== -1 ? false : args[setupScriptFileIndex].indexOf("jest-intellij") !== -1;
+const setupScriptFileIndex =
+  args.findIndex(x => x === "--setupTestFrameworkScriptFile") + 1
+const isIntelliJ =
+  setupScriptFileIndex !== -1
+    ? false
+    : args[setupScriptFileIndex].indexOf("jest-intellij") !== -1
 
-const result = spawn.sync(process.argv[0], [].concat(require.resolve("../scripts/test"), args), {
+const result = spawn.sync(
+  process.argv[0],
+  [].concat(require.resolve("../scripts/test"), args),
+  {
     stdio: "inherit",
-    env: Object.assign({}, process.env, isIntelliJ ? { CI: 1 } : null)
-});
+    env: Object.assign({}, process.env, isIntelliJ ? { CI: 1 } : null),
+  }
+)
 
-process.exit(result.signal ? 1 : result.status);
+process.exit(result.signal ? 1 : result.status)

@@ -1,55 +1,55 @@
-const isNil = require("lodash/isNil");
+const isNil = require("lodash/isNil")
 
-const VERBOSE_ARG = "--verbose";
-const CONFIG_ARG = "--config";
+const VERBOSE_ARG = "--verbose"
+const CONFIG_ARG = "--config"
 
 function createNullableArg(value) {
-    return {
-        isProvided: !isNil(value),
-        value
-    };
+  return {
+    isProvided: !isNil(value),
+    value,
+  }
 }
 
 const processedArgs = {
-    verbose: false,
-    config: createNullableArg()
-};
+  verbose: false,
+  config: createNullableArg(),
+}
 
 function findCliArg(key) {
-    const index = process.argv.indexOf(key);
+  const index = process.argv.indexOf(key)
 
-    return {
-        key,
-        index,
-        isProvided: index !== -1
-    };
+  return {
+    key,
+    index,
+    isProvided: index !== -1,
+  }
 }
 
 function getCliArgWithValue(key) {
-    const result = (isProvided = false, value, index) => ({
-        key,
-        isProvided,
-        value,
-        index
-    });
+  const result = (isProvided = false, value, index) => ({
+    key,
+    isProvided,
+    value,
+    index,
+  })
 
-    const arg = findCliArg(key);
+  const arg = findCliArg(key)
 
-    if (arg.isProvided) {
-        const valueIndex = arg.index + 1;
+  if (arg.isProvided) {
+    const valueIndex = arg.index + 1
 
-        if (process.argv[valueIndex]) {
-            return result(true, process.argv[valueIndex], arg.index);
-        }
+    if (process.argv[valueIndex]) {
+      return result(true, process.argv[valueIndex], arg.index)
     }
+  }
 
-    return result();
+  return result()
 }
 
 const jestConflictingArg = (key, hasValue = false) => ({
-    key,
-    hasValue
-});
+  key,
+  hasValue,
+})
 
 // prettier-ignore
 const jestConflictingArgs = [
@@ -57,47 +57,47 @@ const jestConflictingArgs = [
 ];
 
 function removeJestConflictingCustomCliArgs() {
-    jestConflictingArgs.forEach(x => {
-        const arg = findCliArg(x.key);
+  jestConflictingArgs.forEach(x => {
+    const arg = findCliArg(x.key)
 
-        if (arg.isProvided) {
-            process.argv.splice(arg.index, x.hasValue ? 2 : 1);
-        }
-    });
+    if (arg.isProvided) {
+      process.argv.splice(arg.index, x.hasValue ? 2 : 1)
+    }
+  })
 }
 
 function findArgsFromCli() {
-    const verbose = findCliArg(VERBOSE_ARG);
-    const config = getCliArgWithValue(CONFIG_ARG);
+  const verbose = findCliArg(VERBOSE_ARG)
+  const config = getCliArgWithValue(CONFIG_ARG)
 
-    removeJestConflictingCustomCliArgs();
+  removeJestConflictingCustomCliArgs()
 
-    const values = {
-        verbose: verbose.isProvided ? true : undefined,
-        config: config.isProvided ? config.value : undefined
-    };
+  const values = {
+    verbose: verbose.isProvided ? true : undefined,
+    config: config.isProvided ? config.value : undefined,
+  }
 
-    setArgs(values);
+  setArgs(values)
 }
 
 function setArgs(values) {
-    if (!isNil(values)) {
-        if (!isNil(values.verbose)) {
-            processedArgs.verbose = values.verbose;
-        }
-
-        if (!isNil(values.config)) {
-            processedArgs.config = createNullableArg(values.config);
-        }
+  if (!isNil(values)) {
+    if (!isNil(values.verbose)) {
+      processedArgs.verbose = values.verbose
     }
+
+    if (!isNil(values.config)) {
+      processedArgs.config = createNullableArg(values.config)
+    }
+  }
 }
 
 function getArgs() {
-    return processedArgs;
+  return processedArgs
 }
 
 module.exports = {
-    getArgs,
-    setArgs,
-    findArgsFromCli
-};
+  getArgs,
+  setArgs,
+  findArgsFromCli,
+}

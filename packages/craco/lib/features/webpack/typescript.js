@@ -1,27 +1,27 @@
-const { log } = require("../../logger");
+const { log } = require("../../logger")
 
 function disableTypeChecking(webpackConfig) {
-    webpackConfig.plugins = webpackConfig.plugins.filter(
-        plugin => plugin.constructor.name !== "ForkTsCheckerWebpackPlugin"
-    );
+  webpackConfig.plugins = webpackConfig.plugins.filter(
+    plugin => plugin.constructor.name !== "ForkTsCheckerWebpackPlugin"
+  )
 
-    log("Disabled TypeScript type checking.");
+  log("Disabled TypeScript type checking.")
 
-    return webpackConfig;
+  return webpackConfig
 }
 
 function overrideTypeScript(cracoConfig, webpackConfig) {
-    if (cracoConfig.typescript) {
-        const { enableTypeChecking } = cracoConfig.typescript;
+  if (cracoConfig.typescript) {
+    const { enableTypeChecking } = cracoConfig.typescript
 
-        if (enableTypeChecking === false) {
-            disableTypeChecking(webpackConfig);
-        }
+    if (enableTypeChecking === false) {
+      disableTypeChecking(webpackConfig)
     }
+  }
 
-    return webpackConfig;
+  return webpackConfig
 }
 
 module.exports = {
-    overrideTypeScript
-};
+  overrideTypeScript,
+}

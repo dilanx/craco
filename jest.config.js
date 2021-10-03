@@ -1,5 +1,3 @@
 module.exports = {
-    roots: [
-        "<rootDir>/packages/craco/tests/"
-    ]
-};
+  roots: ["<rootDir>/packages/craco/tests/"],
+}

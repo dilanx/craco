@@ -8,7 +8,7 @@ module.exports = {
     css: {
       loaderOptions: {
         localsConvention: "camelCase",
-      }
+      },
     },
-  }
+  },
 }

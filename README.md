@@ -14,7 +14,7 @@ All you have to do is create your app using [create-react-app](https://github.co
 
 ## Support
 
-- Create React App (CRA) 4.*
+- Create React App (CRA) 4.\*
 - Yarn
 - Yarn Workspace
 - NPM
@@ -44,29 +44,29 @@ All you have to do is create your app using [create-react-app](https://github.co
 
 ## Community Maintained Plugins
 
-* [craco-preact](https://github.com/DocSpring/craco-preact) by [@DocSpring](https://github.com/DocSpring)
-* [craco-less](https://github.com/DocSpring/craco-less) by [@DocSpring](https://github.com/DocSpring)
-* [craco-antd](https://github.com/DocSpring/craco-antd) by [@DocSpring](https://github.com/DocSpring)
-* [craco-plugin-react-hot-reload](https://github.com/HasanAyan/craco-plugin-react-hot-reload) by [@hasanayan](https://github.com/hasanayan)
-* [craco-plugin-single-spa-application](https://github.com/hasanayan/craco-plugin-single-spa-application) by [@hasanayan](https://github.com/hasanayan)
-* [craco-babel-loader](https://github.com/rjerue/craco-babel-loader) by [@rjerue](https://github.com/rjerue/)
-* [craco-raw-loader](https://github.com/melMass/craco-raw-loader) by [@melMass](https://github.com/melMass)
-* [craco-base64-inline-loader](https://github.com/melMass/craco-base64-inline-loader) by [@melMass](https://github.com/melMass)
-* [craco-workbox](https://github.com/kevinsperrine/craco-workbox) by [@kevinsperrine](https://github.com/kevinsperrine)
-* [craco-use-babelrc](https://github.com/jackwilsdon/craco-use-babelrc) by [@jackwilsdon](https://github.com/jackwilsdon)
-* [craco-image-optimizer-plugin](https://github.com/kkulbae/craco-image-optimizer-plugin) by [@kkulbae](https://github.com/kkulbae)
-* [craco-interpolate-html-plugin](https://github.com/kkulbae/craco-interpolate-html-plugin) by [@kkulbae](https://github.com/kkulbae)
-* [craco-cesium](https://www.npmjs.com/package/craco-cesium) by [rot1024](https://github.com/rot1024)
-* [craco-sass-resources-loader](https://github.com/tilap/craco-sass-resources-loader) by [tilap](https://github.com/tilap)
-* [craco-linaria](https://github.com/jedmao/craco-linaria) by [jedmao](https://github.com/jedmao)
-* [craco-plugin-scoped-css](https://github.com/gaoxiaoliangz/react-scoped-css/tree/master/packages/craco-plugin-scoped-css) by [gaoxiaoliangz](https://github.com/gaoxiaoliangz)
-* [craco-alias](https://github.com/risenforces/craco-alias) by [@risenforces](https://github.com/risenforces)
-* [craco-favicons](https://github.com/rickysullivan/craco-favicons) by [@rickysullivan](https://github.com/rickysullivan)
-* [craco-styled-jsx](https://github.com/cr4zyc4t/craco-styled-jsx) by [@cr4zyc4t](https://github.com/cr4zyc4t)
-* [craco-purescript-loader](https://github.com/andys8/craco-purescript-loader) by [@andys8](https://github.com/andys8)
-* [craco-fast-refresh](https://github.com/vimcaw/craco-fast-refresh) by [@vimcaw](https://github.com/vimcaw)
-* [craco-parameter-decorator](https://github.com/org-redtea/craco-parameter-decorator) by [@Hokid](https://github.com/Hokid)
-* [storybook-preset-craco](https://github.com/artisanofcode/storybook-preset-craco) by [@danielknell](https://github.com/danielknell)
+- [craco-preact](https://github.com/DocSpring/craco-preact) by [@DocSpring](https://github.com/DocSpring)
+- [craco-less](https://github.com/DocSpring/craco-less) by [@DocSpring](https://github.com/DocSpring)
+- [craco-antd](https://github.com/DocSpring/craco-antd) by [@DocSpring](https://github.com/DocSpring)
+- [craco-plugin-react-hot-reload](https://github.com/HasanAyan/craco-plugin-react-hot-reload) by [@hasanayan](https://github.com/hasanayan)
+- [craco-plugin-single-spa-application](https://github.com/hasanayan/craco-plugin-single-spa-application) by [@hasanayan](https://github.com/hasanayan)
+- [craco-babel-loader](https://github.com/rjerue/craco-babel-loader) by [@rjerue](https://github.com/rjerue/)
+- [craco-raw-loader](https://github.com/melMass/craco-raw-loader) by [@melMass](https://github.com/melMass)
+- [craco-base64-inline-loader](https://github.com/melMass/craco-base64-inline-loader) by [@melMass](https://github.com/melMass)
+- [craco-workbox](https://github.com/kevinsperrine/craco-workbox) by [@kevinsperrine](https://github.com/kevinsperrine)
+- [craco-use-babelrc](https://github.com/jackwilsdon/craco-use-babelrc) by [@jackwilsdon](https://github.com/jackwilsdon)
+- [craco-image-optimizer-plugin](https://github.com/kkulbae/craco-image-optimizer-plugin) by [@kkulbae](https://github.com/kkulbae)
+- [craco-interpolate-html-plugin](https://github.com/kkulbae/craco-interpolate-html-plugin) by [@kkulbae](https://github.com/kkulbae)
+- [craco-cesium](https://www.npmjs.com/package/craco-cesium) by [rot1024](https://github.com/rot1024)
+- [craco-sass-resources-loader](https://github.com/tilap/craco-sass-resources-loader) by [tilap](https://github.com/tilap)
+- [craco-linaria](https://github.com/jedmao/craco-linaria) by [jedmao](https://github.com/jedmao)
+- [craco-plugin-scoped-css](https://github.com/gaoxiaoliangz/react-scoped-css/tree/master/packages/craco-plugin-scoped-css) by [gaoxiaoliangz](https://github.com/gaoxiaoliangz)
+- [craco-alias](https://github.com/risenforces/craco-alias) by [@risenforces](https://github.com/risenforces)
+- [craco-favicons](https://github.com/rickysullivan/craco-favicons) by [@rickysullivan](https://github.com/rickysullivan)
+- [craco-styled-jsx](https://github.com/cr4zyc4t/craco-styled-jsx) by [@cr4zyc4t](https://github.com/cr4zyc4t)
+- [craco-purescript-loader](https://github.com/andys8/craco-purescript-loader) by [@andys8](https://github.com/andys8)
+- [craco-fast-refresh](https://github.com/vimcaw/craco-fast-refresh) by [@vimcaw](https://github.com/vimcaw)
+- [craco-parameter-decorator](https://github.com/org-redtea/craco-parameter-decorator) by [@Hokid](https://github.com/Hokid)
+- [storybook-preset-craco](https://github.com/artisanofcode/storybook-preset-craco) by [@danielknell](https://github.com/danielknell)
 
 ## Acknowledgements
 
@@ -74,5 +74,5 @@ All you have to do is create your app using [create-react-app](https://github.co
 
 ## License
 
-Copyright © 2020, Groupe Sharegate inc. This code is licensed under the Apache License, Version 2.0. You may obtain a 
+Copyright © 2020, Groupe Sharegate inc. This code is licensed under the Apache License, Version 2.0. You may obtain a
 copy of this license at https://github.com/gsoft-inc/gsoft-license/blob/master/LICENSE.

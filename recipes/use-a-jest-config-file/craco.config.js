@@ -1,9 +1,9 @@
 module.exports = {
-    jest: {
-        configure: {
-            globals: {
-                "CONFIG": true
-            }
-        }
-    }
-};
+  jest: {
+    configure: {
+      globals: {
+        CONFIG: true,
+      },
+    },
+  },
+}

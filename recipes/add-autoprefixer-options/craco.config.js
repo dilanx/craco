@@ -1,11 +1,11 @@
 module.exports = {
-    style: {
-        postcss: {
-            env: {
-                autoprefixer: {
-                    cascade: true
-                }
-            }
-        }
-    }
-};
+  style: {
+    postcss: {
+      env: {
+        autoprefixer: {
+          cascade: true,
+        },
+      },
+    },
+  },
+}

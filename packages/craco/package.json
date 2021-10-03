@@ -1,49 +1,49 @@
 {
-    "name": "@craco/craco",
-    "description": "Create React App Configuration Override, an easy and comprehensible configuration layer for create-react-app.",
-    "scripts": {},
-    "publishConfig": {
-        "access": "public"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/gsoft-inc/craco.git"
-    },
-    "keywords": [
-        "react",
-        "create-react-app",
-        "cra"
-    ],
-    "author": "Groupe Sharegate inc.",
-    "license": "Apache-2.0",
-    "bugs": {
-        "url": "https://github.com/gsoft-inc/craco/issues"
-    },
-    "homepage": "https://github.com/gsoft-inc/craco",
-    "engines": {
-        "node": ">=6"
-    },
-    "files": [
-        "bin",
-        "lib",
-        "scripts",
-        "index.js"
-    ],
-    "bin": {
-        "craco": "./bin/craco.js"
-    },
-    "peerDependencies": {
-        "react-scripts": "^4.0.0"
-    },
-    "devDependencies": {
-        "react-scripts": "4.*"
-    },
-    "dependencies": {
-        "cross-spawn": "^7.0.0",
-        "lodash": "^4.17.15",
-        "semver": "^7.3.2",
-        "webpack-merge": "^4.2.2"
-    },
-    "version": "6.3.0",
-    "gitHead": "9c9c5e5ee1f79a17af4809945573bfdbdcc912be"
+  "name": "@craco/craco",
+  "description": "Create React App Configuration Override, an easy and comprehensible configuration layer for create-react-app.",
+  "scripts": {},
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gsoft-inc/craco.git"
+  },
+  "keywords": [
+    "react",
+    "create-react-app",
+    "cra"
+  ],
+  "author": "Groupe Sharegate inc.",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/gsoft-inc/craco/issues"
+  },
+  "homepage": "https://github.com/gsoft-inc/craco",
+  "engines": {
+    "node": ">=6"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "scripts",
+    "index.js"
+  ],
+  "bin": {
+    "craco": "./bin/craco.js"
+  },
+  "peerDependencies": {
+    "react-scripts": "^4.0.3"
+  },
+  "devDependencies": {
+    "react-scripts": "4.*"
+  },
+  "dependencies": {
+    "cross-spawn": "^7.0.3",
+    "lodash": "^4.17.21",
+    "semver": "^7.3.5",
+    "webpack-merge": "^5.8.0"
+  },
+  "version": "6.3.0",
+  "gitHead": "9c9c5e5ee1f79a17af4809945573bfdbdcc912be"
 }
