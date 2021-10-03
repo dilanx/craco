@@ -4,7 +4,8 @@
   "scripts": {
     "publish": "lerna publish --progress --force-publish",
     "publish:alpha": "lerna publish --npm-tag alpha --progress",
-    "bootstrap": "lerna bootstrap"
+    "bootstrap": "lerna bootstrap",
+    "test": "jest"
   },
   "license": "Apache-2.0",
   "keywords": [
