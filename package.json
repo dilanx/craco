@@ -18,11 +18,11 @@
         }
     },
     "devDependencies": {
-        "eslint": "6.4.0",
-        "husky": "3.0.5",
-        "jest": "24.9.0",
-        "lerna": "3.16.4",
-        "lint-staged": "9.2.5",
-        "prettier": "1.18.2"
+        "eslint": "^7.32.0",
+        "husky": "^7.0.2",
+        "jest": "^27.2.4",
+        "lerna": "^4.0.0",
+        "lint-staged": "^11.1.2",
+        "prettier": "^2.4.1"
     }
 }

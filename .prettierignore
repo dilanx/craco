@@ -1,8 +1,0 @@
-/.vscode
-/node_modules
-package-lock.json
-.eslintrc.js
-.editorconfig
-README.md
-recipes
-jest.config.js
