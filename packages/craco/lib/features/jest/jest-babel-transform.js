@@ -1,3 +1,4 @@
+const { loadCracoConfigAsync } = require("../../config");
 const { createJestBabelTransform } = require("./create-jest-babel-transform");
 
 let jestBabelTransform;
@@ -7,9 +8,11 @@ let jestBabelTransform;
 // uses that to process files.
 module.exports = {
     ...createJestBabelTransform(),
-    process(src, filename, config, transformOptions) {
+    async processAsync(src, filename, config, transformOptions) {
         if (!jestBabelTransform) {
-            jestBabelTransform = createJestBabelTransform(config.globals._cracoConfig);
+            const context = { env: process.env.NODE_ENV };
+            const cracoConfig = await loadCracoConfigAsync(context);
+            jestBabelTransform = createJestBabelTransform(cracoConfig);
         }
 
         return jestBabelTransform.process(src, filename, config, transformOptions);
