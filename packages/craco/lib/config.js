@@ -1,6 +1,8 @@
+const { cosmiconfigSync } = require('cosmiconfig');
+const { default: tsLoader } = require('@endemolshinegroup/cosmiconfig-typescript-loader');
+
 const { configFilePath } = require("./paths");
 const { isFunction, isArray, deepMergeWithArray } = require("./utils");
-const { log } = require("./logger");
 const { applyCracoConfigPlugins } = require("./features/plugins");
 const { POSTCSS_MODES } = require("./features/webpack/style/postcss");
 const { ESLINT_MODES } = require("./features/webpack/eslint");
@@ -41,14 +43,15 @@ function processCracoConfig(cracoConfig, context) {
 }
 
 function getConfigAsObject(context) {
-    if (configFilePath == undefined || configFilePath.length == 0) {
-        throw new Error("craco: Config file not found. check if file exists at root (craco.config.js, .cracorc.js, .cracorc)");
-    }
-    
-    log("Found craco config file at: ", configFilePath);
+    const explorer = cosmiconfigSync('craco', {
+        loaders: {
+            '.ts': tsLoader,
+        },
+    });
 
-    const config = require(configFilePath);
-    const configAsObject = isFunction(config) ? config(context) : config;
+    const result = explorer.load(configFilePath);
+
+    const configAsObject = isFunction(result.config) ? result.config(context) : result.config;
 
     if (!configAsObject) {
         throw new Error("craco: Config function didn't return a config object.");

@@ -1,3 +1,5 @@
+const { default: tsLoader } = require('@endemolshinegroup/cosmiconfig-typescript-loader');
+const { cosmiconfigSync } = require('cosmiconfig');
 const path = require("path");
 const fs = require("fs");
 const { getArgs } = require("./args");
@@ -11,8 +13,6 @@ log("Project root path resolved to: ", projectRoot);
 
 let configFilePath = "";
 
-const configFilenames = ["craco.config.js", ".cracorc.js", ".cracorc"];
-
 const args = getArgs();
 
 if (args.config.isProvided) {
@@ -20,21 +20,37 @@ if (args.config.isProvided) {
 } else {
     const package = require(packageJsonPath);
 
-    if (package.cracoConfig) {
-        if (!isString(package.cracoConfig)) {
-            throw new Error("craco: 'cracoConfig' value must be a string.");
-        }
-
+    if (package.cracoConfig && isString(package.cracoConfig)) {
+        // take it as the path to the config file if it's path-like, otherwise assume it contains the config content below
         configFilePath = path.resolve(projectRoot, package.cracoConfig);
     } else {
-        for (const filename of configFilenames) {
-            const filePath = path.join(projectRoot, filename);
+        const moduleName = 'craco';
+        const explorer = cosmiconfigSync(moduleName, {
+            searchPlaces: [
+                'package.json',
+                `.${moduleName}rc`,
+                `.${moduleName}rc.json`,
+                `.${moduleName}rc.yaml`,
+                `.${moduleName}rc.yml`,
+                `.${moduleName}rc.ts`,
+                `.${moduleName}rc.js`,
+                `${moduleName}.config.ts`,
+                `${moduleName}.config.js`,
+            ],
+            loaders: {
+                '.ts': tsLoader,
+            },
+        });
 
-            if (fs.existsSync(filePath)) {
-                configFilePath = filePath;
-                break;
-            }
+        const result = explorer.search(projectRoot);
+
+        if (result === null) {
+            throw new Error("craco: Config file not found. check if file exists at root (craco.config.ts, craco.config.js, .cracorc.js, .cracorc.json, .cracorc.yaml, .cracorc)");
         }
+
+        log("Found craco config file at: ", result.filepath);
+
+        configFilePath = result.filepath
     }
 }
 
