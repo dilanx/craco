@@ -47,8 +47,6 @@ if (args.config.isProvided) {
             );
         }
 
-        log("Found craco config file at: ", result.filepath);
-
         configFilePath = result.filepath;
     }
 }
