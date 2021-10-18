@@ -1,5 +1,5 @@
-const { cosmiconfigSync } = require('cosmiconfig');
-const { default: tsLoader } = require('@endemolshinegroup/cosmiconfig-typescript-loader');
+const { cosmiconfigSync } = require("cosmiconfig");
+const { default: tsLoader } = require("@endemolshinegroup/cosmiconfig-typescript-loader");
 
 const { configFilePath } = require("./paths");
 const { isFunction, isArray, deepMergeWithArray } = require("./utils");
@@ -43,10 +43,10 @@ function processCracoConfig(cracoConfig, context) {
 }
 
 function getConfigAsObject(context) {
-    const explorer = cosmiconfigSync('craco', {
+    const explorer = cosmiconfigSync("craco", {
         loaders: {
-            '.ts': tsLoader,
-        },
+            ".ts": tsLoader
+        }
     });
 
     const result = explorer.load(configFilePath);

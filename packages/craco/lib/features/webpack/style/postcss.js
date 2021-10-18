@@ -58,9 +58,7 @@ function extendsPostcss(match, { plugins, env }) {
         }
 
         if (plugins) {
-            postcssPlugins = typeof plugins === "function"
-                ? plugins(postcssPlugins)
-                : postcssPlugins.concat(plugins);
+            postcssPlugins = typeof plugins === "function" ? plugins(postcssPlugins) : postcssPlugins.concat(plugins);
 
             log("Added PostCSS plugins.");
         }

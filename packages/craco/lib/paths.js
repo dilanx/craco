@@ -1,5 +1,5 @@
-const { default: tsLoader } = require('@endemolshinegroup/cosmiconfig-typescript-loader');
-const { cosmiconfigSync } = require('cosmiconfig');
+const { default: tsLoader } = require("@endemolshinegroup/cosmiconfig-typescript-loader");
+const { cosmiconfigSync } = require("cosmiconfig");
 const path = require("path");
 const fs = require("fs");
 const { getArgs } = require("./args");
@@ -24,10 +24,10 @@ if (args.config.isProvided) {
         // take it as the path to the config file if it's path-like, otherwise assume it contains the config content below
         configFilePath = path.resolve(projectRoot, package.cracoConfig);
     } else {
-        const moduleName = 'craco';
+        const moduleName = "craco";
         const explorer = cosmiconfigSync(moduleName, {
             searchPlaces: [
-                'package.json',
+                "package.json",
                 `.${moduleName}rc`,
                 `.${moduleName}rc.json`,
                 `.${moduleName}rc.yaml`,
@@ -35,22 +35,24 @@ if (args.config.isProvided) {
                 `.${moduleName}rc.ts`,
                 `.${moduleName}rc.js`,
                 `${moduleName}.config.ts`,
-                `${moduleName}.config.js`,
+                `${moduleName}.config.js`
             ],
             loaders: {
-                '.ts': tsLoader,
-            },
+                ".ts": tsLoader
+            }
         });
 
         const result = explorer.search(projectRoot);
 
         if (result === null) {
-            throw new Error("craco: Config file not found. check if file exists at root (craco.config.ts, craco.config.js, .cracorc.js, .cracorc.json, .cracorc.yaml, .cracorc)");
+            throw new Error(
+                "craco: Config file not found. check if file exists at root (craco.config.ts, craco.config.js, .cracorc.js, .cracorc.json, .cracorc.yaml, .cracorc)"
+            );
         }
 
         log("Found craco config file at: ", result.filepath);
 
-        configFilePath = result.filepath
+        configFilePath = result.filepath;
     }
 }
 
