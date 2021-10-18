@@ -2,9 +2,9 @@
 
 **C**reate **R**eact **A**pp **C**onfiguration **O**verride is an easy and comprehensible configuration layer for create-react-app.
 
-Get all the benefits of create-react-app **and** customization without using 'eject' by adding a single `craco.config.js` file at the root of your application and customize your eslint, babel, postcss configurations and many more.
+Get all the benefits of create-react-app **and** customization without using 'eject' by adding a single configuration (e.g. `craco.config.js`) file at the root of your application and customize your eslint, babel, postcss configurations and many more.
 
-All you have to do is create your app using [create-react-app](https://github.com/facebook/create-react-app/) and customize the configuration with a `craco.config.js` file.
+All you have to do is create your app using [create-react-app](https://github.com/facebook/create-react-app/) and customize the configuration file.
 
 ## Support
 
@@ -22,7 +22,7 @@ All you have to do is create your app using [create-react-app](https://github.co
   - [Configuration File](#configuration-file)
   - [Configuration Helpers](#configuration-helpers)
   - [Exporting your Configuration](#exporting-your-configuration)
-  - [Setting a Custom Location for `craco.config.js`](#setting-a-custom-location-for-cracoconfigjs)
+  - [Setting a Custom Location for the configuration file](#setting-a-custom-location-for-cracoconfigjs)
 - [CRA toolchain for Beginners](#cra-toolchain-for-beginners)
   - [Notes on CRA Configurations and Problem Solving](#notes-on-cra-configurations-and-problem-solving)
   - [Ejecting CRA to Learn](#ejecting-cra-to-learn)
@@ -99,13 +99,16 @@ $ npm run build
 
 ## Configuration
 
-CRACO is configured with a `craco.config.js`, `.cracorc.js` or `.cracorc` file. This file is divided into sections representing the major parts of what makes up the default create react app. 
+CRACO is configured with a `craco.config.ts`, `craco.config.js`, `.cracorc.ts`, `.cracorc.js` or `.cracorc` file, or [a file specified in `package.json`](#setting-a-custom-location-for-cracoconfigjs). This file is divided into sections representing the major parts of what makes up the default create react app. 
 
 If there are multiple configuration files in the same directory, CRACO will only use one. The priority order is:
 
+1. `package.json`
+1. `craco.config.ts`
 1. `craco.config.js`
-2. `.cracorc.js`
-3. `.cracorc`
+1. `.cracorc.ts`
+1. `.cracorc.js`
+1. `.cracorc`
 
 ### Configuration File 
 
