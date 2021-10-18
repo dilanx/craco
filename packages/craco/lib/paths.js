@@ -28,14 +28,11 @@ if (args.config.isProvided) {
         const explorer = cosmiconfigSync(moduleName, {
             searchPlaces: [
                 "package.json",
-                `.${moduleName}rc`,
-                `.${moduleName}rc.json`,
-                `.${moduleName}rc.yaml`,
-                `.${moduleName}rc.yml`,
+                `${moduleName}.config.ts`,
+                `${moduleName}.config.js`,
                 `.${moduleName}rc.ts`,
                 `.${moduleName}rc.js`,
-                `${moduleName}.config.ts`,
-                `${moduleName}.config.js`
+                `.${moduleName}rc`
             ],
             loaders: {
                 ".ts": tsLoader
