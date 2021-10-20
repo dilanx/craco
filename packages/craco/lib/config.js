@@ -1,8 +1,12 @@
 const { cosmiconfigSync } = require("cosmiconfig");
 const { default: tsLoader } = require("@endemolshinegroup/cosmiconfig-typescript-loader");
 
-const { configFilePath } = require("./paths");
-const { isFunction, isArray, deepMergeWithArray } = require("./utils");
+const path = require("path");
+
+const { getArgs } = require("./args");
+const { log } = require("./logger");
+const { projectRoot } = require("./paths");
+const { deepMergeWithArray, isArray, isFunction, isString } = require("./utils");
 const { applyCracoConfigPlugins } = require("./features/plugins");
 const { POSTCSS_MODES } = require("./features/webpack/style/postcss");
 const { ESLINT_MODES } = require("./features/webpack/eslint");
@@ -25,6 +29,21 @@ const DEFAULT_CONFIG = {
     }
 };
 
+const moduleName = "craco";
+const explorer = cosmiconfigSync(moduleName, {
+    searchPlaces: [
+        "package.json",
+        `${moduleName}.config.ts`,
+        `${moduleName}.config.js`,
+        `.${moduleName}rc.ts`,
+        `.${moduleName}rc.js`,
+        `.${moduleName}rc`
+    ],
+    loaders: {
+        ".ts": tsLoader
+    }
+});
+
 function ensureConfigSanity(cracoConfig) {
     if (isArray(cracoConfig.plugins)) {
         cracoConfig.plugins.forEach((x, index) => {
@@ -42,13 +61,36 @@ function processCracoConfig(cracoConfig, context) {
     return applyCracoConfigPlugins(resultingCracoConfig, context);
 }
 
-function getConfigAsObject(context) {
-    const explorer = cosmiconfigSync("craco", {
-        loaders: {
-            ".ts": tsLoader
-        }
-    });
+function getConfigPath() {
+    const args = getArgs();
 
+    if (args.config.isProvided) {
+        return path.resolve(projectRoot, args.config.value);
+    } else {
+        const packageJsonPath = path.join(projectRoot, "package.json");
+
+        const package = require(packageJsonPath);
+
+        if (package.cracoConfig && isString(package.cracoConfig)) {
+            // take it as the path to the config file if it's path-like, otherwise assume it contains the config content below
+            return path.resolve(projectRoot, package.cracoConfig);
+        } else {
+            const result = explorer.search(projectRoot);
+
+            if (result === null) {
+                throw new Error(
+                    "craco: Config file not found. check if file exists at root (craco.config.ts, craco.config.js, .cracorc.js, .cracorc.json, .cracorc.yaml, .cracorc)"
+                );
+            }
+
+            return result.filepath;
+        }
+    }
+}
+
+function getConfigAsObject(context) {
+    const configFilePath = getConfigPath();
+    log("Config file path resolved to: ", configFilePath);
     const result = explorer.load(configFilePath);
 
     const configAsObject = isFunction(result.config) ? result.config(context) : result.config;
