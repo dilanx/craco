@@ -35,6 +35,7 @@ const explorer = cosmiconfigSync(moduleName, {
         "package.json",
         `${moduleName}.config.ts`,
         `${moduleName}.config.js`,
+        `${moduleName}.config.cjs`,
         `.${moduleName}rc.ts`,
         `.${moduleName}rc.js`,
         `.${moduleName}rc`
