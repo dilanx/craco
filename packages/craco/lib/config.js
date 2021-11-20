@@ -1,5 +1,5 @@
 const { cosmiconfigSync } = require("cosmiconfig");
-const { default: tsLoader } = require("@endemolshinegroup/cosmiconfig-typescript-loader");
+const { get } = require("lodash");
 
 const path = require("path");
 
@@ -41,7 +41,12 @@ const explorer = cosmiconfigSync(moduleName, {
         `.${moduleName}rc`
     ],
     loaders: {
-        ".ts": tsLoader
+        ".ts": filePath => {
+            require("ts-node/register");
+            const result = require(filePath);
+
+            return get(result, "default", result);
+        }
     }
 });
 
