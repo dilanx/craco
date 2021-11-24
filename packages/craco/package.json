@@ -39,7 +39,6 @@
         "react-scripts": "4.*"
     },
     "dependencies": {
-        "@endemolshinegroup/cosmiconfig-typescript-loader": "^3.0.2",
         "cosmiconfig": "^7.0.1",
         "cross-spawn": "^7.0.0",
         "lodash": "^4.17.15",
