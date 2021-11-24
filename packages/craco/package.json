@@ -45,6 +45,6 @@
         "semver": "^7.3.2",
         "webpack-merge": "^4.2.2"
     },
-    "version": "6.4.1",
+    "version": "6.4.2",
     "gitHead": "9c9c5e5ee1f79a17af4809945573bfdbdcc912be"
 }
