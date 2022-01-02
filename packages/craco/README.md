@@ -8,7 +8,7 @@ All you have to do is create your app using [create-react-app](https://github.co
 
 ## Support
 
-- Create React App (CRA) 4.*
+- Create React App (CRA) 5.*
 - Yarn
 - Yarn Workspace
 - NPM
