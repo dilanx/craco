@@ -7,12 +7,7 @@ const { projectRoot } = require("../../paths");
 
 const BABEL_TRANSFORM_ENTRY_KEY = "^.+\\.(js|jsx|mjs|cjs|ts|tsx)$";
 
-function overrideBabelTransform(jestConfig, cracoConfig, transformKey) {
-    // The cracoConfig needs to be available within the jest-babel-transform in order to honor its settings.
-    // This approach is based on https://github.com/facebook/jest/issues/1468#issuecomment-384825178
-    jestConfig.globals = jestConfig.globals || {};
-    jestConfig.globals._cracoConfig = cracoConfig;
-
+function overrideBabelTransform(jestConfig, transformKey) {
     jestConfig.transform[transformKey] = require.resolve("./jest-babel-transform");
 
     log("Overrided Jest Babel transformer.");
@@ -27,7 +22,7 @@ function configureBabel(jestConfig, cracoConfig) {
 
             if (isArray(presets) || isArray(plugins)) {
                 if (jestConfig.transform[BABEL_TRANSFORM_ENTRY_KEY]) {
-                    overrideBabelTransform(jestConfig, cracoConfig, BABEL_TRANSFORM_ENTRY_KEY);
+                    overrideBabelTransform(jestConfig, BABEL_TRANSFORM_ENTRY_KEY);
                 } else {
                     throw new Error(`craco: Cannot find Jest transform entry for Babel ${BABEL_TRANSFORM_ENTRY_KEY}.`);
                 }

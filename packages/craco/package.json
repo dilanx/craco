@@ -34,10 +34,10 @@
         "craco": "./bin/craco.js"
     },
     "peerDependencies": {
-        "react-scripts": "^4.0.0"
+        "react-scripts": "^5.0.0"
     },
     "devDependencies": {
-        "react-scripts": "4.*"
+        "react-scripts": "5.*"
     },
     "dependencies": {
         "cosmiconfig": "^7.0.1",
