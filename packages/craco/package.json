@@ -34,7 +34,7 @@
         "craco": "./bin/craco.js"
     },
     "peerDependencies": {
-        "react-scripts": "^4.0.0"
+        "react-scripts": "^4.0.0 || ^5.0.0"
     },
     "devDependencies": {
         "react-scripts": "4.*"
