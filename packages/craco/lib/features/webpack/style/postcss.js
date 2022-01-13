@@ -39,7 +39,7 @@ function usePostcssConfigFile(match) {
 }
 
 function extendsPostcss(match, { plugins, env }) {
-    if (isArray(plugins) || env) {
+    if (isArray(plugins) || isFunction(plugins) || env) {
         let postcssPlugins;
 
         if (env) {
@@ -50,8 +50,12 @@ function extendsPostcss(match, { plugins, env }) {
         } else {
             let craPlugins = [];
 
-            if (match.loader.options) {
-                craPlugins = match.loader.options.plugins();
+            if (match.loader.options.postcssOptions) {
+                if (typeof match.loader.options.postcssOptions === "function") {
+                    craPlugins = match.loader.options.postcssOptions().plugins;
+                } else {
+                    craPlugins = match.loader.options.postcssOptions.plugins;
+                }
             }
 
             postcssPlugins = craPlugins || [];
@@ -63,13 +67,20 @@ function extendsPostcss(match, { plugins, env }) {
             log("Added PostCSS plugins.");
         }
 
-        if (match.loader.options) {
-            match.loader.options.plugins = () => postcssPlugins;
-        } else {
-            match.loader.options = {
-                plugins: () => postcssPlugins
-            };
+        let postcssOptions;
+
+        if (match.loader.options.postcssOptions) {
+            if (typeof match.loader.options.postcssOptions === "function") {
+                postcssOptions = match.loader.options.postcssOptions();
+            } else {
+                postcssOptions = match.loader.options.postcssOptions;
+            }
         }
+
+        match.loader.options.postcssOptions = () => ({
+            ...postcssOptions,
+            plugins: postcssPlugins
+        });
     }
 }
 
