@@ -8,9 +8,9 @@
 
 **C**reate **R**eact **A**pp **C**onfiguration **O**verride is an easy and comprehensible configuration layer for create-react-app.
 
-Get all the benefits of create-react-app **and** customization without using 'eject' by adding a single `craco.config.js` file at the root of your application and customize your eslint, babel, postcss configurations and many more.
+Get all the benefits of create-react-app **and** customization without using 'eject' by adding a single configuration (e.g. `craco.config.js`) file at the root of your application and customize your eslint, babel, postcss configurations and many more.
 
-All you have to do is create your app using [create-react-app](https://github.com/facebook/create-react-app/) and customize the configuration with a `craco.config.js` file.
+All you have to do is create your app using [create-react-app](https://github.com/facebook/create-react-app/) and customize the configuration file.
 
 ## Support
 
@@ -28,7 +28,7 @@ All you have to do is create your app using [create-react-app](https://github.co
   - [Configuration File](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#configuration-file)
   - [Configuration Helpers](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#configuration-helpers)
   - [Exporting your Configuration](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#exporting-your-configuration)
-  - [Setting a Custom Location for `craco.config.js`](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#setting-a-custom-location-for-cracoconfigjs)
+  - [Setting a Custom Location for the configuration file](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#setting-a-custom-location-for-cracoconfigjs)
 - [CRA Toolchain for Beginners](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#cra-toolchain-for-beginners)
   - [Notes on CRA Configurations and Problem Solving](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#notes-on-cra-configurations-and-problem-solving)
   - [Ejecting CRA to Learn](https://github.com/sharegate/craco/blob/master/packages/craco/README.md#ejecting-cra-to-learn)
