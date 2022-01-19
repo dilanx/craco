@@ -28,10 +28,12 @@ function usePostcssConfigFile(match) {
     if (match.loader.options) {
         const ident = match.loader.options.ident;
         const sourceMap = match.loader.options.sourceMap;
+        const postcssOptions = match.loader.options.postcssOptions;
 
         match.loader.options = {
             ident: ident,
-            sourceMap: sourceMap
+            sourceMap: sourceMap,
+            postcssOptions: postcssOptions
         };
 
         log("Overwrited PostCSS config to use a config file.");
@@ -50,8 +52,8 @@ function extendsPostcss(match, { plugins, env }) {
         } else {
             let craPlugins = [];
 
-            if (match.loader.options) {
-                craPlugins = match.loader.options.plugins();
+            if (match.loader.options.postcssOptions) {
+                craPlugins = match.loader.options.postcssOptions.plugins();
             }
 
             postcssPlugins = craPlugins || [];
@@ -63,10 +65,10 @@ function extendsPostcss(match, { plugins, env }) {
             log("Added PostCSS plugins.");
         }
 
-        if (match.loader.options) {
-            match.loader.options.plugins = () => postcssPlugins;
+        if (match.loader.options.postcssOptions) {
+            match.loader.options.postcssOptions.plugins = () => postcssPlugins;
         } else {
-            match.loader.options = {
+            match.loader.options.postcssOptions = {
                 plugins: () => postcssPlugins
             };
         }
