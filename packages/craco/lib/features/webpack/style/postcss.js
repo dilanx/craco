@@ -25,15 +25,13 @@ const CRA_PRESET_ENV = {
 };
 
 function usePostcssConfigFile(match) {
-    if (match.loader.options) {
-        const ident = match.loader.options.ident;
-        const sourceMap = match.loader.options.sourceMap;
-        const postcssOptions = match.loader.options.postcssOptions;
+    if (match.loader.options.postcssOptions) {
+        const ident = match.loader.options.postcssOptions.ident;
+        const sourceMap = match.loader.options.postcssOptions.sourceMap;
 
-        match.loader.options = {
+        match.loader.options.postcssOptions = {
             ident: ident,
-            sourceMap: sourceMap,
-            postcssOptions: postcssOptions
+            sourceMap: sourceMap
         };
 
         log("Overwrited PostCSS config to use a config file.");
@@ -53,7 +51,7 @@ function extendsPostcss(match, { plugins, env }) {
             let craPlugins = [];
 
             if (match.loader.options.postcssOptions) {
-                craPlugins = match.loader.options.postcssOptions.plugins();
+                craPlugins = match.loader.options.postcssOptions.plugins;
             }
 
             postcssPlugins = craPlugins || [];
