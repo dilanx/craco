@@ -5,7 +5,7 @@ const { log } = require("./logger");
 const { projectRoot } = require("./paths");
 
 let envLoaded = false;
-const CRA_LATEST_SUPPORTED_MAJOR_VERSION = "4.0.0";
+const CRA_LATEST_SUPPORTED_MAJOR_VERSION = "5.0.0";
 
 /************  Common  *******************/
 
