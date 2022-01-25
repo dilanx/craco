@@ -51,7 +51,11 @@ function extendsPostcss(match, { plugins, env }) {
             let craPlugins = [];
 
             if (match.loader.options.postcssOptions) {
-                craPlugins = match.loader.options.postcssOptions.plugins;
+                if (typeof match.loader.options.postcssOptions === "function") {
+                    craPlugins = match.loader.options.postcssOptions().plugins;
+                } else {
+                    craPlugins = match.loader.options.postcssOptions.plugins;
+                }
             }
 
             postcssPlugins = craPlugins || [];
