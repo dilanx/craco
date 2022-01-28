@@ -185,10 +185,10 @@ module.exports = {
             addPresets: true, /* (default value) */
             addPlugins: true  /* (default value) */
         },
-        configure: { /* Any Jest configuration options: https://jestjs.io/docs/en/configuration. */ },
+        configure: { /* Any Jest configuration options: https://jestjs.io/docs/en/configuration */ },
         configure: (jestConfig, { env, paths, resolve, rootDir }) => { return jestConfig; }
     },
-    devServer: { /* Any devServer configuration options: https://webpack.js.org/configuration/dev-server/#devserver. */ },
+    devServer: { /* Any devServer configuration options: https://webpack.js.org/configuration/dev-server/#devserver */ },
     devServer: (devServerConfig, { env, paths, proxy, allowedHost }) => { return devServerConfig; },
     plugins: [
         {
