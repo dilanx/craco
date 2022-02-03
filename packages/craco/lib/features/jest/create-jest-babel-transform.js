@@ -1,6 +1,8 @@
 const babelJest = require("babel-jest").default;
 
 const { isArray } = require("../../utils");
+
+const { loadCracoConfig } = require("../../config");
 /**
  * To check if support jsx-runtime
  * Copy from https://github.com/facebook/create-react-app/blob/2b1161b34641bb4d2f269661cd636bbcd4888406/packages/react-scripts/config/jest/babelTransform.js#L12
@@ -19,6 +21,11 @@ const hasJsxRuntime = (() => {
 })();
 
 function createJestBabelTransform(cracoConfig) {
+    if (!cracoConfig) {
+        const context = { env: process.env.NODE_ENV };
+        cracoConfig = loadCracoConfig(context);
+    }
+
     const craBabelTransformer = {
         presets: [
             [
@@ -53,6 +60,7 @@ function createJestBabelTransform(cracoConfig) {
             }
         }
     }
+
     return babelJest.createTransformer(craBabelTransformer);
 }
 
