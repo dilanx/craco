@@ -336,7 +336,7 @@ Avoiding ejecting is a major goal for many CRACO users. However, if you're still
 frontend workflows, it may be helpful to create a sample ejected CRA project to see how the default CRA app configures 
 each of the components. 
 
-While CRACO's sample configuration file inherits directly from CRA's default settings, seeing the default CRA config in
+While [CRACO's sample configuration file](#configuration-file) inherits directly from CRA's default settings, seeing the default CRA config in
 the ejected CRA file structure may give you useful perspective. 
 
 You may even want to try testing a change in the ejected app to better understand how it would be done with your CRACO 
@@ -344,7 +344,7 @@ config-based project.
 
 ### Direct (object literal) Versus Functional Config Definitions
 
-The [sample CRACO config file]((#sample-craco-configuration-file)) is meant to show possibilities for configuring your CRA-based project. Each section 
+The [sample CRACO config file](#configuration-file) is meant to show possibilities for configuring your CRA-based project. Each section 
 contains a primary configuration area, `loaderOptions` or `configure`. These config areas are where you will make most 
 of your detailed changes.
 
