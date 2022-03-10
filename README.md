@@ -61,6 +61,7 @@ All you have to do is create your app using [create-react-app](https://github.co
 * [craco-linaria](https://github.com/jedmao/craco-linaria) by [jedmao](https://github.com/jedmao)
 * [craco-plugin-scoped-css](https://github.com/gaoxiaoliangz/react-scoped-css/tree/master/packages/craco-plugin-scoped-css) by [gaoxiaoliangz](https://github.com/gaoxiaoliangz)
 * [craco-alias](https://github.com/risenforces/craco-alias) by [@risenforces](https://github.com/risenforces)
+* [react-app-alias](https://github.com/oklas/react-app-alias) by [@oklas](https://github.com/oklas)
 * [craco-favicons](https://github.com/rickysullivan/craco-favicons) by [@rickysullivan](https://github.com/rickysullivan)
 * [craco-styled-jsx](https://github.com/cr4zyc4t/craco-styled-jsx) by [@cr4zyc4t](https://github.com/cr4zyc4t)
 * [craco-purescript-loader](https://github.com/andys8/craco-purescript-loader) by [@andys8](https://github.com/andys8)
