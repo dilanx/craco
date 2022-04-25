@@ -1,3 +1,7 @@
+>
+> ℹ️ [LOOKING FOR A NEW TEAM TO LEAD CRACO](https://github.com/gsoft-inc/craco/issues/415)
+>
+
 # CRACO
 
 [![NPM Status](https://img.shields.io/npm/v/@craco/craco.svg)](https://www.npmjs.com/package/@craco/craco)
