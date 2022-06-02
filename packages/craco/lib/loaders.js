@@ -30,7 +30,10 @@ function toMatchingLoader(loader, parent, index) {
 
 function getLoaderRecursively(rules, matcher) {
     let loader;
-
+    if (!isArray(rules)) {
+        rules = [rules];
+    }
+    
     rules.some((rule, index) => {
         if (rule) {
             if (matcher(rule)) {
