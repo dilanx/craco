@@ -51,15 +51,17 @@ By doing this you're breaking the ["guarantees"](https://github.com/facebookincu
 
 ## Installation
 
-Install the plugin from **npm**:
+Install the latest version of the package from npm:
 
 ```bash
-$ yarn add @craco/craco
-
-# OR
-
-$ npm install @craco/craco --save
+$ npm i @craco/craco
 ```
+
+> _Alternatively, you can install the latest alpha build:_
+> ```bash
+> $ npm i @craco/craco@alpha
+> ```
+> _However, you should be aware that these versions are experimental._
 
 Create a `craco.config.js` file in the root directory and [configure CRACO](#configuration):
 
