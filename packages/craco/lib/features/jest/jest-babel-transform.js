@@ -9,7 +9,7 @@ module.exports = {
     ...createJestBabelTransform(),
     process(src, filename, config, transformOptions) {
         if (!jestBabelTransform) {
-            jestBabelTransform = createJestBabelTransform(config.globals._cracoConfig);
+            jestBabelTransform = createJestBabelTransform(config._cracoConfig);
         }
 
         return jestBabelTransform.process(src, filename, config, transformOptions);
