@@ -1,28 +1,69 @@
 {
-    "name": "craco",
-    "private": true,
+    "name": "@craco/craco",
+    "description": "Create React App Configuration Override, an easy and comprehensible configuration layer for create-react-app.",
+    "version": "7.0.0-alpha4",
     "scripts": {
-        "publish": "lerna publish --progress --force-publish",
-        "publish:alpha": "lerna publish --npm-tag alpha --progress",
-        "bootstrap": "lerna bootstrap"
+        "prepublish": "tsc"
     },
-    "license": "Apache-2.0",
+    "publishConfig": {
+        "access": "public"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/gsoft-inc/craco.git"
+    },
     "keywords": [
         "react",
         "create-react-app",
         "cra"
     ],
-    "husky": {
-        "hooks": {
-            "pre-commit": "lint-staged"
+    "contributors": [
+        {
+            "name": "Groupe Sharegate inc."
+        },
+        {
+            "name": "Dilan Nair",
+            "url": "https://www.dilanxd.com"
         }
+    ],
+    "license": "Apache-2.0",
+    "bugs": {
+        "url": "https://github.com/gsoft-inc/craco/issues"
+    },
+    "homepage": "https://github.com/gsoft-inc/craco",
+    "engines": {
+        "node": ">=6"
+    },
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": [
+        "dist"
+    ],
+    "bin": {
+        "craco": "./dist/bin/craco.js"
+    },
+    "peerDependencies": {
+        "react-scripts": "^5.0.0"
     },
     "devDependencies": {
-        "eslint": "6.4.0",
-        "husky": "3.0.5",
-        "jest": "24.9.0",
-        "lerna": "3.16.4",
-        "lint-staged": "9.2.5",
-        "prettier": "1.18.2"
+        "@babel/types": "^7.18.4",
+        "@jest/types": "^28.1.1",
+        "@types/cross-spawn": "^6.0.2",
+        "@types/eslint": "^8.4.3",
+        "@types/lodash": "^4.14.182",
+        "@types/semver": "^7.3.10",
+        "@types/webpack": "^5.28.0",
+        "eslint-webpack-plugin": "^3.2.0",
+        "react-scripts": "5.*",
+        "typescript": "^4.7.4"
+    },
+    "dependencies": {
+        "autoprefixer": "^10.4.7",
+        "cosmiconfig": "^7.0.1",
+        "cosmiconfig-typescript-loader": "^2.0.2",
+        "cross-spawn": "^7.0.3",
+        "lodash": "^4.17.21",
+        "semver": "^7.3.7",
+        "webpack-merge": "^5.8.0"
     }
 }
