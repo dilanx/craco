@@ -1,5 +1,5 @@
 >
-> ℹ️ [LOOKING FOR A NEW TEAM TO LEAD CRACO](https://github.com/gsoft-inc/craco/issues/415)
+> ℹ️ The latest CRACO release does not support CRA 5, but alpha builds will be regularly released over the next few days. Keep up to date with our progress [here](https://github.com/dilanx/craco/issues/426).
 >
 
 # CRACO
