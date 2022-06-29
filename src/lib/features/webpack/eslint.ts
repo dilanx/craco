@@ -1,19 +1,15 @@
 import type { PluginOptions } from 'eslint-webpack-plugin/types/options';
 import type { Configuration as WebpackConfig } from 'webpack';
 import type {
-    Context,
+    Configure,
     CracoConfig,
     CracoEsLintConfig,
-    EsLintModes,
 } from '../../../types/config';
-import { log, logError } from '../../logger';
-import { isFunction, deepMergeWithArray } from '../../utils';
-import { getPlugin, removePlugins, pluginByName } from '../../webpack-plugins';
+import type { BaseContext } from '../../../types/context';
 
-export const ESLINT_MODES: EsLintModes = {
-    extends: 'extends',
-    file: 'file',
-};
+import { log, logError } from '../../logger';
+import { deepMergeWithArray, isFunction } from '../../utils';
+import { getPlugin, pluginByName, removePlugins } from '../../webpack-plugins';
 
 function disableEslint(webpackConfig: WebpackConfig) {
     const { hasRemovedAny } = removePlugins(
@@ -31,7 +27,7 @@ function disableEslint(webpackConfig: WebpackConfig) {
 function extendsEslintConfig(
     plugin: any,
     eslintConfig: CracoEsLintConfig,
-    context: Context
+    context: BaseContext
 ) {
     const { configure } = eslintConfig;
 
@@ -99,8 +95,8 @@ function enableEslintIgnoreFile(plugin: any) {
 
 function applyPluginOptions(
     plugin: any,
-    pluginOptions: PluginOptions,
-    context: Context
+    pluginOptions: Configure<PluginOptions, BaseContext>,
+    context: BaseContext
 ) {
     if (isFunction(pluginOptions)) {
         plugin.options = pluginOptions(plugin.options || {}, context);
@@ -124,7 +120,7 @@ function applyPluginOptions(
 export function overrideEsLint(
     cracoConfig: CracoConfig,
     webpackConfig: WebpackConfig,
-    context: Context
+    context: BaseContext
 ) {
     if (cracoConfig.eslint) {
         const { isFound, match } = getPlugin(
@@ -146,7 +142,7 @@ export function overrideEsLint(
 
         enableEslintIgnoreFile(match);
 
-        if (mode === ESLINT_MODES.file) {
+        if (mode === 'file') {
             useEslintConfigFile(match);
         } else {
             extendsEslintConfig(match, cracoConfig.eslint, context);

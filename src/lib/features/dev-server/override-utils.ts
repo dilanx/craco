@@ -1,5 +1,5 @@
 import { CracoConfig } from '../../../types/config';
-import { loadDevServerUtils, overrideDevServerUtils, test } from '../../cra';
+import { loadDevServerUtils, overrideDevServerUtils } from '../../cra';
 import { log } from '../../logger';
 
 function overrideWebpackCompilerToDisableTypeScriptTypeChecking(

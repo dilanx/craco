@@ -1,11 +1,12 @@
-import path from 'path';
 import type {
-    RuleSetRule,
     Configuration as WebpackConfig,
+    RuleSetRule,
     RuleSetUseItem,
 } from 'webpack';
 import type { Loader, Matcher, Rule, Rules } from '../types/loaders';
-import { isString, isArray } from './utils';
+
+import path from 'path';
+import { isArray, isString } from './utils';
 
 export function loaderByName(targetLoaderName: string) {
     return (rule: RuleSetRule | RuleSetUseItem) => {

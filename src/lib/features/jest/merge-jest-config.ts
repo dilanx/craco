@@ -1,5 +1,6 @@
 import type { Config as JestConfig } from '@jest/types';
-import type { Context, CracoConfig } from '../../../types/config';
+import type { Configure, CracoConfig } from '../../../types/config';
+import type { JestContext } from '../../../types/context';
 
 import path from 'path';
 import { log } from '../../logger';
@@ -33,7 +34,7 @@ function configureBabel(
     jestConfig: JestConfig.InitialOptions,
     cracoConfig: CracoConfig
 ) {
-    const { addPresets, addPlugins } = cracoConfig.jest.babel;
+    const { addPresets, addPlugins } = cracoConfig.jest?.babel ?? {};
 
     if (addPresets || addPlugins) {
         if (cracoConfig.babel) {
@@ -61,13 +62,8 @@ function configureBabel(
 
 function giveTotalControl(
     jestConfig: JestConfig.InitialOptions,
-    configureJest:
-        | JestConfig.InitialOptions
-        | ((
-              jestConfig: JestConfig.InitialOptions,
-              context: Context
-          ) => JestConfig.InitialOptions),
-    context: Context
+    configureJest: Configure<JestConfig.InitialOptions, JestContext>,
+    context: JestContext
 ) {
     if (isFunction(configureJest)) {
         jestConfig = configureJest(jestConfig, context);
@@ -91,7 +87,7 @@ function giveTotalControl(
 export function mergeJestConfig(
     cracoConfig: CracoConfig,
     craJestConfigProvider: any,
-    context: Context
+    context: JestContext
 ) {
     const customResolve = (relativePath: string) =>
         require.resolve(

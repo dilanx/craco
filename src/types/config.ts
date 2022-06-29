@@ -1,118 +1,93 @@
+import type { TransformOptions } from '@babel/core';
 import type { Options as AutoprefixerOptions } from 'autoprefixer';
 import type { Linter } from 'eslint';
 import type { PluginOptions } from 'eslint-webpack-plugin/types/options';
-import type { Configuration as WebpackConfig } from 'webpack';
+import type {
+    Configuration as WebpackConfig,
+    WebpackPluginInstance,
+} from 'webpack';
 import type { Configuration as DevServerConfig } from 'webpack-dev-server';
+import type {
+    BaseContext,
+    DevServerContext,
+    JestContext,
+    WebpackContext,
+} from './context';
 import type { CracoPlugin } from './plugins';
+import type { Config as JestConfig } from '@jest/types';
 
-export interface Context {
-    [key: string]: any;
-}
-
-export interface CssLoaderOptions {
-    [key: string]: any;
-}
-
-export interface SassLoaderOptions {
-    [key: string]: any;
-}
-
-export interface PostCssLoaderOptions {
-    [key: string]: any;
-}
-
-export interface CssOptions {
-    loaderOptions?:
-        | CssLoaderOptions
-        | ((
-              cssLoaderOptions: CssLoaderOptions,
-              context: Context
-          ) => CssLoaderOptions);
-}
-
-export interface SassOptions {
-    loaderOptions?:
-        | SassLoaderOptions
-        | ((
-              sassLoaderOptions: SassLoaderOptions,
-              context: Context
-          ) => SassLoaderOptions);
-}
-
-export type PostCssModes = {
-    extends: 'extends';
-    file: 'file';
-};
-
-export interface PostCssOptions {
-    mode: 'extends' | 'file';
-    plugins?: any[] | ((postcssPlugins: any[]) => any[]);
-    env?: {
-        autoprefixer?: AutoprefixerOptions;
-        stage?: 0 | 1 | 2 | 3 | 4 | false;
-        features?: object;
-    };
-    loaderOptions?:
-        | PostCssLoaderOptions
-        | ((
-              postCssLoaderOptions: PostCssLoaderOptions,
-              context: Context
-          ) => PostCssLoaderOptions);
-}
+export type Configure<Config, Context> =
+    | Config
+    | ((config: Config, context: Context) => Config);
 
 export interface CracoStyleConfig {
-    modules?: { [key: string]: any };
-    css?: CssOptions;
-    sass?: SassOptions;
-    postcss?: PostCssOptions;
+    modules?: {
+        localIdentName?: string;
+    };
+    css?: {
+        loaderOptions?: Configure<any, BaseContext>;
+    };
+    sass?: {
+        loaderOptions?: Configure<any, BaseContext>;
+    };
+    postcss?: {
+        mode?: 'extends' | 'file';
+        plugins?: any[] | ((plugins: any[]) => any[]);
+        env?: {
+            autoprefixer?: AutoprefixerOptions;
+            stage?: 0 | 1 | 2 | 3 | 4 | false;
+            features?: { [featureId: string]: any };
+        };
+        loaderOptions?: Configure<any, BaseContext>;
+    };
 }
-
-export type BabelPresets = any[];
-export type BabelPlugins = any[];
-export type BabelLoaderOptions = any;
 
 export interface CracoBabelConfig {
-    presets?: BabelPresets;
-    plugins?: BabelPlugins;
-    loaderOptions?:
-        | BabelLoaderOptions
-        | ((
-              babelLoaderOptions: BabelLoaderOptions,
-              context: Context
-          ) => BabelLoaderOptions);
+    presets?: any[];
+    plugins?: any[];
+    loaderOptions?: Configure<TransformOptions, BaseContext>;
 }
-
-export type EsLintModes = {
-    extends: 'extends';
-    file: 'file';
-};
 
 export interface CracoEsLintConfig {
     enable?: boolean;
-    mode: 'extends' | 'file';
-    configure?:
-        | Linter.Config
-        | ((eslintConfig: Linter.Config, context: Context) => Linter.Config);
-    pluginOptions?: PluginOptions;
+    mode?: 'extends' | 'file';
+    configure?: Configure<Linter.Config, BaseContext>;
+    pluginOptions?: Configure<PluginOptions, BaseContext>;
 }
 
-export type WebpackAlias = any;
-export type WebpackPlugins = any[];
+export type WebpackAlias = { [alias: string]: string };
+export type AddWebpackPlugins = (
+    | WebpackPluginInstance
+    | [WebpackPluginInstance, 'append' | 'prepend']
+)[];
 
 export interface CracoWebpackConfig {
     alias?: WebpackAlias;
     plugins?: {
-        add?: WebpackPlugins;
+        add?: AddWebpackPlugins;
         remove?: string[];
     };
-    configure?:
-        | WebpackConfig
-        | ((webpackConfig: WebpackConfig, context: Context) => WebpackConfig);
+    configure?: Configure<WebpackConfig, WebpackContext>;
 }
 
-export interface CracoPluginDefinition {
+export type CracoDevServerConfig = Configure<DevServerConfig, DevServerContext>;
+
+export interface CracoJestConfig {
+    babel?: {
+        addPresets?: boolean;
+        addPlugins?: boolean;
+    };
+
+    configure?: Configure<JestConfig.InitialOptions, JestContext>;
+}
+
+export interface CracoTypeScriptConfig {
+    enableTypeChecking?: boolean;
+}
+
+export interface CracoPluginDefinition<Options> {
     plugin: CracoPlugin;
-    options: object;
+    options?: Options;
 }
 
 export interface CracoConfig {
@@ -120,14 +95,9 @@ export interface CracoConfig {
     style?: CracoStyleConfig;
     eslint?: CracoEsLintConfig;
     babel?: CracoBabelConfig;
-    jest?: any; // TODO change type
-    typescript?: any;
+    jest?: CracoJestConfig;
+    typescript?: CracoTypeScriptConfig;
     webpack?: CracoWebpackConfig;
-    devServer?:
-        | DevServerConfig
-        | ((
-              devServerConfig: DevServerConfig,
-              context: Context
-          ) => DevServerConfig);
-    plugins?: CracoPluginDefinition[];
+    devServer?: CracoDevServerConfig;
+    plugins?: CracoPluginDefinition<any>[];
 }

@@ -1,17 +1,14 @@
-import { Configuration as WebpackConfig, RuleSetRule } from 'webpack';
-import {
-    CssLoaderOptions,
-    CssOptions,
-    CracoStyleConfig,
-    Context,
-} from '../../../../types/config';
-import { CompleteLoader } from '../../../../types/loaders';
+import type { Configuration as WebpackConfig, RuleSetRule } from 'webpack';
+import type { Configure, CracoStyleConfig } from '../../../../types/config';
+import type { BaseContext } from '../../../../types/context';
+import type { CompleteLoader } from '../../../../types/loaders';
+
 import { getLoaders, loaderByName } from '../../../loaders';
 import { log, logError } from '../../../logger';
 import {
-    isFunction,
-    isBoolean,
     deepMergeWithArray,
+    isBoolean,
+    isFunction,
     isString,
 } from '../../../utils';
 
@@ -43,8 +40,8 @@ function setModuleLocalIdentName(
 
 function applyLoaderOptions(
     match: CompleteLoader,
-    loaderOptions: CssLoaderOptions,
-    context: Context
+    loaderOptions: Configure<any, BaseContext>,
+    context: BaseContext
 ) {
     if (isFunction(loaderOptions)) {
         match.loader.options = loaderOptions(
@@ -71,8 +68,8 @@ function applyLoaderOptions(
 
 function overrideCssLoader(
     match: CompleteLoader,
-    cssOptions: CssOptions | undefined,
-    context: Context
+    { css: cssOptions }: CracoStyleConfig,
+    context: BaseContext
 ) {
     if (cssOptions?.loaderOptions) {
         applyLoaderOptions(match, cssOptions.loaderOptions, context);
@@ -98,7 +95,7 @@ function overrideModuleLoader(
 export function overrideCss(
     styleConfig: CracoStyleConfig,
     webpackConfig: WebpackConfig,
-    context: Context
+    context: BaseContext
 ) {
     if (styleConfig.modules || styleConfig.css) {
         const { hasFoundAny, matches } = getLoaders(
@@ -127,11 +124,7 @@ export function overrideCss(
 
         if (styleConfig.css) {
             matches.forEach((x) => {
-                overrideCssLoader(
-                    x as CompleteLoader,
-                    styleConfig.css,
-                    context
-                );
+                overrideCssLoader(x as CompleteLoader, styleConfig, context);
             });
         }
     }

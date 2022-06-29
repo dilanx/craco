@@ -1,27 +1,24 @@
-import type { Context, CracoConfig } from '../types/config';
+import type { CracoConfig } from '../types/config';
+import type { BaseContext } from '../types/context';
 
 import { cosmiconfigSync } from 'cosmiconfig';
 import { default as tsLoader } from 'cosmiconfig-typescript-loader';
-
 import path from 'path';
-
 import { getArgs } from './args';
+import { applyCracoConfigPlugins } from './features/plugins';
 import { log } from './logger';
 import { projectRoot } from './paths';
 import { deepMergeWithArray, isArray, isFunction, isString } from './utils';
-import { applyCracoConfigPlugins } from './features/plugins';
-import { POSTCSS_MODES } from './features/webpack/style/postcss';
-import { ESLINT_MODES } from './features/webpack/eslint';
 
 const DEFAULT_CONFIG: CracoConfig = {
     reactScriptsVersion: 'react-scripts',
     style: {
         postcss: {
-            mode: POSTCSS_MODES.extends,
+            mode: 'extends',
         },
     },
     eslint: {
-        mode: ESLINT_MODES.extends,
+        mode: 'extends',
     },
     jest: {
         babel: {
@@ -59,7 +56,10 @@ function ensureConfigSanity(cracoConfig: CracoConfig) {
     }
 }
 
-export function processCracoConfig(cracoConfig: CracoConfig, context: Context) {
+export function processCracoConfig(
+    cracoConfig: CracoConfig,
+    context: BaseContext
+) {
     let resultingCracoConfig = deepMergeWithArray(
         {},
         DEFAULT_CONFIG,
@@ -97,7 +97,7 @@ function getConfigPath() {
     }
 }
 
-function getConfigAsObject(context: Context) {
+function getConfigAsObject(context: BaseContext) {
     const configFilePath = getConfigPath();
     log('Config file path resolved to: ', configFilePath);
     const result = explorer.load(configFilePath);
@@ -114,7 +114,7 @@ function getConfigAsObject(context: Context) {
     return configAsObject;
 }
 
-export function loadCracoConfig(context: Context) {
+export function loadCracoConfig(context: BaseContext) {
     const configAsObject = getConfigAsObject(context);
 
     if (configAsObject instanceof Promise) {
@@ -127,7 +127,7 @@ export function loadCracoConfig(context: Context) {
 }
 
 // The "build", "start", and "test" scripts use this to wait for any promises to resolve before they run.
-export async function loadCracoConfigAsync(context: Context) {
+export async function loadCracoConfigAsync(context: BaseContext) {
     const configAsObject = await getConfigAsObject(context);
 
     if (!configAsObject) {

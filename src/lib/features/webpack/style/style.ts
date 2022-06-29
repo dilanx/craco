@@ -1,13 +1,15 @@
-import { overrideCss } from './css';
-import { overrideSass } from './sass';
-import { overridePostcss } from './postcss';
-import type { CracoConfig, Context } from '../../../../types/config';
 import type { Configuration as WebpackConfig } from 'webpack';
+import type { CracoConfig } from '../../../../types/config';
+import type { BaseContext } from '../../../../types/context';
+
+import { overrideCss } from './css';
+import { overridePostcss } from './postcss';
+import { overrideSass } from './sass';
 
 export function overrideStyle(
     cracoConfig: CracoConfig,
     webpackConfig: WebpackConfig,
-    context: Context
+    context: BaseContext
 ) {
     if (cracoConfig.style) {
         webpackConfig = overrideCss(cracoConfig.style, webpackConfig, context);

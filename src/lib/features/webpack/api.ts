@@ -1,6 +1,7 @@
-import type { CliArgs } from '../../../types/args';
-import type { Context, CracoConfig } from '../../../types/config';
 import type { Configuration as WebpackConfig } from 'webpack';
+import type { CliArgs } from '../../../types/args';
+import type { CracoConfig } from '../../../types/config';
+import type { WebpackContext } from '../../../types/context';
 
 import { setArgs } from '../../args';
 import { processCracoConfig } from '../../config';
@@ -14,7 +15,7 @@ import { mergeWebpackConfig } from './merge-webpack-config';
 
 export function createWebpackDevConfig(
     callerCracoConfig: CracoConfig,
-    callerContext?: Context,
+    callerContext?: WebpackContext,
     options?: CliArgs
 ) {
     return createWebpackConfig(
@@ -28,7 +29,7 @@ export function createWebpackDevConfig(
 
 export function createWebpackProdConfig(
     callerCracoConfig: CracoConfig,
-    callerContext?: Context,
+    callerContext?: WebpackContext,
     options?: CliArgs
 ) {
     return createWebpackConfig(
@@ -42,7 +43,7 @@ export function createWebpackProdConfig(
 
 function createWebpackConfig(
     callerCracoConfig: CracoConfig,
-    callerContext: Context = {},
+    callerContext: WebpackContext = {},
     loadWebpackConfig: (cracoConfig: CracoConfig) => WebpackConfig,
     env: string,
     options: CliArgs = {}
@@ -60,7 +61,7 @@ function createWebpackConfig(
 
     setArgs(options);
 
-    const context: Context = {
+    const context: WebpackContext = {
         env: process.env.NODE_ENV,
         ...callerContext,
     };

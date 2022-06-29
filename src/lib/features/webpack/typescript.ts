@@ -1,5 +1,6 @@
 import type { Configuration as WebpackConfig } from 'webpack';
 import type { CracoConfig } from '../../../types/config';
+
 import { log } from '../../logger';
 
 function disableTypeChecking(webpackConfig: WebpackConfig) {

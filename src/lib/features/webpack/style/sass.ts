@@ -1,14 +1,11 @@
-import type {
-    SassLoaderOptions,
-    SassOptions,
-    CracoStyleConfig,
-    Context,
-} from '../../../../types/config';
 import type { Configuration as WebpackConfig } from 'webpack';
-import type { CompleteLoader, Loader } from '../../../../types/loaders';
+import type { Configure, CracoStyleConfig } from '../../../../types/config';
+import { BaseContext } from '../../../../types/context';
+import type { CompleteLoader } from '../../../../types/loaders';
+
 import { getLoaders, loaderByName } from '../../../loaders';
 import { log, logError } from '../../../logger';
-import { isString, isFunction, deepMergeWithArray } from '../../../utils';
+import { deepMergeWithArray, isFunction, isString } from '../../../utils';
 
 function setLoaderProperty(
     match: CompleteLoader,
@@ -30,8 +27,8 @@ function setLoaderProperty(
 
 function applyLoaderOptions(
     match: CompleteLoader,
-    loaderOptions: SassLoaderOptions,
-    context: Context
+    loaderOptions: Configure<any, BaseContext>,
+    context: BaseContext
 ) {
     if (isFunction(loaderOptions)) {
         setLoaderProperty(match, 'options', {
@@ -63,10 +60,10 @@ function applyLoaderOptions(
 
 function overrideLoader(
     match: CompleteLoader,
-    sassOptions: SassOptions,
-    context: Context
+    { sass: sassOptions }: CracoStyleConfig,
+    context: BaseContext
 ) {
-    const { loaderOptions } = sassOptions;
+    const { loaderOptions } = sassOptions ?? {};
 
     if (loaderOptions) {
         applyLoaderOptions(match, loaderOptions, context);
@@ -78,7 +75,7 @@ function overrideLoader(
 export function overrideSass(
     styleConfig: CracoStyleConfig,
     webpackConfig: WebpackConfig,
-    context: Context
+    context: BaseContext
 ) {
     if (styleConfig.sass) {
         const { hasFoundAny, matches } = getLoaders(
@@ -93,7 +90,7 @@ export function overrideSass(
         }
 
         matches.forEach((x) => {
-            overrideLoader(x as CompleteLoader, styleConfig.sass!, context);
+            overrideLoader(x as CompleteLoader, styleConfig, context);
         });
     }
 

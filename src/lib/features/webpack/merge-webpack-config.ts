@@ -1,10 +1,11 @@
 import type { Configuration as WebpackConfig } from 'webpack';
 import type {
-    Context,
+    AddWebpackPlugins,
+    Configure,
     CracoConfig,
     WebpackAlias,
-    WebpackPlugins,
 } from '../../../types/config';
+import type { WebpackContext } from '../../../types/context';
 
 import merge from 'webpack-merge';
 import { log } from '../../logger';
@@ -34,7 +35,7 @@ function addAlias(webpackConfig: WebpackConfig, webpackAlias: WebpackAlias) {
 
 function addPlugins(
     webpackConfig: WebpackConfig,
-    webpackPlugins: WebpackPlugins
+    webpackPlugins: AddWebpackPlugins
 ) {
     if (isArray(webpackPlugins)) {
         addWebpackPlugins(webpackConfig, webpackPlugins);
@@ -79,10 +80,8 @@ function removePluginsFromWebpackConfig(
 
 function giveTotalControl(
     webpackConfig: WebpackConfig,
-    configureWebpack:
-        | WebpackConfig
-        | ((webpackConfig: WebpackConfig, context: Context) => WebpackConfig),
-    context: Context
+    configureWebpack: Configure<WebpackConfig, WebpackContext>,
+    context: WebpackContext
 ) {
     if (isFunction(configureWebpack)) {
         webpackConfig = configureWebpack(webpackConfig, context);
@@ -105,7 +104,7 @@ function giveTotalControl(
 export function mergeWebpackConfig(
     cracoConfig: CracoConfig,
     webpackConfig: WebpackConfig,
-    context: Context
+    context: WebpackContext
 ) {
     let resultingWebpackConfig = webpackConfig;
 

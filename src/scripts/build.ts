@@ -1,4 +1,4 @@
-import type { Context } from '../types/config';
+import type { BaseContext } from '../types/context';
 
 process.env.NODE_ENV = 'production';
 
@@ -16,7 +16,7 @@ import { validateCraVersion } from '../lib/validate-cra-version';
 log('Override started with arguments: ', process.argv);
 log('For environment: ', process.env.NODE_ENV);
 
-const context: Context = {
+const context: BaseContext = {
     env: process.env.NODE_ENV,
 };
 

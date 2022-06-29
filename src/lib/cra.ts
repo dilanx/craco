@@ -1,9 +1,8 @@
+import type { Configuration as WebpackConfig } from 'webpack';
+import type { CracoConfig } from '../types/config';
+
 import path from 'path';
 import semver from 'semver';
-import type { CracoConfig } from '../types/config';
-import type { Configuration as WebpackConfig } from 'webpack';
-import type { Configuration as DevServerConfig } from 'webpack-dev-server';
-import type { Config as JestConfig } from '@jest/types';
 import { log } from './logger';
 import { projectRoot } from './paths';
 

@@ -1,15 +1,16 @@
-import type { Context, CracoConfig } from '../../../types/config';
 import type { CliArgs } from '../../../types/args';
+import type { CracoConfig } from '../../../types/config';
+import type { DevServerContext } from '../../../types/context';
 
-import { isFunction } from '../../utils';
 import { setArgs } from '../../args';
-import { createConfigProviderProxy } from './create-config-provider-proxy';
 import { processCracoConfig } from '../../config';
 import { getCraPaths } from '../../cra';
+import { isFunction } from '../../utils';
+import { createConfigProviderProxy } from './create-config-provider-proxy';
 
 export function createDevServerConfigProviderProxy(
     callerCracoConfig: CracoConfig,
-    callerContext: Context,
+    callerContext: DevServerContext,
     options: CliArgs
 ) {
     if (!callerCracoConfig) {
@@ -25,7 +26,7 @@ export function createDevServerConfigProviderProxy(
 
     setArgs(options);
 
-    const context: Context = {
+    const context: DevServerContext = {
         env: process.env.NODE_ENV,
         ...callerContext,
     };

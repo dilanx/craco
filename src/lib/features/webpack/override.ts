@@ -1,4 +1,5 @@
-import type { Context, CracoConfig } from '../../../types/config';
+import type { CracoConfig } from '../../../types/config';
+import type { WebpackContext } from '../../../types/context';
 
 import {
     loadWebpackDevConfig,
@@ -8,7 +9,10 @@ import {
 } from '../../cra';
 import { mergeWebpackConfig } from './merge-webpack-config';
 
-export function overrideWebpackDev(cracoConfig: CracoConfig, context: Context) {
+export function overrideWebpackDev(
+    cracoConfig: CracoConfig,
+    context: WebpackContext
+) {
     const craWebpackConfig = loadWebpackDevConfig(cracoConfig);
     const resultingWebpackConfig = mergeWebpackConfig(
         cracoConfig,
@@ -21,7 +25,7 @@ export function overrideWebpackDev(cracoConfig: CracoConfig, context: Context) {
 
 export function overrideWebpackProd(
     cracoConfig: CracoConfig,
-    context: Context
+    context: WebpackContext
 ) {
     const craWebpackConfig = loadWebpackProdConfig(cracoConfig);
     const resultingWebpackConfig = mergeWebpackConfig(

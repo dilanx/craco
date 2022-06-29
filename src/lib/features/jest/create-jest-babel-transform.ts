@@ -1,6 +1,4 @@
-import type { SyncTransformer } from '@jest/transform';
 import type { CracoConfig } from '../../../types/config';
-import type { TransformOptions } from '@babel/core';
 
 import babelJest from 'babel-jest';
 import { loadCracoConfig } from '../../config';
@@ -43,7 +41,7 @@ export function createJestBabelTransform(cracoConfig?: CracoConfig) {
     };
 
     if (cracoConfig) {
-        const { addPresets, addPlugins } = cracoConfig.jest.babel;
+        const { addPresets, addPlugins } = cracoConfig.jest?.babel ?? {};
 
         if (cracoConfig.babel) {
             if (addPresets) {

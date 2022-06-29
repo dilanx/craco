@@ -4,8 +4,6 @@ import {
     createWebpackDevConfig,
     createWebpackProdConfig,
 } from './lib/features/webpack/api';
-import { ESLINT_MODES } from './lib/features/webpack/eslint';
-import { POSTCSS_MODES } from './lib/features/webpack/style/postcss';
 import {
     addAfterLoader,
     addAfterLoaders,
@@ -44,8 +42,6 @@ export {
     whenTest,
     throwUnexpectedConfigError,
     gitHubIssueUrl,
-    ESLINT_MODES,
-    POSTCSS_MODES,
     createJestConfig,
     createWebpackDevConfig,
     createWebpackProdConfig,

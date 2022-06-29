@@ -1,20 +1,22 @@
 import type { Config as JestConfig } from '@jest/types';
 import type { Configuration as WebpackConfig } from 'webpack';
 import type { Configuration as DevServerConfig } from 'webpack-dev-server';
+import type { CracoConfig, CracoPluginDefinition } from '../../types/config';
 import type {
-    Context,
-    CracoConfig,
-    CracoPluginDefinition,
-} from '../../types/config';
+    BaseContext,
+    DevServerContext,
+    JestContext,
+    WebpackContext,
+} from '../../types/context';
 
 import { log } from '../logger';
 
 /************  Craco Config  ************/
 
 function overrideCraco(
-    { plugin, options }: CracoPluginDefinition,
+    { plugin, options }: CracoPluginDefinition<any>,
     cracoConfig: CracoConfig,
-    context: Context
+    context: BaseContext
 ) {
     if (plugin.overrideCracoConfig) {
         const resultingConfig = plugin.overrideCracoConfig({
@@ -39,7 +41,7 @@ function overrideCraco(
 
 export function applyCracoConfigPlugins(
     cracoConfig: CracoConfig,
-    context: Context
+    context: BaseContext
 ) {
     if (cracoConfig.plugins) {
         cracoConfig.plugins.forEach((plugin) => {
@@ -55,10 +57,10 @@ export function applyCracoConfigPlugins(
 /************  Webpack Config  ************/
 
 function overrideWebpack(
-    { plugin, options }: CracoPluginDefinition,
+    { plugin, options }: CracoPluginDefinition<any>,
     cracoConfig: CracoConfig,
     webpackConfig: WebpackConfig,
-    context: Context
+    context: WebpackContext
 ) {
     if (plugin.overrideWebpackConfig) {
         const resultingConfig = plugin.overrideWebpackConfig({
@@ -85,7 +87,7 @@ function overrideWebpack(
 export function applyWebpackConfigPlugins(
     cracoConfig: CracoConfig,
     webpackConfig: WebpackConfig,
-    context: Context
+    context: WebpackContext
 ) {
     if (cracoConfig.plugins) {
         cracoConfig.plugins.forEach((plugin) => {
@@ -106,10 +108,10 @@ export function applyWebpackConfigPlugins(
 /************  DevServer Config  ************/
 
 function overrideDevServer(
-    { plugin, options }: CracoPluginDefinition,
+    { plugin, options }: CracoPluginDefinition<any>,
     cracoConfig: CracoConfig,
     devServerConfig: DevServerConfig,
-    context: Context
+    context: DevServerContext
 ) {
     if (plugin.overrideDevServerConfig) {
         const resultingConfig = plugin.overrideDevServerConfig({
@@ -136,7 +138,7 @@ function overrideDevServer(
 export function applyDevServerConfigPlugins(
     cracoConfig: CracoConfig,
     devServerConfig: DevServerConfig,
-    context: Context
+    context: DevServerContext
 ) {
     if (cracoConfig.plugins) {
         cracoConfig.plugins.forEach((plugin) => {
@@ -157,10 +159,10 @@ export function applyDevServerConfigPlugins(
 /************  Jest Config  *******************/
 
 function overrideJest(
-    { plugin, options }: CracoPluginDefinition,
+    { plugin, options }: CracoPluginDefinition<any>,
     cracoConfig: CracoConfig,
     jestConfig: JestConfig.InitialOptions,
-    context: Context
+    context: JestContext
 ) {
     if (plugin.overrideJestConfig) {
         const resultingConfig = plugin.overrideJestConfig({
@@ -185,7 +187,7 @@ function overrideJest(
 export function applyJestConfigPlugins(
     cracoConfig: CracoConfig,
     jestConfig: JestConfig.InitialOptions,
-    context: Context
+    context: JestContext
 ) {
     if (cracoConfig.plugins) {
         cracoConfig.plugins.forEach((plugin) => {

@@ -1,4 +1,5 @@
-import type { Context, CracoConfig } from '../../../types/config';
+import type { CracoConfig } from '../../../types/config';
+import type { DevServerContext } from '../../../types/context';
 
 import merge from 'webpack-merge';
 import { loadDevServerConfigProvider } from '../../cra';
@@ -9,7 +10,7 @@ import { applyDevServerConfigPlugins } from '../plugins';
 function createProxy(
     cracoConfig: CracoConfig,
     craDevServerConfigProvider: any,
-    context: Context
+    context: DevServerContext
 ) {
     const proxy = (proxy: any, allowedHost: string) => {
         let devServerConfig = craDevServerConfigProvider(proxy, allowedHost);
@@ -54,7 +55,7 @@ function createProxy(
 
 export function createConfigProviderProxy(
     cracoConfig: CracoConfig,
-    context: Context
+    context: DevServerContext
 ) {
     const craDevServerConfigProvider = loadDevServerConfigProvider(cracoConfig);
     const proxy = createProxy(cracoConfig, craDevServerConfigProvider, context);

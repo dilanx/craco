@@ -1,24 +1,13 @@
+import type { Configuration as WebpackConfig } from 'webpack';
+import type { Configure, CracoStyleConfig } from '../../../../types/config';
+import type { BaseContext } from '../../../../types/context';
+import type { CompleteLoader, Loader } from '../../../../types/loaders';
+
+import { isString } from 'lodash';
 import { getLoaders, loaderByName } from '../../../loaders';
 import { log, logError } from '../../../logger';
-import { isArray, isFunction, deepMergeWithArray } from '../../../utils';
 import { projectRoot } from '../../../paths';
-import { CompleteLoader, Loader } from '../../../../types/loaders';
-import {
-    PostCssLoaderOptions,
-    PostCssOptions,
-    CracoStyleConfig,
-    Context,
-} from '../../../../types/config';
-import { Configuration as WebpackConfig } from 'webpack';
-import { isString } from 'lodash';
-
-export const POSTCSS_MODES: {
-    extends: 'extends';
-    file: 'file';
-} = {
-    extends: 'extends',
-    file: 'file',
-};
+import { deepMergeWithArray, isArray, isFunction } from '../../../utils';
 
 const CRA_PLUGINS = (presetEnv: any) => {
     // prettier-ignore
@@ -55,8 +44,9 @@ function usePostcssConfigFile(match: Loader) {
 
 function extendsPostcss(
     match: CompleteLoader,
-    { plugins, env }: PostCssOptions
+    { postcss: postcssOptions }: CracoStyleConfig
 ) {
+    const { plugins, env } = postcssOptions ?? {};
     if (isArray(plugins) || env) {
         let postcssPlugins: any[];
 
@@ -103,8 +93,8 @@ function extendsPostcss(
 
 function applyLoaderOptions(
     match: CompleteLoader,
-    loaderOptions: PostCssLoaderOptions,
-    context: Context
+    loaderOptions: Configure<any, BaseContext>,
+    context: BaseContext
 ) {
     if (isFunction(loaderOptions)) {
         match.loader.options = loaderOptions(
@@ -131,15 +121,15 @@ function applyLoaderOptions(
 
 function overrideLoader(
     match: CompleteLoader,
-    postcssConfig: PostCssOptions,
-    context: Context
+    styleConfig: CracoStyleConfig,
+    context: BaseContext
 ) {
-    const { mode, loaderOptions } = postcssConfig;
+    const { mode, loaderOptions } = styleConfig.postcss ?? {};
 
-    if (mode === POSTCSS_MODES.file) {
+    if (mode === 'file') {
         usePostcssConfigFile(match);
     } else {
-        extendsPostcss(match, postcssConfig);
+        extendsPostcss(match, styleConfig);
     }
 
     if (loaderOptions) {
@@ -152,7 +142,7 @@ function overrideLoader(
 export function overridePostcss(
     styleConfig: CracoStyleConfig,
     webpackConfig: WebpackConfig,
-    context: Context
+    context: BaseContext
 ) {
     if (styleConfig.postcss) {
         const { hasFoundAny, matches } = getLoaders(
@@ -167,7 +157,7 @@ export function overridePostcss(
         }
 
         matches.forEach((x) => {
-            overrideLoader(x as CompleteLoader, styleConfig.postcss!, context);
+            overrideLoader(x as CompleteLoader, styleConfig, context);
         });
     }
 

@@ -1,20 +1,20 @@
-import type { RuleSetRule, Configuration as WebpackConfig } from 'webpack';
+import type { Configuration as WebpackConfig, RuleSetRule } from 'webpack';
 import type {
+    Configure,
     CracoBabelConfig,
-    BabelLoaderOptions,
-    BabelPlugins,
-    BabelPresets,
-    Context,
     CracoConfig,
 } from '../../../types/config';
+import type { BaseContext } from '../../../types/context';
 import type { CompleteLoader } from '../../../types/loaders';
+
+import { TransformOptions } from '@babel/core';
 import { getLoaders, loaderByName } from '../../loaders';
 import { log, logError } from '../../logger';
-import { isFunction, isArray, deepMergeWithArray, isString } from '../../utils';
+import { deepMergeWithArray, isArray, isFunction, isString } from '../../utils';
 
 // TODO: CRA use a cacheIdentifier, should we update it with the new plugins?
 
-function addPresets(loader: RuleSetRule, babelPresets: BabelPresets) {
+function addPresets(loader: RuleSetRule, babelPresets: any[]) {
     if (isArray(babelPresets)) {
         if (loader.options && !isString(loader.options)) {
             if (loader.options.presets) {
@@ -33,7 +33,7 @@ function addPresets(loader: RuleSetRule, babelPresets: BabelPresets) {
     log('Added Babel presets.');
 }
 
-function addPlugins(loader: RuleSetRule, babelPlugins: BabelPlugins) {
+function addPlugins(loader: RuleSetRule, babelPlugins: any[]) {
     if (isArray(babelPlugins)) {
         if (loader.options && !isString(loader.options)) {
             if (loader.options.plugins) {
@@ -54,17 +54,14 @@ function addPlugins(loader: RuleSetRule, babelPlugins: BabelPlugins) {
 
 function applyLoaderOptions(
     loader: RuleSetRule,
-    loaderOptions:
-        | BabelLoaderOptions
-        | ((
-              babelLoaderOptions: BabelLoaderOptions,
-              context: Context
-          ) => BabelLoaderOptions)
-        | undefined,
-    context: Context
+    loaderOptions: Configure<TransformOptions, BaseContext>,
+    context: BaseContext
 ) {
     if (isFunction(loaderOptions)) {
-        loader.options = loaderOptions(loader.options || {}, context);
+        loader.options = loaderOptions(
+            (loader.options as TransformOptions) || {},
+            context
+        );
 
         if (!loader.options) {
             throw new Error(
@@ -86,7 +83,7 @@ function applyLoaderOptions(
 function overrideLoader(
     match: CompleteLoader,
     babelConfig: CracoBabelConfig,
-    context: Context
+    context: BaseContext
 ) {
     const { presets, plugins, loaderOptions } = babelConfig;
 
@@ -106,7 +103,7 @@ function overrideLoader(
 export function overrideBabel(
     cracoConfig: CracoConfig,
     webpackConfig: WebpackConfig,
-    context: Context
+    context: BaseContext
 ) {
     if (cracoConfig.babel) {
         const { hasFoundAny, matches } = getLoaders(

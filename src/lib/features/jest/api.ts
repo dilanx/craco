@@ -1,5 +1,6 @@
 import type { CliArgs } from '../../../types/args';
-import type { Context, CracoConfig } from '../../../types/config';
+import type { CracoConfig } from '../../../types/config';
+import type { JestContext } from '../../../types/context';
 
 import { setArgs } from '../../args';
 import { processCracoConfig } from '../../config';
@@ -9,7 +10,7 @@ import { mergeJestConfig } from './merge-jest-config';
 
 export function createJestConfig(
     callerCracoConfig: CracoConfig,
-    callerContext: Context = {},
+    callerContext: JestContext = {},
     options: CliArgs = {}
 ) {
     if (!callerCracoConfig) {
@@ -25,7 +26,7 @@ export function createJestConfig(
 
     setArgs(options);
 
-    const context: CliArgs = {
+    const context: JestContext = {
         env: process.env.NODE_ENV,
         ...callerContext,
     };
