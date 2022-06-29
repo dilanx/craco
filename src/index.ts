@@ -1,3 +1,13 @@
+import {
+    addAfterAssetModule,
+    addAfterAssetModules,
+    addBeforeAssetModule,
+    addBeforeAssetModules,
+    assetModuleByName,
+    getAssetModule,
+    getAssetModules,
+    removeAssetModules,
+} from './lib/asset-modules';
 import { createDevServerConfigProviderProxy } from './lib/features/dev-server/api';
 import { createJestConfig } from './lib/features/jest/api';
 import {
@@ -32,6 +42,14 @@ export {
     addAfterLoader,
     addAfterLoaders,
     loaderByName,
+    getAssetModule,
+    getAssetModules,
+    removeAssetModules,
+    addBeforeAssetModule,
+    addBeforeAssetModules,
+    addAfterAssetModule,
+    addAfterAssetModules,
+    assetModuleByName,
     getPlugin,
     pluginByName,
     addPlugins,

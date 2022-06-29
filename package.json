@@ -1,7 +1,7 @@
 {
     "name": "@craco/craco",
     "description": "Create React App Configuration Override, an easy and comprehensible configuration layer for create-react-app.",
-    "version": "7.0.0-alpha.5",
+    "version": "7.0.0-alpha.6",
     "scripts": {
         "prepublishOnly": "tsc"
     },
@@ -52,10 +52,10 @@
         "@types/eslint": "^8.4.3",
         "@types/lodash": "^4.14.182",
         "@types/semver": "^7.3.10",
-        "@types/webpack": "^5.28.0",
         "eslint-webpack-plugin": "^3.2.0",
         "react-scripts": "5.*",
-        "typescript": "^4.7.4"
+        "typescript": "^4.7.4",
+        "webpack": "^5.73.0"
     },
     "dependencies": {
         "autoprefixer": "^10.4.7",

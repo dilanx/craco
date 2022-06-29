@@ -3,7 +3,7 @@ import type {
     RuleSetRule,
     RuleSetUseItem,
 } from 'webpack';
-import type { Loader, Matcher, Rule, Rules } from '../types/loaders';
+import type { Loader, LoaderMatcher, Rule, Rules } from '../types/loaders';
 
 import path from 'path';
 import { isArray, isString } from './utils';
@@ -28,15 +28,13 @@ export function loaderByName(targetLoaderName: string) {
     };
 }
 
-function toMatchingLoader(loader: Rule, parent: Rules, index: number): Loader {
-    return {
-        loader,
-        parent,
-        index,
-    };
-}
+const toMatchingLoader = (
+    loader: Rule,
+    parent: Rules,
+    index: number
+): Loader => ({ loader, parent, index });
 
-function getLoaderRecursively(rules: Rules, matcher: Matcher) {
+function getLoaderRecursively(rules: Rules, matcher: LoaderMatcher) {
     let loader: Loader | undefined;
 
     rules?.some((rule, index) => {
@@ -71,21 +69,21 @@ function getLoaderRecursively(rules: Rules, matcher: Matcher) {
     return loader;
 }
 
-export function getLoader(webpackConfig: WebpackConfig, matcher: Matcher) {
+export function getLoader(
+    webpackConfig: WebpackConfig,
+    matcher: LoaderMatcher
+) {
     const matchingLoader = getLoaderRecursively(
         webpackConfig.module?.rules as Rules,
         matcher
     );
 
-    return {
-        isFound: matchingLoader !== undefined,
-        match: matchingLoader,
-    };
+    return { isFound: matchingLoader !== undefined, match: matchingLoader };
 }
 
 function getLoadersRecursively(
     rules: Rules,
-    matcher: Matcher,
+    matcher: LoaderMatcher,
     matchingLoaders: Loader[]
 ) {
     rules?.forEach((rule, index) => {
@@ -119,7 +117,10 @@ function getLoadersRecursively(
     });
 }
 
-export function getLoaders(webpackConfig: WebpackConfig, matcher: Matcher) {
+export function getLoaders(
+    webpackConfig: WebpackConfig,
+    matcher: LoaderMatcher
+) {
     const matchingLoaders: Loader[] = [];
 
     getLoadersRecursively(
@@ -136,7 +137,7 @@ export function getLoaders(webpackConfig: WebpackConfig, matcher: Matcher) {
 
 function removeLoadersRecursively(
     rules: Rules,
-    matcher: Matcher
+    matcher: LoaderMatcher
 ): {
     rules: Rules;
     removedCount: number;
@@ -145,10 +146,7 @@ function removeLoadersRecursively(
     let removedCount = 0;
 
     if (!rules) {
-        return {
-            rules,
-            removedCount: 0,
-        };
+        return { rules, removedCount: 0 };
     }
 
     for (let i = 0, max = rules.length; i < max; i += 1) {
@@ -189,13 +187,13 @@ function removeLoadersRecursively(
         rules.splice(ruleIndex - i, 1);
     });
 
-    return {
-        rules,
-        removedCount: removedCount + toRemove.length,
-    };
+    return { rules, removedCount: removedCount + toRemove.length };
 }
 
-export function removeLoaders(webpackConfig: WebpackConfig, matcher: Matcher) {
+export function removeLoaders(
+    webpackConfig: WebpackConfig,
+    matcher: LoaderMatcher
+) {
     const result = removeLoadersRecursively(
         webpackConfig.module?.rules as Rules,
         matcher
@@ -209,7 +207,7 @@ export function removeLoaders(webpackConfig: WebpackConfig, matcher: Matcher) {
 
 function addLoader(
     webpackConfig: WebpackConfig,
-    matcher: Matcher,
+    matcher: LoaderMatcher,
     newLoader: Rule,
     positionAdapter: (index: number) => number
 ) {
@@ -226,18 +224,19 @@ function addLoader(
 
 export const addBeforeLoader = (
     webpackConfig: WebpackConfig,
-    matcher: Matcher,
+    matcher: LoaderMatcher,
     newLoader: Rule
 ) => addLoader(webpackConfig, matcher, newLoader, (x) => x);
+
 export const addAfterLoader = (
     webpackConfig: WebpackConfig,
-    matcher: Matcher,
+    matcher: LoaderMatcher,
     newLoader: Rule
 ) => addLoader(webpackConfig, matcher, newLoader, (x) => x + 1);
 
 function addLoaders(
     webpackConfig: WebpackConfig,
-    matcher: Matcher,
+    matcher: LoaderMatcher,
     newLoader: Rule,
     positionAdapter: (index: number) => number
 ) {
@@ -248,25 +247,20 @@ function addLoaders(
             match!.parent?.splice(positionAdapter(match.index), 0, newLoader);
         });
 
-        return {
-            isAdded: true,
-            addedCount: matches.length,
-        };
+        return { isAdded: true, addedCount: matches.length };
     }
 
-    return {
-        isAdded: false,
-        addedCount: 0,
-    };
+    return { isAdded: false, addedCount: 0 };
 }
 
 export const addBeforeLoaders = (
     webpackConfig: WebpackConfig,
-    matcher: Matcher,
+    matcher: LoaderMatcher,
     newLoader: Rule
 ) => addLoaders(webpackConfig, matcher, newLoader, (x) => x);
+
 export const addAfterLoaders = (
     webpackConfig: WebpackConfig,
-    matcher: Matcher,
+    matcher: LoaderMatcher,
     newLoader: Rule
 ) => addLoaders(webpackConfig, matcher, newLoader, (x) => x + 1);
