@@ -3,7 +3,7 @@
     "description": "Create React App Configuration Override, an easy and comprehensible configuration layer for create-react-app.",
     "version": "7.0.0-alpha.4",
     "scripts": {
-        "prepublish": "tsc"
+        "prepublishOnly": "tsc"
     },
     "publishConfig": {
         "access": "public"
