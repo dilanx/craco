@@ -21,7 +21,9 @@ const hasJsxRuntime = (() => {
     }
 })();
 
-export function createJestBabelTransform(cracoConfig?: CracoConfig) {
+// TODO shouldn't have to type this as any, maybe dependencies are messed up?
+
+export function createJestBabelTransform(cracoConfig?: CracoConfig): any {
     if (!cracoConfig) {
         const context = { env: process.env.NODE_ENV };
         cracoConfig = loadCracoConfig(context);
@@ -49,7 +51,7 @@ export function createJestBabelTransform(cracoConfig?: CracoConfig) {
 
                 if (isArray(presets)) {
                     craBabelTransformer.presets =
-                        craBabelTransformer.presets.concat(presets);
+                        craBabelTransformer.presets?.concat(presets);
                 }
             }
 
