@@ -91,7 +91,7 @@ export interface CracoPluginDefinition<Options> {
 }
 
 export interface CracoConfig {
-    reactScriptsVersion: string;
+    reactScriptsVersion?: string;
     style?: CracoStyleConfig;
     eslint?: CracoEsLintConfig;
     babel?: CracoBabelConfig;

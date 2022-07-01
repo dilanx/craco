@@ -11,8 +11,6 @@ const CRA_LATEST_SUPPORTED_MAJOR_VERSION = '5.0.0';
 
 /************  Common  ************/
 
-// TODO here
-
 function resolveConfigFilePath(cracoConfig: CracoConfig, fileName: string) {
     if (!envLoaded) {
         // Environment variables must be loaded before the CRA paths, otherwise they will not be applied.
@@ -29,14 +27,22 @@ function resolveConfigFilePathInner(
     fileName: string
 ) {
     return require.resolve(
-        path.join(cracoConfig.reactScriptsVersion, 'config', fileName),
+        path.join(
+            cracoConfig.reactScriptsVersion ?? 'react-scripts',
+            'config',
+            fileName
+        ),
         { paths: [projectRoot] }
     );
 }
 
 function resolveScriptsFilePath(cracoConfig: CracoConfig, fileName: string) {
     return require.resolve(
-        path.join(cracoConfig.reactScriptsVersion, 'scripts', fileName),
+        path.join(
+            cracoConfig.reactScriptsVersion ?? 'react-scripts',
+            'scripts',
+            fileName
+        ),
         { paths: [projectRoot] }
     );
 }
@@ -57,7 +63,10 @@ function overrideModule(modulePath: string, newModule: any) {
 
 function resolvePackageJson(cracoConfig: CracoConfig) {
     return require.resolve(
-        path.join(cracoConfig.reactScriptsVersion, 'package.json'),
+        path.join(
+            cracoConfig.reactScriptsVersion ?? 'react-scripts',
+            'package.json'
+        ),
         { paths: [projectRoot] }
     );
 }
