@@ -82,10 +82,10 @@ function applyLoaderOptions(
 
 function overrideLoader(
     match: CompleteLoader,
-    babelConfig: CracoBabelConfig,
+    cracoConfig: CracoConfig,
     context: BaseContext
 ) {
-    const { presets, plugins, loaderOptions } = babelConfig;
+    const { presets, plugins, loaderOptions } = cracoConfig.babel ?? {};
 
     if (presets) {
         addPresets(match.loader, presets);
