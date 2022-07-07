@@ -53,7 +53,7 @@ function createJestBabelTransform(cracoConfig) {
             }
         }
     }
-    return babelJest.default.createTransformer(craBabelTransformer);
+    return babelJest.createTransformer(craBabelTransformer);
 }
 
 module.exports = {
