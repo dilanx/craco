@@ -1,73 +1,37 @@
 {
-  "name": "@craco/craco",
-  "description": "Create React App Configuration Override, an easy and comprehensible configuration layer for create-react-app.",
-  "version": "7.0.0-alpha.8",
-  "scripts": {
-    "prepublishOnly": "tsc",
-    "test": "jest"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gsoft-inc/craco.git"
-  },
+  "name": "craco",
+  "private": true,
+  "license": "Apache-2.0",
   "keywords": [
     "react",
     "create-react-app",
     "cra"
   ],
-  "contributors": [
-    {
-      "name": "Groupe Sharegate inc."
-    },
-    {
-      "name": "Dilan Nair",
-      "url": "https://www.dilanxd.com"
-    }
+  "workspaces": [
+    "packages/*"
   ],
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/gsoft-inc/craco/issues"
+  "scripts": {
+    "lint": "npm run lint:ts && npm run lint:es",
+    "lint:ts": "tsc --noEmit",
+    "lint:es": "eslint --ext .ts",
+    "tslint": "tsc --noEmit",
+    "bootstrap": "lerna bootstrap",
+    "build": "lerna exec npm run build",
+    "build:types": "npm run build -w @craco/types",
+    "build:craco": "npm run build -w @craco/craco",
+    "publish": "lerna publish --force-publish",
+    "publish:alpha": "lerna publish --dist-tag alpha",
+    "pack": "lerna exec npm pack",
+    "refresh": "npm run build && npm run bootstrap",
+    "refresh:types": "npm run build:types && npm run bootstrap"
   },
-  "homepage": "https://github.com/gsoft-inc/craco",
-  "engines": {
-    "node": ">=6"
-  },
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
-  "bin": {
-    "craco": "./dist/bin/craco.js"
-  },
-  "peerDependencies": {
-    "react-scripts": "^5.0.0"
-  },
+  "prettier": "@dilanx/config/prettier",
   "devDependencies": {
-    "@babel/types": "^7.18.4",
-    "@jest/types": "^28.1.1",
-    "@types/cross-spawn": "^6.0.2",
-    "@types/eslint": "^8.4.3",
-    "@types/jest": "^28.1.3",
-    "@types/lodash": "^4.14.182",
-    "@types/semver": "^7.3.10",
-    "eslint-webpack-plugin": "^3.2.0",
-    "jest": "^28.1.2",
-    "react-scripts": "5.*",
-    "ts-jest": "^28.0.5",
-    "typescript": "^4.7.4",
-    "webpack": "^5.73.0"
-  },
-  "dependencies": {
-    "autoprefixer": "^10.4.7",
-    "cosmiconfig": "^7.0.1",
-    "cosmiconfig-typescript-loader": "^2.0.2",
-    "cross-spawn": "^7.0.3",
-    "lodash": "^4.17.21",
-    "semver": "^7.3.7",
-    "webpack-merge": "^5.8.0"
+    "@dilanx/config": "^1.1.0",
+    "@typescript-eslint/eslint-plugin": "^5.38.1",
+    "@typescript-eslint/parser": "^5.38.1",
+    "eslint": "^8.24.0",
+    "lerna": "^5.5.4",
+    "prettier": "2.7.1"
   }
 }

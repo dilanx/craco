@@ -1,0 +1,40 @@
+{
+"name": "@craco/types",
+  "description": "Official type declarations for @craco/craco",
+  "version": "7.0.0-alpha.7",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepack": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dilanx/craco.git",
+    "directory": "packages/craco-types"
+  },
+  "author": "Dilan Nair (https://www.dilanxd.com)",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/dilanx/craco/issues"
+  },
+  "homepage": "https://github.com/dilanx/craco#readme",
+  "dependencies": {
+    "@babel/types": "^7.19.3",
+    "@jest/types": "^29.1.2",
+    "@types/eslint": "^8.4.6",
+    "autoprefixer": "^10.4.12",
+    "eslint-webpack-plugin": "^3.2.0",
+    "webpack": "^5.74.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.8.4"
+  },
+  "publishConfig": {
+    "access": "public",
+    "directory": "dist"
+  }
+}
