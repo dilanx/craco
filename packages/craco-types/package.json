@@ -5,6 +5,9 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
+    "package.json",
+    "README.md",
+    "LICENSE",
     "dist"
   ],
   "scripts": {
