@@ -19,8 +19,8 @@
     "build": "lerna exec npm run build",
     "build:types": "npm run build -w @craco/types",
     "build:craco": "npm run build -w @craco/craco",
-    "publish": "lerna publish --force-publish",
-    "publish:alpha": "lerna publish --dist-tag alpha",
+    "publish": "lerna publish --force-publish --no-private",
+    "publish:alpha": "lerna publish --dist-tag alpha --no-private",
     "pack": "lerna exec npm pack",
     "refresh": "npm run build && npm run bootstrap",
     "refresh:types": "npm run build:types && npm run bootstrap"

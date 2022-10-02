@@ -66,5 +66,6 @@
     "lodash": "^4.17.21",
     "semver": "^7.3.7",
     "webpack-merge": "^5.8.0"
-  }
+  },
+  "gitHead": "3b4293aa147404162ba02145fd7e105a39af9254"
 }
