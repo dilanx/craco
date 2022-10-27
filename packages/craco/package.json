@@ -61,7 +61,7 @@
   "dependencies": {
     "autoprefixer": "^10.4.12",
     "cosmiconfig": "^7.0.1",
-    "cosmiconfig-typescript-loader": "^4.1.1",
+    "cosmiconfig-typescript-loader": "^1.0.0",
     "cross-spawn": "^7.0.3",
     "lodash": "^4.17.21",
     "semver": "^7.3.7",

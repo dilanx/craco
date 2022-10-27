@@ -1,7 +1,7 @@
 import type { BaseContext, CracoConfig } from '@craco/types';
 
 import { cosmiconfigSync } from 'cosmiconfig';
-import { TypeScriptLoader } from 'cosmiconfig-typescript-loader';
+import tsLoader from 'cosmiconfig-typescript-loader';
 import path from 'path';
 import { getArgs } from './args';
 import { applyCracoConfigPlugins } from './features/plugins';
@@ -39,7 +39,7 @@ const explorer = cosmiconfigSync(moduleName, {
     `.${moduleName}rc`,
   ],
   loaders: {
-    '.ts': TypeScriptLoader(),
+    '.ts': tsLoader(),
   },
 });
 
