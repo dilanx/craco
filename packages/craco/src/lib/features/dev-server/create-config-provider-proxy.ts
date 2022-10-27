@@ -40,8 +40,6 @@ function createProxy(
       );
     }
 
-    setEnvironmentVariables(devServerConfig);
-
     devServerConfig = applyDevServerConfigPlugins(
       cracoConfig,
       devServerConfig,
