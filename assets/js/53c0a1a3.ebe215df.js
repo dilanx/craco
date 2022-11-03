@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkcraco_docs=self.webpackChunkcraco_docs||[]).push([[153],{1979:t=>{t.exports=JSON.parse('{"title":"Configuration","slug":"/category/configuration","permalink":"/docs/category/configuration","navigation":{"previous":{"title":"Getting Started","permalink":"/docs/getting-started"},"next":{"title":"Setup","permalink":"/docs/configuration/setup"}}}')}}]);
