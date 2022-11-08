@@ -24,7 +24,7 @@
   "homepage": "https://craco.js.org",
   "dependencies": {
     "@babel/types": "^7.19.3",
-    "@jest/types": "^29.1.2",
+    "@jest/types": "^27.5.2",
     "@types/eslint": "^8.4.6",
     "autoprefixer": "^10.4.12",
     "eslint-webpack-plugin": "^3.2.0",
