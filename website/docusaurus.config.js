@@ -99,7 +99,7 @@ const config = {
             position: 'left',
           },
           {
-            href: 'https://github.com/facebook/docusaurus',
+            href: 'https://github.com/dilanx/craco',
             label: 'GitHub',
             position: 'right',
           },
