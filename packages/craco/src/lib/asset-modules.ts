@@ -108,7 +108,7 @@ export const addAfterAssetModule = (
 function addAssetModules(
   webpackConfig: WebpackConfig,
   matcher: AssetModuleMatcher,
-  newLoader: RuleSetRule,
+  newAssetModule: RuleSetRule,
   positionAdapter: (index: number) => number
 ) {
   const { matches } = getAssetModules(webpackConfig, matcher);
@@ -118,7 +118,7 @@ function addAssetModules(
       webpackConfig.module?.rules?.splice(
         positionAdapter(match.index),
         0,
-        newLoader
+        newAssetModule
       );
     });
 

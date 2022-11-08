@@ -52,7 +52,7 @@ export function throwUnexpectedConfigError({
         : 'You will need to update this plugin to work with the latest version.\n\n') +
       'You might also want to look for related issues in the ' +
       'craco and create-react-app repos:\n\n' +
-      `   * ${gitHubIssueUrl('sharegate/craco', query)}\n` +
+      `   * ${gitHubIssueUrl('dilanx/craco', query)}\n` +
       `   * ${gitHubIssueUrl('facebook/create-react-app', query)}\n`
   );
 }

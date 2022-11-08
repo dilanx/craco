@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/dilanx/craco/issues"
   },
-  "homepage": "https://github.com/dilanx/craco#readme",
+  "homepage": "https://craco.js.org",
   "dependencies": {
     "@babel/types": "^7.19.3",
     "@jest/types": "^29.1.2",

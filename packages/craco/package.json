@@ -32,7 +32,7 @@
   "bugs": {
     "url": "https://github.com/dilanx/craco/issues"
   },
-  "homepage": "https://github.com/dilanx/craco#readme",
+  "homepage": "https://craco.js.org",
   "engines": {
     "node": ">=6"
   },
