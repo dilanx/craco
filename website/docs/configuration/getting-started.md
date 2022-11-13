@@ -126,19 +126,19 @@ module.exports = {
 
 If `condition` evaluates to true, `fn` is called and the helper will return what that function returns. If false, `unmetValue` will be returned (or `undefined` if not provided).
 
-#### `whenDev(condition, fn, [unmetValue])`
+#### `whenDev(fn, [unmetValue])`
 
 `whenDev<T>(fn: () => T, unmetValue?: T): T | undefined`
 
 Equivalent to `when(process.env.NODE_ENV === 'development', fn, unmetValue)`.
 
-#### `whenProd(condition, fn, [unmetValue])`
+#### `whenProd(fn, [unmetValue])`
 
 `whenProd<T>(fn: () => T, unmetValue?: T): T | undefined`
 
 Equivalent to `when(process.env.NODE_ENV === 'production', fn, unmetValue)`.
 
-#### `whenTest(condition, fn, [unmetValue])`
+#### `whenTest(fn, [unmetValue])`
 
 `whenTest<T>(fn: () => T, unmetValue?: T): T | undefined`
 
