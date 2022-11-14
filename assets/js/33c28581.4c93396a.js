@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkcraco_website=self.webpackChunkcraco_website||[]).push([[2467],{6182:e=>{e.exports=JSON.parse('{"title":"Recipes","description":"A collection of configs for common use cases.","slug":"/","permalink":"/recipes/","navigation":{"next":{"title":"Add Autoprefixer options","permalink":"/recipes/add-autoprefixer-options"}}}')}}]);
