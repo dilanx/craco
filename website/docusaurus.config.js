@@ -124,6 +124,10 @@ const config = {
             title: 'Documentation',
             items: [
               {
+                label: 'About CRACO',
+                to: 'docs',
+              },
+              {
                 label: 'Getting Started',
                 to: 'docs/getting-started',
               },
@@ -153,8 +157,12 @@ const config = {
                 to: 'recipes',
               },
               {
-                label: 'GitHub Issues',
+                label: 'Issues',
                 href: 'https://github.com/dilanx/craco/issues',
+              },
+              {
+                label: 'Discussions',
+                href: 'https://github.com/dilanx/craco/discussions',
               },
               {
                 label: 'Stack Overflow',
@@ -177,7 +185,7 @@ const config = {
           },
         ],
 
-        copyright: `Copyright © ${new Date().getFullYear()} Dilan Nair. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Dilan Nair`,
       },
       prism: {
         darkTheme: {
