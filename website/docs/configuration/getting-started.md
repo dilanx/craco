@@ -11,8 +11,8 @@ CRACO can be configured in a file with any of the following names:
 1. `craco.config.ts`
 2. `craco.config.js`
 3. `craco.config.cjs`
-4. `cracorc.ts`
-5. `cracorc.js`
+4. `.cracorc.ts`
+5. `.cracorc.js`
 6. `.cracorc`
 
 If multiple configuration files are found, CRACO will use the one highest on the list above. You can also [specify a file path in your `package.json` file], which will take priority over all files listed above.
