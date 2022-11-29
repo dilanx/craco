@@ -11,8 +11,8 @@ CRACO can be configured in a file with any of the following names:
 1. `craco.config.ts`
 2. `craco.config.js`
 3. `craco.config.cjs`
-4. `cracorc.ts`
-5. `cracorc.js`
+4. `.cracorc.ts`
+5. `.cracorc.js`
 6. `.cracorc`
 
 If multiple configuration files are found, CRACO will use the one highest on the list above. You can also [specify a file path in your `package.json` file], which will take priority over all files listed above.
@@ -126,19 +126,19 @@ module.exports = {
 
 If `condition` evaluates to true, `fn` is called and the helper will return what that function returns. If false, `unmetValue` will be returned (or `undefined` if not provided).
 
-#### `whenDev(condition, fn, [unmetValue])`
+#### `whenDev(fn, [unmetValue])`
 
 `whenDev<T>(fn: () => T, unmetValue?: T): T | undefined`
 
 Equivalent to `when(process.env.NODE_ENV === 'development', fn, unmetValue)`.
 
-#### `whenProd(condition, fn, [unmetValue])`
+#### `whenProd(fn, [unmetValue])`
 
 `whenProd<T>(fn: () => T, unmetValue?: T): T | undefined`
 
 Equivalent to `when(process.env.NODE_ENV === 'production', fn, unmetValue)`.
 
-#### `whenTest(condition, fn, [unmetValue])`
+#### `whenTest(fn, [unmetValue])`
 
 `whenTest<T>(fn: () => T, unmetValue?: T): T | undefined`
 

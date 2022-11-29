@@ -5,6 +5,8 @@ slug: /
 
 # Community Maintained Plugins
 
+Here is a list of some CRACO plugins maintained by the community.
+
 - [craco-antd](https://github.com/DocSpring/craco-antd) by [@DocSpring](https://github.com/DocSpring)
 - [craco-babel-loader](https://github.com/rjerue/craco-babel-loader) by [@rjerue](https://github.com/rjerue/)
 - [craco-base64-inline-loader](https://github.com/melMass/craco-base64-inline-loader) by [@melMass](https://github.com/melMass)
@@ -28,3 +30,5 @@ slug: /
 - [craco-workbox](https://github.com/kevinsperrine/craco-workbox) by [@kevinsperrine](https://github.com/kevinsperrine)
 - [react-app-alias](https://github.com/oklas/react-app-alias) by [@oklas](https://github.com/oklas)
 - [storybook-preset-craco](https://github.com/artisanofcode/storybook-preset-craco) by [@danielknell](https://github.com/danielknell)
+
+Developed one yourself? [Add it to the list!](https://github.com/dilanx/craco/tree/main/website/plugins/plugins.md)

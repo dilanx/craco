@@ -1,12 +1,13 @@
-# Add Autoprefixer options
+# Add PostCSS features
 
 ```js title="craco.config.js"
 module.exports = {
   style: {
     postcss: {
       env: {
-        autoprefixer: {
-          cascade: true,
+        stage: 3,
+        features: {
+          'nesting-rules': true,
         },
       },
     },
