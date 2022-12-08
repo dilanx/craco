@@ -46,7 +46,7 @@ An array of Webpack plugins to add: https://webpack.js.org/plugins/
 You can specify whether or not each plugin is appended or prepended to the existing list of Webpack plugins. If not specified, the default is to prepend. Check out the following example:
 
 ```js title="craco.config.js"
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
 
@@ -54,7 +54,7 @@ module.exports = {
   webpack: {
     plugins: {
       add: [
-        new CopyWebpackPlugin() /* this plugin will be prepended */,
+        new CopyPlugin() /* this plugin will be prepended */,
         [new ESLintPlugin(), 'prepend'] /* this one, too */,
         [new HtmlPlugin(), 'append'] /* not this one though */,
       ],
