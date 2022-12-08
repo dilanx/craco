@@ -54,7 +54,7 @@ module.exports = {
   webpack: {
     plugins: {
       add: [
-        new CopyWebpackPlugin() /* this plugin will be prepended */,
+        new CopyPlugin() /* this plugin will be prepended */,
         [new ESLintPlugin(), 'prepend'] /* this one, too */,
         [new HtmlPlugin(), 'append'] /* not this one though */,
       ],
