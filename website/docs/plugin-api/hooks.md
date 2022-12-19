@@ -100,7 +100,7 @@ module.exports = {
 
     console.log(JSON.stringify(webpackConfig, null, 4));
 
-    return cracoConfig;
+    return webpackConfig;
   },
 };
 ```
