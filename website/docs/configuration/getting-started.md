@@ -103,7 +103,7 @@ Some sections have a `mode` property, which can be assigned one of two values:
 ```js title="craco.config.js (example)"
 module.exports = {
   eslint: {
-    mode: ESLINT_MODES.file,
+    mode: 'file',
     configure: {
       formatter: when(
         process.env.NODE_ENV === 'CI',
