@@ -11,6 +11,7 @@ import { loadCracoConfigAsync } from '../lib/config';
 import { getCraPaths, start } from '../lib/cra';
 import { overrideDevServer } from '../lib/features/dev-server/override';
 import { overrideWebpackDev } from '../lib/features/webpack/override';
+import { overridePaths } from '../lib/features/paths/override';
 import { log } from '../lib/logger';
 import { validateCraVersion } from '../lib/validate-cra-version';
 
@@ -26,6 +27,7 @@ loadCracoConfigAsync(context).then((cracoConfig: CracoConfig) => {
 
   context.paths = getCraPaths(cracoConfig);
 
+  context.paths = overridePaths(cracoConfig, context);
   overrideWebpackDev(cracoConfig, context);
   overrideDevServer(cracoConfig, context);
 

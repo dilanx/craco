@@ -1,5 +1,6 @@
 import type {
   CracoConfig,
+  CraPaths,
   DevServerConfigProvider,
   JestConfigProvider,
 } from '@craco/types';
@@ -62,7 +63,7 @@ function overrideModule(modulePath: string, newModule: any) {
     throw new Error(`Module not found: ${modulePath}`);
   }
   require.cache[modulePath]!.exports = newModule;
-  log(`Overrided require cache for module: ${modulePath}`);
+  log(`Overrode require cache for module: ${modulePath}`);
 }
 
 function resolvePackageJson(cracoConfig: CracoConfig) {
@@ -89,12 +90,25 @@ export function getReactScriptVersion(cracoConfig: CracoConfig) {
 
 let _resolvedCraPaths: any = null;
 
+export function getCraPathsPath(cracoConfig: CracoConfig) {
+  return resolveConfigFilePath(cracoConfig, 'paths.js');
+}
+
 export function getCraPaths(cracoConfig: CracoConfig) {
   if (!_resolvedCraPaths) {
-    _resolvedCraPaths = require(resolveConfigFilePath(cracoConfig, 'paths.js'));
+    _resolvedCraPaths = require(getCraPathsPath(cracoConfig));
   }
 
   return _resolvedCraPaths;
+}
+
+export function overrideCraPaths(
+  cracoConfig: CracoConfig,
+  newConfig?: CraPaths
+) {
+  overrideModule(getCraPathsPath(cracoConfig), newConfig);
+
+  log('Overrode CRA paths config.');
 }
 
 /************  Webpack Dev Config  ************/
@@ -137,7 +151,7 @@ export function overrideWebpackDevConfig(
     overrideModule(result.filepath, () => newConfig);
   }
 
-  log('Overrided Webpack dev config.');
+  log('Overrode Webpack dev config.');
 }
 
 /************  Webpack Prod Config  ************/
@@ -180,7 +194,7 @@ export function overrideWebpackProdConfig(
     overrideModule(result.filepath, () => newConfig);
   }
 
-  log('Overrided Webpack prod config.');
+  log('Overrode Webpack prod config.');
 }
 
 /************  Dev Server Config  ************/
@@ -211,7 +225,7 @@ export function overrideDevServerConfigProvider(
 
   overrideModule(filepath, configProvider);
 
-  log('Overrided dev server config provider.');
+  log('Overrode dev server config provider.');
 }
 
 export function loadDevServerUtils() {
@@ -227,7 +241,7 @@ export function overrideDevServerUtils(newUtils: any) {
 
   overrideModule(filepath, newUtils);
 
-  log('Overrided dev server utils.');
+  log('Overrode dev server utils.');
 }
 
 /************  Jest Config  ************/
@@ -256,7 +270,7 @@ export function overrideJestConfigProvider(
 
   overrideModule(filepath, configProvider);
 
-  log('Overrided Jest config provider.');
+  log('Overrode Jest config provider.');
 }
 
 /************  Scripts  *******************/
