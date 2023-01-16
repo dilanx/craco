@@ -26,8 +26,8 @@ loadCracoConfigAsync(context).then((cracoConfig: CracoConfig) => {
   validateCraVersion(cracoConfig);
 
   context.paths = getCraPaths(cracoConfig);
-
   context.paths = overridePaths(cracoConfig, context);
+
   overrideWebpackDev(cracoConfig, context);
   overrideDevServer(cracoConfig, context);
 
