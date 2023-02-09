@@ -9,6 +9,7 @@ import type {
 import type { Configuration as DevServerConfig } from 'webpack-dev-server';
 import type {
   BaseContext,
+  CraPaths,
   DevServerContext,
   JestContext,
   WebpackContext,
@@ -101,4 +102,5 @@ export interface CracoConfig {
   webpack?: CracoWebpackConfig;
   devServer?: CracoDevServerConfig;
   plugins?: CracoPluginDefinition<any>[];
+  paths?: Configure<CraPaths | undefined, BaseContext>;
 }

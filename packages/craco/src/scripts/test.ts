@@ -10,6 +10,7 @@ findArgsFromCli();
 import { loadCracoConfigAsync } from '../lib/config';
 import { getCraPaths, test } from '../lib/cra';
 import { overrideJest } from '../lib/features/jest/override';
+import { overridePaths } from '../lib/features/paths/override';
 import { log } from '../lib/logger';
 import { validateCraVersion } from '../lib/validate-cra-version';
 
@@ -24,6 +25,7 @@ loadCracoConfigAsync(context).then((cracoConfig: CracoConfig) => {
   validateCraVersion(cracoConfig);
 
   context.paths = getCraPaths(cracoConfig);
+  context.paths = overridePaths(cracoConfig, context);
 
   overrideJest(cracoConfig, context);
   test(cracoConfig);
