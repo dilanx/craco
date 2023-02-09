@@ -131,49 +131,52 @@ function removeLoadersRecursively(
   rules: Ul<RuleSetRule>;
   removedCount: number;
 } {
-  const toRemove = [];
   let removedCount = 0;
 
   if (!rules) {
     return { rules, removedCount: 0 };
   }
 
-  for (let i = 0, max = rules.length; i < max; i += 1) {
+  for (let i = rules.length - 1; i >= 0; i--) {
     const rule = rules[i];
 
-    if (rule) {
-      if (matcher(rule)) {
-        toRemove.push(i);
-      } else if (!isString(rule)) {
-        if (rule.use) {
-          let result;
-          if (isString(rule.use) && matcher(rule.use)) {
-            toRemove.push(i);
-            removedCount++;
-            rule.use = undefined;
-          } else {
-            result = removeLoadersRecursively(
-              rule.use as RuleSetRule[],
-              matcher
-            );
-            removedCount += result.removedCount;
-            (rule.use as Ul<RuleSetRule>) = result.rules;
-          }
-        } else if (rule.oneOf) {
-          const result = removeLoadersRecursively(rule.oneOf, matcher);
+    if (!rule) {
+      continue;
+    }
 
-          removedCount += result.removedCount;
-          (rule.oneOf as Ul<RuleSetRule>) = result.rules;
-        }
+    if (matcher(rule)) {
+      rules.splice(i, 1);
+      removedCount++
+      continue;
+    }
+
+    if (isString(rule)) {
+      continue;
+    }
+
+    if (rule.use) {
+      let result;
+      if (isString(rule.use) && matcher(rule.use)) {
+        rules.splice(i, 1);
+        removedCount++;
+        rule.use = undefined;
+      } else {
+        result = removeLoadersRecursively(
+          rule.use as RuleSetRule[],
+          matcher,
+        );
+        removedCount += result.removedCount;
+        (rule.use as Ul<RuleSetRule>) = result.rules;
       }
+    } else if (rule.oneOf) {
+      const result = removeLoadersRecursively(rule.oneOf, matcher);
+
+      removedCount += result.removedCount;
+      (rule.oneOf as Ul<RuleSetRule>) = result.rules;
     }
   }
 
-  toRemove.forEach((ruleIndex, i) => {
-    rules.splice(ruleIndex - i, 1);
-  });
-
-  return { rules, removedCount: removedCount + toRemove.length };
+  return { rules, removedCount: removedCount };
 }
 
 export function removeLoaders(
