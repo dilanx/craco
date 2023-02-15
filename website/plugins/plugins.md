@@ -30,5 +30,6 @@ Here is a list of some CRACO plugins maintained by the community.
 - [craco-workbox](https://github.com/kevinsperrine/craco-workbox) by [@kevinsperrine](https://github.com/kevinsperrine)
 - [react-app-alias](https://github.com/oklas/react-app-alias) by [@oklas](https://github.com/oklas)
 - [storybook-preset-craco](https://github.com/artisanofcode/storybook-preset-craco) by [@danielknell](https://github.com/danielknell)
+- [craco-plugin-env](https://github.com/ponjs/craco-plugin-env) by [@ponjs](https://github.com/ponjs)
 
 Developed one yourself? [Add it to the list!](https://github.com/dilanx/craco/tree/main/website/plugins/plugins.md)
