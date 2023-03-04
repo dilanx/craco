@@ -18,6 +18,7 @@ Here is a list of some CRACO plugins maintained by the community.
 - [craco-less](https://github.com/DocSpring/craco-less) by [@DocSpring](https://github.com/DocSpring)
 - [craco-linaria](https://github.com/jedmao/craco-linaria) by [jedmao](https://github.com/jedmao)
 - [craco-parameter-decorator](https://github.com/org-redtea/craco-parameter-decorator) by [@Hokid](https://github.com/Hokid)
+- [craco-plugin-env](https://github.com/ponjs/craco-plugin-env) by [@ponjs](https://github.com/ponjs)
 - [craco-plugin-react-hot-reload](https://github.com/HasanAyan/craco-plugin-react-hot-reload) by [@hasanayan](https://github.com/hasanayan)
 - [craco-plugin-scoped-css](https://github.com/gaoxiaoliangz/react-scoped-css/tree/master/packages/craco-plugin-scoped-css) by [gaoxiaoliangz](https://github.com/gaoxiaoliangz)
 - [craco-plugin-single-spa-application](https://github.com/hasanayan/craco-plugin-single-spa-application) by [@hasanayan](https://github.com/hasanayan)
