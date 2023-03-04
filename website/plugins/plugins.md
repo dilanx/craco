@@ -18,6 +18,7 @@ Here is a list of some CRACO plugins maintained by the community.
 - [craco-less](https://github.com/DocSpring/craco-less) by [@DocSpring](https://github.com/DocSpring)
 - [craco-linaria](https://github.com/jedmao/craco-linaria) by [jedmao](https://github.com/jedmao)
 - [craco-parameter-decorator](https://github.com/org-redtea/craco-parameter-decorator) by [@Hokid](https://github.com/Hokid)
+- [craco-plugin-env](https://github.com/ponjs/craco-plugin-env) by [@ponjs](https://github.com/ponjs)
 - [craco-plugin-react-hot-reload](https://github.com/HasanAyan/craco-plugin-react-hot-reload) by [@hasanayan](https://github.com/hasanayan)
 - [craco-plugin-scoped-css](https://github.com/gaoxiaoliangz/react-scoped-css/tree/master/packages/craco-plugin-scoped-css) by [gaoxiaoliangz](https://github.com/gaoxiaoliangz)
 - [craco-plugin-single-spa-application](https://github.com/hasanayan/craco-plugin-single-spa-application) by [@hasanayan](https://github.com/hasanayan)
@@ -30,6 +31,5 @@ Here is a list of some CRACO plugins maintained by the community.
 - [craco-workbox](https://github.com/kevinsperrine/craco-workbox) by [@kevinsperrine](https://github.com/kevinsperrine)
 - [react-app-alias](https://github.com/oklas/react-app-alias) by [@oklas](https://github.com/oklas)
 - [storybook-preset-craco](https://github.com/artisanofcode/storybook-preset-craco) by [@danielknell](https://github.com/danielknell)
-- [craco-plugin-env](https://github.com/ponjs/craco-plugin-env) by [@ponjs](https://github.com/ponjs)
 
 Developed one yourself? [Add it to the list!](https://github.com/dilanx/craco/tree/main/website/plugins/plugins.md)
