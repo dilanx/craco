@@ -11,6 +11,7 @@ Here is a list of some CRACO plugins maintained by the community.
 - [craco-babel-loader](https://github.com/rjerue/craco-babel-loader) by [@rjerue](https://github.com/rjerue/)
 - [craco-base64-inline-loader](https://github.com/melMass/craco-base64-inline-loader) by [@melMass](https://github.com/melMass)
 - [craco-cesium](https://www.npmjs.com/package/craco-cesium) by [rot1024](https://github.com/rot1024)
+- [craco-css-modules](https://www.npmjs.com/package/craco-css-modules) by [@crazyurus](https://github.com/crazyurus)
 - [craco-esbuild](https://github.com/pradel/create-react-app-esbuild) by [@pradel](https://github.com/pradel)
 - [craco-favicons](https://github.com/rickysullivan/craco-favicons) by [@rickysullivan](https://github.com/rickysullivan)
 - [craco-image-optimizer-plugin](https://github.com/kkulbae/craco-image-optimizer-plugin) by [@kkulbae](https://github.com/kkulbae)
