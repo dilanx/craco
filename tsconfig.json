@@ -14,5 +14,5 @@
         "declaration": true,
         "noEmit": true,
     },
-    "include": ["**/*"]
+    "include": ["packages/**/*"]
 }
