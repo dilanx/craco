@@ -1,7 +1,7 @@
 # Use Ant Design
 
 ```js title="craco.config.js"
-// Offical documentation available at: https://github.com/FormAPI/craco-antd
+// Official documentation available at: https://github.com/FormAPI/craco-antd
 
 module.exports = {
   plugins: [
