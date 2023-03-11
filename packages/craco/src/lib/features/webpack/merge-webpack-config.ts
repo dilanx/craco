@@ -146,7 +146,7 @@ export function mergeWebpackConfig(
           removePluginsFromWebpackConfig(resultingWebpackConfig, remove);
         }
 
-        // Add after removing to preserve any plugins explicitely added via the Craco config
+        // Add after removing to preserve any plugins explicitly added via the Craco config
         if (add) {
           addPlugins(resultingWebpackConfig, add);
         }

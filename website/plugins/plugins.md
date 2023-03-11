@@ -17,7 +17,7 @@ Here is a list of some CRACO plugins maintained by the community.
 - [craco-image-optimizer-plugin](https://github.com/kkulbae/craco-image-optimizer-plugin) by [@kkulbae](https://github.com/kkulbae)
 - [craco-interpolate-html-plugin](https://github.com/kkulbae/craco-interpolate-html-plugin) by [@kkulbae](https://github.com/kkulbae)
 - [craco-less](https://github.com/DocSpring/craco-less) by [@DocSpring](https://github.com/DocSpring)
-- [craco-linaria](https://github.com/jedmao/craco-linaria) by [jedmao](https://github.com/jedmao)
+- [craco-linaria](https://github.com/jednano/craco-linaria) by [jednano](https://github.com/jednano)
 - [craco-parameter-decorator](https://github.com/org-redtea/craco-parameter-decorator) by [@Hokid](https://github.com/Hokid)
 - [craco-plugin-env](https://github.com/ponjs/craco-plugin-env) by [@ponjs](https://github.com/ponjs)
 - [craco-plugin-react-hot-reload](https://github.com/HasanAyan/craco-plugin-react-hot-reload) by [@hasanayan](https://github.com/hasanayan)
