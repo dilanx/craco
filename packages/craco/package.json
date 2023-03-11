@@ -1,7 +1,7 @@
 {
   "name": "@craco/craco",
   "description": "Create React App Configuration Override, an easy and comprehensible configuration layer for create-react-app.",
-  "version": "7.0.0",
+  "version": "7.1.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "@babel/types": "^7.19.3",
-    "@craco/types": "*",
+    "@craco/types": "^7.1.0",
     "@jest/types": "^27.5.1",
     "@types/cross-spawn": "^6.0.2",
     "@types/eslint": "^8.4.6",
