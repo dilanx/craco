@@ -1,7 +1,7 @@
 {
   "name": "@craco/types",
   "description": "Official type declarations for @craco/craco",
-  "version": "7.1.0",
+  "version": "7.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
