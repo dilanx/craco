@@ -4,35 +4,22 @@
 
 These tests ensure various functionality contracts are upheld across dependency upgrades.
 
-To get started locally, run `npx jest test/ --watchAll`.
-
-It's suggested that you filter down tests to avoid re-running everything. The most common tests will be the webpack messages.<br>
-To only run the webpack messages, type `p` followed by `webpack-message` and press `[enter]`.
+To get started locally, run `npm run test:unit` or `npm run test:integration`.
 
 ## How do these work?
 
+### `unit/`
+
+These tests are non-integration and do not involve the building of any individual packages.
+
 ### `fixtures/`
 
-Each `fixture/` gets spun up in a temporary directory and has its dependencies installed with Yarn PnP (for speed).<br> (this is todo)
-To opt-out of PnP, create a `.disable-pnp` file in the specific fixture directory.
+Each `fixture/` gets spun up in a temporary directory and has its dependencies installed with npm.<br>
 
-#### `testSetup.scripts`
+### `setup.js`
 
-##### `start`
+This script runs before any integration tests are executed. It creates a temporary directory for each fixture, installs the local version of CRACO, any other required packages, and builds the package. You can then use an individual <test>.test.js within the fixture to start a server or check for properties of the build files.
 
-This will run the `start` command, it can be ran asynchronously or blocking if `{ smoke: true }` is used.<br>
-If ran asynchronously, it will return the `port` and a `done` function to clean up the process.
-If ran blocking, it will return the `stdout` and `stderr` of the process.
+### `teardown.js`
 
-##### `build`
-
-This will run the `build` command and return the `stdout` and `stderr` of the process.
-
-##### `test`
-
-This will run the `test` command and return the `stdout` and `stderr` of the process.
-
-##### `serve`
-
-This will run serve the application.
-It will return the `port` and a `done` function to clean up the process.
+This removes all temporary directories generated during integration tests.
