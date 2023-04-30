@@ -12,7 +12,7 @@
   ],
   "scripts": {
     "test:unit": "jest --config test/unit/jest.config.js",
-    "test:integration": "jest --config test/integration/jest.config.js",
+    "test:integration": "jest --config test/integration/jest.config.js --runInBand",
     "lint": "npm run lint:ts && npm run lint:es",
     "lint:ts": "tsc --noEmit",
     "lint:es": "eslint --ext .ts",
