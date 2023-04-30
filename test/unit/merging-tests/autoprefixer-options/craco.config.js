@@ -6,7 +6,12 @@ module.exports = {
           plugin: require('autoprefixer'),
           options: {
             grid: 'autoplace',
-            overrideBrowserslist: ['>1%', 'last 4 versions', 'Firefox ESR', 'not ie < 11'],
+            overrideBrowserslist: [
+              '>1%',
+              'last 4 versions',
+              'Firefox ESR',
+              'not ie < 11',
+            ],
           },
         },
       ],

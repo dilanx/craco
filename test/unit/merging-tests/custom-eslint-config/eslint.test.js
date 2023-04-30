@@ -20,6 +20,8 @@ describe('CRACO ESLint configuration', () => {
     const eslintConfig = cracoConfig.eslint.configure;
 
     // Test if the number of rules in the custom configuration is greater than or equal to the original configuration
-    expect(Object.keys(eslintConfig.rules).length).toBeGreaterThanOrEqual(Object.keys(eslintConfigMock.rules).length);
+    expect(Object.keys(eslintConfig.rules).length).toBeGreaterThanOrEqual(
+      Object.keys(eslintConfigMock.rules).length
+    );
   });
 });

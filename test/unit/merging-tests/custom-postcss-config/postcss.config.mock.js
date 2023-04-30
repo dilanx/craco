@@ -1,8 +1,5 @@
 const postcssConfigMock = {
-  plugins: [
-    require('autoprefixer'),
-  ],
+  plugins: [require('autoprefixer')],
 };
 
 module.exports = postcssConfigMock;
-

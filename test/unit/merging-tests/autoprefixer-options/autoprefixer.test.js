@@ -24,7 +24,8 @@ describe('CRACO autoprefixer configuration', () => {
       (pluginEntry) => pluginEntry.plugin === autoprefixer
     );
 
-    const pluginCountWithoutAutoprefixer = postcssPlugins.length - (autoprefixerPluginEntry ? 1 : 0);
+    const pluginCountWithoutAutoprefixer =
+      postcssPlugins.length - (autoprefixerPluginEntry ? 1 : 0);
     expect(pluginCountWithoutAutoprefixer).toBeGreaterThanOrEqual(0);
   });
 });

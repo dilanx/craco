@@ -36,4 +36,3 @@ describe('CRACO environment variables', () => {
     process.env = originalProcessEnv;
   });
 });
-

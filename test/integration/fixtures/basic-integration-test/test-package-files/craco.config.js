@@ -1,5 +1,5 @@
 const webpack = require('webpack');
-const isDevelopment = false; 
+const isDevelopment = false;
 module.exports = {
   webpack: {
     configure: (webpackConfig) => {
@@ -12,12 +12,19 @@ module.exports = {
           webpackConfig.plugins.splice(reactRefreshPluginIndex, 1);
         }
 
-        const babelLoader = webpackConfig.module.rules.find(
-          (rule) => rule.oneOf && rule.oneOf.find((r) => r.loader && r.loader.includes('babel-loader'))
-        ).oneOf.find((r) => r.loader && r.loader.includes('babel-loader'));
+        const babelLoader = webpackConfig.module.rules
+          .find(
+            (rule) =>
+              rule.oneOf &&
+              rule.oneOf.find(
+                (r) => r.loader && r.loader.includes('babel-loader')
+              )
+          )
+          .oneOf.find((r) => r.loader && r.loader.includes('babel-loader'));
 
         const reactRefreshBabelIndex = babelLoader.options.plugins.findIndex(
-          (plugin) => plugin && plugin.includes && plugin.includes('react-refresh/babel')
+          (plugin) =>
+            plugin && plugin.includes && plugin.includes('react-refresh/babel')
         );
 
         if (reactRefreshBabelIndex !== -1) {
@@ -27,7 +34,7 @@ module.exports = {
 
       webpackConfig.plugins.push(
         new webpack.DefinePlugin({
-          __CUSTOM_GLOBAL_CONSTANT__: JSON.stringify("CRACO is working!"),
+          __CUSTOM_GLOBAL_CONSTANT__: JSON.stringify('CRACO is working!'),
         })
       );
 
@@ -35,4 +42,3 @@ module.exports = {
     },
   },
 };
-

@@ -6,4 +6,3 @@ const eslintConfigMock = {
 };
 
 module.exports = eslintConfigMock;
-

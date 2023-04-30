@@ -3,4 +3,3 @@ const babelConfigMock = {
 };
 
 module.exports = babelConfigMock;
-

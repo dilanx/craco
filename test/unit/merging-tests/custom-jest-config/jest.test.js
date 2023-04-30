@@ -9,14 +9,17 @@ describe('CRACO Jest configuration', () => {
     expect(jestConfig.transform['^.+\\.[t|j]sx?$']).toEqual('babel-jest');
 
     // Test if the custom Jest moduleNameMapper configuration is added
-    expect(jestConfig.moduleNameMapper['^@components/(.*)$']).toEqual('<rootDir>/src/components/$1');
+    expect(jestConfig.moduleNameMapper['^@components/(.*)$']).toEqual(
+      '<rootDir>/src/components/$1'
+    );
   });
 
   it('does not remove existing Jest configurations', () => {
     const jestConfig = cracoConfig.jest.configure;
 
     // Test if the number of configurations in the custom configuration is greater than or equal to the original configuration
-    expect(Object.keys(jestConfig).length).toBeGreaterThanOrEqual(Object.keys(jestConfigMock).length);
+    expect(Object.keys(jestConfig).length).toBeGreaterThanOrEqual(
+      Object.keys(jestConfigMock).length
+    );
   });
 });
-

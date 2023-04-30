@@ -5,4 +5,3 @@ const jestConfigMock = {
 };
 
 module.exports = jestConfigMock;
-

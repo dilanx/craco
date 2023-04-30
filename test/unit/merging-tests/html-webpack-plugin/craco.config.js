@@ -16,7 +16,11 @@ module.exports = {
         });
 
         // Replace the original HtmlWebpackPlugin instance with the updated one
-        webpackConfig.plugins.splice(htmlWebpackPluginIndex, 1, updatedHtmlWebpackPlugin);
+        webpackConfig.plugins.splice(
+          htmlWebpackPluginIndex,
+          1,
+          updatedHtmlWebpackPlugin
+        );
       }
 
       return webpackConfig;

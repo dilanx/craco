@@ -17,7 +17,8 @@ describe('CRACO Babel configuration', () => {
     const babelConfig = cracoConfig.babel.loaderOptions;
 
     // Test if the number of presets in the custom configuration is greater than or equal to the original configuration
-    expect(babelConfig.presets.length).toBeGreaterThanOrEqual(babelConfigMock.presets.length);
+    expect(babelConfig.presets.length).toBeGreaterThanOrEqual(
+      babelConfigMock.presets.length
+    );
   });
 });
-

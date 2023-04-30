@@ -13,12 +13,16 @@ describe('CRACO custom plugin', () => {
   });
 
   it('correctly includes the custom plugin', () => {
-    const pluginEntry = cracoConfig.plugins.find(pluginEntry => pluginEntry.plugin === CracoPluginMock);
+    const pluginEntry = cracoConfig.plugins.find(
+      (pluginEntry) => pluginEntry.plugin === CracoPluginMock
+    );
     expect(pluginEntry).toBeDefined();
   });
 
   it('correctly executes the onPostBuild function of the custom plugin', () => {
-    const pluginEntry = cracoConfig.plugins.find(pluginEntry => pluginEntry.plugin === CracoPluginMock);
+    const pluginEntry = cracoConfig.plugins.find(
+      (pluginEntry) => pluginEntry.plugin === CracoPluginMock
+    );
 
     pluginEntry.plugin.onPostBuild({});
 

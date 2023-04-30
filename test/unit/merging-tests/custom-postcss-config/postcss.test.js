@@ -1,7 +1,6 @@
 const cracoConfig = require('./craco.config');
 const postcssConfigMock = require('./postcss.config.mock');
 
-
 //Checks if a custom PostCSS configuration is correctly applied
 describe('CRACO PostCSS configuration', () => {
   it('correctly applies custom PostCSS plugins', () => {
@@ -18,6 +17,8 @@ describe('CRACO PostCSS configuration', () => {
     const postcssConfig = cracoConfig.style.postcss;
 
     // Test if the number of plugins in the custom configuration is greater than or equal to the original configuration
-    expect(postcssConfig.plugins.length).toBeGreaterThanOrEqual(postcssConfigMock.plugins.length);
+    expect(postcssConfig.plugins.length).toBeGreaterThanOrEqual(
+      postcssConfigMock.plugins.length
+    );
   });
 });
