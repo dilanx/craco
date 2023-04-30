@@ -1,0 +1,25 @@
+{
+  "name": "craco-postcss-test",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "autoprefixer": "*",
+    "postcss": "*",
+    "postcss-custom-properties": "*",
+    "postcss-nested": "*",
+    "react": "*",
+    "react-dom": "*"
+  },
+  "scripts": {
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
