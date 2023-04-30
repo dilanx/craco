@@ -10,7 +10,8 @@ module.exports = {
   moduleNameMapper: {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
   },
- // setupFilesAfterEnv: ["./test-setup.js"],
+  setupFiles: ["./setup.js"],
+  globalTeardown: "./teardown.js",
   testEnvironmentOptions: {
     'jest-playwright': {
       browsers: ['firefox'],
@@ -18,6 +19,10 @@ module.exports = {
         headless: true
       },
     },
+  },
+  globals: {
+    PORT: 3009,
+    URL: 'http://localhost:3009',
   },
   preset: 'jest-playwright-preset',
 };

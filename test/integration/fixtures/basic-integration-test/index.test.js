@@ -1,0 +1,30 @@
+'use strict';
+const { join } = require('path');
+const { execSync, spawn } = require('child_process');
+
+beforeAll(async () => {
+  // Start a local server to serve the test project
+  const server = spawn('npx', ['serve', '-s', 'build', '-l', global.PORT], {
+    cwd: join(__dirname, 'test-project'),
+  });
+
+  // Log any server errors to the console
+  server.stderr.on('data', (data) => {
+    console.error(`stderr: ${data}`);
+  });
+
+  // Leave time for the server to initialize
+  await new Promise(resolve => {setTimeout(resolve, 3000)}); 
+});
+
+test("Should have the expected styles", async () => {
+  await page.goto(global.URL, {'waitUntil':'domcontentloaded'}); //todo: make the url changeble
+
+  const cracoTestText = await page.$eval('#craco-test', (element) => element.textContent);
+  expect(cracoTestText).toBe("CRACO is working!");
+});
+
+afterAll(() => {
+  // Stop the local server
+  execSync(`kill $(lsof -t -i:${global.PORT})`, { cwd: __dirname, stdio: 'ignore' });
+});
