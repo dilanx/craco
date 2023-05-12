@@ -15,7 +15,7 @@ beforeAll(async () => {
 
   // Leave time for the server to initialize
   await new Promise((resolve) => {
-    setTimeout(resolve, 3000);
+    setTimeout(resolve, 20000);
   });
 });
 
