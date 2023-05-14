@@ -15,7 +15,7 @@ beforeAll(async () => {
 
   // Leave time for the server to initialize
   await new Promise((resolve) => {
-    setTimeout(resolve, 3000);
+    setTimeout(resolve, 5000);
   });
 });
 
@@ -31,7 +31,7 @@ test('Should have the expected styles', async () => {
 
 afterAll(() => {
   // Stop the local server
-  execSync(`kill $(lsof -t -i:${global.PORT})`, {
+  execSync(`kill $(lsof -t -i:${global.PORT} -a -c node)`, {
     cwd: __dirname,
     stdio: 'ignore',
   });

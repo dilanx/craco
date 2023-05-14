@@ -13,7 +13,7 @@
 
   <br>
 
-[![npm status](https://img.shields.io/npm/v/@craco/craco.svg)](https://www.npmjs.com/package/@craco/craco) [![npm downloads](https://img.shields.io/npm/dm/@craco/craco.svg)](https://www.npmjs.com/package/@craco/craco) [![npm license](https://img.shields.io/npm/l/@craco/craco?color=orange)](https://github.com/dilanx/craco/blob/main/packages/craco/LICENSE) [![GitHub stars](https://img.shields.io/github/stars/dilanx/craco?color=red)](https://github.com/dilanx/craco) [![GitHub contributors](https://img.shields.io/github/contributors/dilanx/craco?color=blueviolet)](https://github.com/dilanx/craco/graphs/contributors) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-blueviolet.svg)](https://github.com/dilanx/craco/pulls)
+[![npm status](https://img.shields.io/npm/v/@craco/craco.svg)](https://www.npmjs.com/package/@craco/craco) [![npm downloads](https://img.shields.io/npm/dm/@craco/craco.svg)](https://www.npmjs.com/package/@craco/craco) [![npm license](https://img.shields.io/npm/l/@craco/craco?color=orange)](https://github.com/dilanx/craco/blob/main/packages/craco/LICENSE) [![GitHub stars](https://img.shields.io/github/stars/dilanx/craco?color=red)](https://github.com/dilanx/craco) [![GitHub contributors](https://img.shields.io/github/contributors/dilanx/craco?color=blueviolet)](https://github.com/dilanx/craco/graphs/contributors) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-blueviolet.svg)](https://github.com/dilanx/craco/pulls) ![Node.js CI](https://github.com/dilanx/craco/actions/workflows/run-tests.yml/badge.svg)
 
 </div>
 

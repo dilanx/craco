@@ -29,18 +29,18 @@ module.exports = async function (globalConfig, projectConfig) {
         `cd ${join(
           rootPath,
           directoryName
-        )}&& npx create-react-app test-project`,
-        { cwd: cwd }
+        )} && npx create-react-app test-project`,
+        { cwd: cwd, stdio: 'inherit' }
       );
       execSync(`cp -r ${testPackageFilesPath}/* ${testProjectPath}`, {
-        cwd: cwd,
+        cwd: cwd
       });
       //install craco
       execSync(`npm install ../../../../../packages/craco`, {
-        cwd: testProjectPath,
+        cwd: testProjectPath, stdio: 'inherit'
       });
       //install other necessary files
-      execSync(`npm install`, { cwd: testProjectPath });
+      execSync(`npm install`, { cwd: testProjectPath, stdio: 'inherit' });
       //build project
       execSync('npm run build', { cwd: testProjectPath, stdio: 'inherit' });
     });

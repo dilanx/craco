@@ -10,13 +10,14 @@ module.exports = {
   moduleNameMapper: {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
   },
-  setupFiles: ['./setup.js'],
+  globalSetup: './setup.js',
   globalTeardown: './teardown.js',
   testEnvironmentOptions: {
     'jest-playwright': {
       browsers: ['firefox'],
       launchOptions: {
         headless: true,
+        timeout: 500000,
       },
     },
   },
