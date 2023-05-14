@@ -31,7 +31,7 @@ test('Should have the expected styles', async () => {
 
 afterAll(() => {
   // Stop the local server
-  execSync(`kill $(lsof -t -i:${global.PORT})`, {
+  execSync(`kill $(lsof -t -i:${global.PORT} -a -c node)`, {
     cwd: __dirname,
     stdio: 'ignore',
   });
