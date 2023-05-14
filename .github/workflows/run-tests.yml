@@ -1,4 +1,4 @@
-name: CRACO Unit and Integration Tests 
+name: tests
 
 on: [push, pull_request]
 
