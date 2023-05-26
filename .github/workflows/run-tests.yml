@@ -1,10 +1,6 @@
 name: CRACO Unit and Integration Tests 
 
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+on: [push, pull_request]
 
 jobs:
   build:
@@ -21,7 +17,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
-      - run: CI=false npm run build
+      - run: npm run build
       - run: npm run test:unit
       - run: npx playwright install-deps
-      - run: CI=false npm run test:integration
+      - run: NODE_ENV=production npm run test:integration
