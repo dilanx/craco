@@ -4,7 +4,8 @@ const { execSync, spawn } = require('child_process');
 
 beforeAll(async () => {
   // Start a local server to serve the test project
-  const server = spawn('npx', ['serve', '-s', 'build', '-l', global.PORT], {
+  // We cached serve by installing it locally
+  const server = spawn('npx', ['serve@14.2.0', '-s', 'build', '-l', global.PORT], {
     cwd: join(__dirname, 'test-project'),
   });
 
@@ -15,7 +16,7 @@ beforeAll(async () => {
 
   // Leave time for the server to initialize
   await new Promise((resolve) => {
-    setTimeout(resolve, 5000);
+    setTimeout(resolve, 1000);
   });
 });
 
