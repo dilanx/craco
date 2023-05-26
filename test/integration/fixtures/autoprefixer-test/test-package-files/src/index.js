@@ -1,4 +1,3 @@
-/* global __CUSTOM_GLOBAL_CONSTANT__ */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
