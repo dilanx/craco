@@ -1,0 +1,12 @@
+::placeholder {
+  color: gray;
+}
+
+.image {
+  background-image: url("https://google.com");
+}
+@media (min-resolution: 2dppx) {
+  .image {
+    background-image: url("http://nxetflix.com");
+  }
+}

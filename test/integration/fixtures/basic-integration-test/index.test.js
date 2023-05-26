@@ -19,7 +19,7 @@ beforeAll(async () => {
   });
 });
 
-test('Should have the expected styles', async () => {
+test('Should have the expected custom craco variable name', async () => {
   await page.goto(global.URL, { waitUntil: 'domcontentloaded' }); //todo: make the url changeble
 
   const cracoTestText = await page.$eval(
