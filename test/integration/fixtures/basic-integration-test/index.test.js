@@ -4,7 +4,8 @@ const { execSync, spawn } = require('child_process');
 
 beforeAll(async () => {
   // Start a local server to serve the test project
-  const server = spawn('npx', ['serve', '-s', 'build', '-l', global.PORT], {
+  // We cached serve by installing it locally
+  const server = spawn('npx', ['serve@14.2.0', '-s', 'build', '-l', global.PORT], {
     cwd: join(__dirname, 'test-project'),
   });
 
@@ -19,7 +20,7 @@ beforeAll(async () => {
   });
 });
 
-test('Should have the expected styles', async () => {
+test('Should have the expected custom craco variable name', async () => {
   await page.goto(global.URL, { waitUntil: 'domcontentloaded' }); //todo: make the url changeble
 
   const cracoTestText = await page.$eval(

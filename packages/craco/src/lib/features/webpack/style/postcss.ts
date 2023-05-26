@@ -83,10 +83,10 @@ function extendsPostcss(
 
     if (match.loader.options && !isString(match.loader.options)) {
       if (match.loader.options.postcssOptions) {
-        match.loader.options.postcssOptions.plugins = () => postcssPlugins;
+        match.loader.options.postcssOptions.plugins = postcssPlugins;
       } else {
         match.loader.options.postcssOptions = {
-          plugins: () => postcssPlugins,
+          plugins: postcssPlugins,
         };
       }
     }
