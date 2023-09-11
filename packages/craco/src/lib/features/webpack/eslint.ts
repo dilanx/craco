@@ -120,20 +120,21 @@ export function overrideEsLint(
   context: BaseContext
 ) {
   if (cracoConfig.eslint) {
-    const { isFound, match } = getPlugin(
-      webpackConfig,
-      pluginByName('ESLintWebpackPlugin')
-    );
-    if (!isFound) {
-      logError('Cannot find ESLint plugin (ESLintWebpackPlugin).');
-      return webpackConfig;
-    }
-
     const { enable, mode, pluginOptions } = cracoConfig.eslint;
 
     if (enable === false) {
       disableEslint(webpackConfig);
 
+      return webpackConfig;
+    }
+
+    const { isFound, match } = getPlugin(
+      webpackConfig,
+      pluginByName('ESLintWebpackPlugin')
+    );
+
+    if (!isFound) {
+      logError('Cannot find ESLint plugin (ESLintWebpackPlugin).');
       return webpackConfig;
     }
 
