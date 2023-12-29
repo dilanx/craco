@@ -51,6 +51,7 @@
     "@types/jest": "^27.5.2",
     "@types/lodash": "^4.14.186",
     "@types/semver": "^7.3.12",
+    "babel-jest": "^29.7.0",
     "eslint-webpack-plugin": "^3.2.0",
     "jest": "^27.5.1",
     "react-scripts": "5.*",
